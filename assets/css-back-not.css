@@ -1,0 +1,31 @@
+ .chargily-not {
+     /*left: 0px;*/
+     top: 25px;
+     width: 100%;
+     position: fixed;
+     z-index: 99999;
+     margin-bottom: 30px;
+     text-align: center;
+     background-color: #680488;
+}
+ .chargily-not a, .chargily-not span {
+     display: inline-block;
+}
+ .chargily-not a {
+     width: 100%;
+     padding: 15px 0;
+     text-decoration: none;
+     color: #000;
+     color: rgba(255, 255, 255, .8);
+}
+ .chargily-not span{
+     color: black;
+     width: 150px;
+     heigth: 28px;
+     line-height: 28px;
+     background-color: #fff;
+     border-radius: 20px;
+}
+ .chargily-not a:hover {
+     color: #fff9e0;
+}
