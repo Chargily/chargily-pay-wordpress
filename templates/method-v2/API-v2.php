@@ -189,9 +189,27 @@ function wc_chargily_pay_init() {
 		}
 		
 		public function payment_fields() {
-			echo '<div class="Chargily-container">
-   
-		    <div class="Chargily-option">
+			$test_mode = $this->get_option('test_mode') === 'yes';
+			$live_api_key = $this->get_option('Chargily_Gateway_api_key_v2_live');
+			$live_api_secret = $this->get_option('Chargily_Gateway_api_secret_v2_live');
+			$test_api_key = $this->get_option('Chargily_Gateway_api_key_v2_test');
+			$test_api_secret = $this->get_option('Chargily_Gateway_api_secret_v2_test');
+
+			echo '<div class="Chargily-container">';
+
+			if ($test_mode) {
+			    // We are in test mode
+			    if (empty($test_api_key) || empty($test_api_secret)) {
+			        // Test API keys are missing
+			        echo '<div class="">
+			                <p>' . __('You are in Test Mode but your Test API keys are missing.', 'CHARGILY_TEXT_DOMAIN') . ' 
+			                <a href="/wp-admin/admin.php?page=wc-settings&tab=checkout&section=chargily_pay">' . __('Enter your Test API keys.', 'CHARGILY_TEXT_DOMAIN') . '</a></p>
+			              </div>';
+			    } else {
+			        // Test API keys are present
+			        echo '<div class=""><p>' . __('Chargily Pay™: Test Mode is enabled.', 'CHARGILY_TEXT_DOMAIN') . '</p></div>';
+			        // Display payment options
+			echo '<div class="Chargily-option">
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked">
 			
 			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily">
@@ -200,26 +218,67 @@ function wc_chargily_pay_init() {
 			  <div class="Chargily-card-text" style=""></div>
 			  <img src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;"></img>
 			  </label>
-		    </div>			
-
-		    <div class="Chargily-option">
+			</div>
+			
+			<div class="Chargily-option">
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB">
 			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily">
 			  <span style="display: flex; align-items: center;"><div style="opacity: 0;">card :</div>
-     			  <p style="margin-top: 1.59em;">CIB </p><div style="opacity: 0;">-</div><p> Card</p></span>
+			   <p style="margin-top: 1.59em;">CIB </p><div style="opacity: 0;">-</div><p> Card</p></span>
 			  <div class="Chargily-card-text" style=""></div>
 			  <img src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style=""></img>
 			  </label>
-		    </div>
-		  
-		    <br>
-		    <a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;">
+			</div>
+			  
+			<br>
+			<a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;">
 			  Powered By
 			  <img src="/wp-content/plugins/chargily-pay/assets/img/logo.svg" alt="chargily" style="/*width:42px;height:42px;*/">
 			  </a>
-     			  <p>' . __('🔒 Secure e-payment gateway.', 'CHARGILY_TEXT_DOMAIN') . '</p>
-		    </div>';	
+			   <p>' . __('🔒 Secure e-payment gateway.', 'CHARGILY_TEXT_DOMAIN') . '</p>';
+			}
+			} else {
+			    // We are in live mode
+			    if (empty($live_api_key) || empty($live_api_secret)) {
+			        // Live API keys are missing
+			        echo '<div class="">
+			                <p>' . __('You are in Live Mode but your Live API keys are missing.', 'CHARGILY_TEXT_DOMAIN') . ' 
+			                <a href="/wp-admin/admin.php?page=wc-settings&tab=checkout&section=chargily_pay">' . __('Enter your Live API keys.', 'CHARGILY_TEXT_DOMAIN') . '</a></p>
+			              </div>';
+			    } else {
+			        // Live API keys are present
+			        // Display payment options
+			       echo '<div class="Chargily-option">
+			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked">
 			
+			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily">
+			  <span style="display: flex; align-items: center;"> <div style="opacity: 0;">card :</div><p>' . __('EDAHABIA', 'CHARGILY_TEXT_DOMAIN') . '</p></span>
+			  
+			  <div class="Chargily-card-text" style=""></div>
+			  <img src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;"></img>
+			  </label>
+			</div>
+			
+			<div class="Chargily-option">
+			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB">
+			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily">
+			  <span style="display: flex; align-items: center;"><div style="opacity: 0;">card :</div>
+			   <p style="margin-top: 1.59em;">CIB </p><div style="opacity: 0;">-</div><p> Card</p></span>
+			  <div class="Chargily-card-text" style=""></div>
+			  <img src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style=""></img>
+			  </label>
+			</div>
+			  
+			<br>
+			<a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;">
+			  Powered By
+			  <img src="/wp-content/plugins/chargily-pay/assets/img/logo.svg" alt="chargily" style="/*width:42px;height:42px;*/">
+			  </a>
+			   <p>' . __('🔒 Secure e-payment gateway.', 'CHARGILY_TEXT_DOMAIN') . '</p>';
+			}
+			}
+			
+			echo '</div>';
 		}
 		
 		private function get_api_credentials() {
@@ -565,28 +624,6 @@ function wc_chargily_pay_init() {
     
     			return $response;
     		}
-
-		private function handle_payment_status($order, $status) {
-            switch ($status) {
-                case 'paid':
-                    $order->payment_complete();
-                    $order->add_order_note(__('Payment successfully received from Chargily.', 'CHARGILY_TEXT_DOMAIN'));
-                    break;
-                case 'canceled':
-                    $order->update_status('cancelled', __('Payment has been cancelled.', 'CHARGILY_TEXT_DOMAIN'));
-                    break;
-                case 'failed':
-                    $order->update_status('failed', __('Payment has been failed.', 'CHARGILY_TEXT_DOMAIN'));
-                    break;
-                default:
-                    $order->add_order_note(sprintf(
-                        __('Received unknown payment status from Chargily: %s', 'CHARGILY_TEXT_DOMAIN'),
-                        $status
-                    ));
-                    break;
-            }
-            $order->save();
-        }
 		
         public function receipt_page( $order ) {
             echo '<p>' . __( 'Thank you for your order, please click the button below to pay with Chargily.', 'CHARGILY_TEXT_DOMAIN' ) . '</p>';
