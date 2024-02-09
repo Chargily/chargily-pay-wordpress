@@ -9,7 +9,6 @@ Author URI: https://epay.chargily.com/
 *Text Domain: chargily-woocommerce-gateway
 */
 
-
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
@@ -25,7 +24,7 @@ load_plugin_textdomain(CHARGILY_TEXT_DOMAIN, false, basename(dirname(__FILE__)) 
 // Plugin action links
 function wc_chargily_gateway_plugin_action_links( $links ) {
     $plugin_links = array(
-        '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout' ) . '">' . __( 'Settings', CHARGILY_TEXT_DOMAIN ) . '</a>'
+        '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=chargily-pay' ) . '">' . __( 'Settings', CHARGILY_TEXT_DOMAIN ) . '</a>'
     );
     return array_merge( $plugin_links, $links );
 }
@@ -33,7 +32,7 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wc_chargily_g
 
 // Webhook For API V2
 function chargilyv2_add_rewrite_rule() {
-	add_rewrite_rule('^chargilyv2-webhook/?$', 'wp-content/plugins/chargily-epay-gateway/templates/method-v2/API-v2_webhook.php', 'top');
+	add_rewrite_rule('^chargilyv2-webhook/?$', 'wp-content/plugins/chargily-pay/templates/method-v2/API-v2_webhook.php', 'top');
 }
 add_action('init', 'chargilyv2_add_rewrite_rule');
 
@@ -45,10 +44,10 @@ function chargily_css_loader_front() {
 }
 
 function wc_chargilyv2_set_default_payment_gateway( $gateways ) {
-    if ( isset( $gateways['chargilyv2_gateway'] ) ) {
-        $chargily_gateway = $gateways['chargilyv2_gateway'];
-        unset( $gateways['chargilyv2_gateway'] );
-        $gateways = array_merge( array( 'chargilyv2_gateway' => $chargily_gateway ), $gateways );
+    if ( isset( $gateways['chargily-pay'] ) ) {
+        $chargily_gateway = $gateways['chargily-pay'];
+        unset( $gateways['chargily-pay'] );
+        $gateways = array_merge( array( 'chargily-pay' => $chargily_gateway ), $gateways );
     }
     return $gateways;
 }
