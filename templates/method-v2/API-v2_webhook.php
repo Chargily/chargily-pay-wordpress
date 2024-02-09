@@ -7,7 +7,7 @@ $parse_uri = explode('wp-content', $_SERVER['SCRIPT_FILENAME']);
 require_once($parse_uri[0] . 'wp-load.php');
 
 // Get the settings array from the WooCommerce settings
-$chargily_settings = get_option('woocommerce_chargilyv2_gateway_settings');
+$chargily_settings = get_option('woocommerce_chargily_pay_settings');
 
 // Check if the settings are available
 if (!empty($chargily_settings)) {
