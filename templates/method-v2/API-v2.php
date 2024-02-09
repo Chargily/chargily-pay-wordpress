@@ -115,8 +115,9 @@ function wc_chargily_pay_init() {
 			'instructions' => array(
 			'title'       => __('On the thanks page', CHARGILY_TEXT_DOMAIN),
 			'type'        => 'textarea',
+			'placeholder' => __('thank you, the product will come soon.', CHARGILY_TEXT_DOMAIN),
 			'description' => __('Place the message you want to appear on the thank you page after completing the purchase of the product.', CHARGILY_TEXT_DOMAIN),
-			'default'     => __('Place the message you want to appear on the thank you page after completing the purchase of the product', CHARGILY_TEXT_DOMAIN),
+			'default'     => __('', CHARGILY_TEXT_DOMAIN),
 			'desc_tip'    => true,
 			),
 			'pass_fees_to_customer' => array(
