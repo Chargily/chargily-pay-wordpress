@@ -40,10 +40,13 @@ span.components-visually-hidden.css-0.e19lxcc00{
      padding: calc(16px) calc(24px);
 }
 
-input#woocommerce_chargilyv2_gateway_api_info.input-text.regular-input {
+input#woocommerce_chargily_pay_gateway_api_info.input-text.regular-input {
      display: none;
 }
- input#woocommerce_chargilyv2_gateway_title.input-text.regular-input {
+input#woocommerce_chargily_pay_description.input-text.regular-input {
+     display: none;
+}
+ input#woocommerce_chargily_pay_gateway_title.input-text.regular-input {
      pointer-events: none;
      border: 0px;
      background-color : #ffffff00;
