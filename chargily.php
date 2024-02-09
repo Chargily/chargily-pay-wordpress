@@ -24,7 +24,7 @@ load_plugin_textdomain(CHARGILY_TEXT_DOMAIN, false, basename(dirname(__FILE__)) 
 // Plugin action links
 function wc_chargily_gateway_plugin_action_links( $links ) {
     $plugin_links = array(
-        '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=chargily-pay' ) . '">' . __( 'Settings', CHARGILY_TEXT_DOMAIN ) . '</a>'
+        '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=chargily_pay' ) . '">' . __( 'Settings', CHARGILY_TEXT_DOMAIN ) . '</a>'
     );
     return array_merge( $plugin_links, $links );
 }
@@ -44,10 +44,10 @@ function chargily_css_loader_front() {
 }
 
 function wc_chargilyv2_set_default_payment_gateway( $gateways ) {
-    if ( isset( $gateways['chargily-pay'] ) ) {
-        $chargily_gateway = $gateways['chargily-pay'];
-        unset( $gateways['chargily-pay'] );
-        $gateways = array_merge( array( 'chargily-pay' => $chargily_gateway ), $gateways );
+    if ( isset( $gateways['chargily_pay'] ) ) {
+        $chargily_gateway = $gateways['chargily_pay'];
+        unset( $gateways['chargily_pay'] );
+        $gateways = array_merge( array( 'chargily_pay' => $chargily_gateway ), $gateways );
     }
     return $gateways;
 }
