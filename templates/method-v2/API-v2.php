@@ -6,17 +6,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Add the gateway to WC Available Gateways
 function wc_chargilyv2_add_to_gateways( $gateways ) {
-    $gateways[] = 'WC_chargily-pay';
+    $gateways[] = 'WC_chargily_pay';
     return $gateways;
 }
 add_filter( 'woocommerce_payment_gateways', 'wc_chargilyv2_add_to_gateways' );
 
-function wc_chargily-pay_init() {
+function wc_chargily_pay_init() {
 
-    class WC_chargily-pay extends WC_Payment_Gateway {
+    class WC_chargily_pay extends WC_Payment_Gateway {
 
         public function __construct() {
-            $this->id                 = 'chargily-pay';
+            $this->id                 = 'chargily_pay';
             $this->icon               = apply_filters('woocommerce_chargilyv2_icon', '/wp-content/plugins/chargily-pay/assets/img/edahabia-card-cib.svg');
             $this->has_fields         = false;
             $this->method_title       = __( 'Chargily Pay™', '' );
@@ -167,7 +167,7 @@ function wc_chargily-pay_init() {
 				<div class="css-10klw3m e19lxcc00">
 				<div class="components-card__body components-card-body css-hqx46f eezfi080 css-188a3xf e19lxcc00">
           
-                <h2><?php _e('Chargily Pay™ Settings', 'chargily-pay'); ?></h2>
+                <h2><?php _e('Chargily Pay™ Settings', 'chargily_pay'); ?></h2>
                 <table class="form-table">
                     <?php $this->generate_settings_html(); ?>
                 </table>
@@ -600,7 +600,7 @@ function wc_chargily-pay_init() {
 			if (empty($this->get_option('Chargily_Gateway_api_key_v2_live')) || 
 				empty($this->get_option('Chargily_Gateway_api_secret_v2_live'))) {
 				echo '<div class="notice notice-error">
-				<p>' . __('Just one more step to complete the setup of Chargily Pay™ and begin accepting payments.', 'chargily_text_domain') . ' <a href="/wp-admin/admin.php?page=wc-settings&tab=checkout&section=chargily-pay">' . __('Enter your API keys.', 'chargily_text_domain') . '</a></p></div>';
+				<p>' . __('Just one more step to complete the setup of Chargily Pay™ and begin accepting payments.', 'chargily_text_domain') . ' <a href="/wp-admin/admin.php?page=wc-settings&tab=checkout&section=chargily_pay">' . __('Enter your API keys.', 'chargily_text_domain') . '</a></p></div>';
 			}
 
 			// Check for test mode
@@ -615,7 +615,7 @@ function wc_chargily-pay_init() {
     }
 }
 // The class itself
-add_action( 'plugins_loaded', 'wc_chargily-pay_init', 11 );
+add_action( 'plugins_loaded', 'wc_chargily_pay_init', 11 );
 
 
 function chargilyv2_admin_inline_scripts() {
@@ -626,9 +626,9 @@ function chargilyv2_admin_inline_scripts() {
 				?>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						toggleApiFields($('#woocommerce_chargily-pay_test_mode').is(':checked'));
+						toggleApiFields($('#woocommerce_chargily_pay_test_mode').is(':checked'));
 
-						$('#woocommerce_chargily-pay_test_mode').on('change', function() {
+						$('#woocommerce_chargily_pay_test_mode').on('change', function() {
 							toggleApiFields($(this).is(':checked'));
 						});
 
@@ -656,16 +656,16 @@ function chargilyv2_admin_inline_scripts() {
 							$('.form-table tr').each(function() {
 								var row = $(this);
 								if (
-							row.find('input, select').attr('id') === 'woocommerce_chargily-pay_Chargily_Gateway_api_key_v2_test' ||
-							row.find('input, select').attr('id') === 'woocommerce_chargily-pay_Chargily_Gateway_api_secret_v2_test' || 
-							row.find('input, select').attr('id') === 'woocommerce_chargily-pay_Chargily_Gateway_api_authorization_v2_test'
+							row.find('input, select').attr('id') === 'woocommerce_chargily_pay_Chargily_Gateway_api_key_v2_test' ||
+							row.find('input, select').attr('id') === 'woocommerce_chargily_pay_Chargily_Gateway_api_secret_v2_test' || 
+							row.find('input, select').attr('id') === 'woocommerce_chargily_pay_Chargily_Gateway_api_authorization_v2_test'
 								   ) {
 									isTestMode ? row.show() : row.hide();
 								}
 								if (
-							row.find('input, select').attr('id') === 'woocommerce_chargily-pay_Chargily_Gateway_api_key_v2_live' ||
-							row.find('input, select').attr('id') === 'woocommerce_chargily-pay_Chargily_Gateway_api_secret_v2_live' || 
-							row.find('input, select').attr('id') === 'woocommerce_chargily-pay_Chargily_Gateway_api_authorization_v2_live'
+							row.find('input, select').attr('id') === 'woocommerce_chargily_pay_Chargily_Gateway_api_key_v2_live' ||
+							row.find('input, select').attr('id') === 'woocommerce_chargily_pay_Chargily_Gateway_api_secret_v2_live' || 
+							row.find('input, select').attr('id') === 'woocommerce_chargily_pay_Chargily_Gateway_api_authorization_v2_live'
 
 								   ) {
 									isTestMode ? row.hide() : row.show();
@@ -673,13 +673,13 @@ function chargilyv2_admin_inline_scripts() {
 							});
 						}
 
-						$('#woocommerce_chargily-pay_Chargily_Gateway_api_authorization_v2_test').on('click', function() {
-							var token = $('#woocommerce_chargily-pay_Chargily_Gateway_api_secret_v2_test').val();
+						$('#woocommerce_chargily_pay_Chargily_Gateway_api_authorization_v2_test').on('click', function() {
+							var token = $('#woocommerce_chargily_pay_Chargily_Gateway_api_secret_v2_test').val();
 							checkConnection(token, 'test');
 						});
 
-						$('#woocommerce_chargily-pay_Chargily_Gateway_api_authorization_v2_live').on('click', function() {
-							var token = $('#woocommerce_chargily-pay_Chargily_Gateway_api_secret_v2_live').val();
+						$('#woocommerce_chargily_pay_Chargily_Gateway_api_authorization_v2_live').on('click', function() {
+							var token = $('#woocommerce_chargily_pay_Chargily_Gateway_api_secret_v2_live').val();
 							checkConnection(token, 'live');
 						});
 
@@ -706,18 +706,18 @@ function chargilyv2_admin_inline_scripts() {
 							});
 						}
 
-						var inputElement = document.getElementById('woocommerce_chargily-pay_title');
+						var inputElement = document.getElementById('woocommerce_chargily_pay_title');
 
 						inputElement.setAttribute('readonly', true);
 						
 						var button_authorization_v2_test = document.getElementById(
-							'woocommerce_chargily-pay_Chargily_Gateway_api_authorization_v2_test');
+							'woocommerce_chargily_pay_Chargily_Gateway_api_authorization_v2_test');
 						if (button_authorization_v2_test) {
 						  button_authorization_v2_test.value = 'Check connection';
 						}
 						
 						var button_authorization_v2_live = document.getElementById(
-							'woocommerce_chargily-pay_Chargily_Gateway_api_authorization_v2_live');
+							'woocommerce_chargily_pay_Chargily_Gateway_api_authorization_v2_live');
 						if (button_authorization_v2_live) {
 						  button_authorization_v2_live.value = 'Check connection';
 						}
