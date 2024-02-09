@@ -1,4 +1,4 @@
-<center>![Chargily Pay for Wordpress](https://i.imgur.com/KT5f1l4.png "Chargily Pay for Wordpress")</center>
+<p align="center"><img src="https://i.imgur.com/KT5f1l4.png"></p>
 
 # Chargily Pay V2
 
