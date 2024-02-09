@@ -34,150 +34,144 @@ function wc_chargily_pay_init() {
             add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
             add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
             // Customer Emails
-      			add_action( 'woocommerce_email_before_order_table', array( $this, 'email_instructions' ), 10, 3 );
-      			// admin api notices
-      			add_action('admin_notices', array($this, 'display_chargily_admin_notices'));
+            add_action( 'woocommerce_email_before_order_table', array( $this, 'email_instructions' ), 10, 3 );
+            // admin api notices
+            add_action('admin_notices', array($this, 'display_chargily_admin_notices'));
         }
 
         public function init_form_fields() {
             $this->form_fields = array(
                 'enabled' => array(
-        					'title'       => __('Enable/Disable', CHARGILY_TEXT_DOMAIN),
-        					'label'       => __('Enable Chargily Pay', CHARGILY_TEXT_DOMAIN),
-        					'type'        => 'checkbox',
-        					'description' => '',
-        					'default'     => 'no'
-        				),
-        				'test_mode' => array(
-        					'title'       => __('Test mode', CHARGILY_TEXT_DOMAIN),
-        					'label'       => __('Enable Test Mode', CHARGILY_TEXT_DOMAIN),
-        					'type'        => 'checkbox',
-        					'description' => __('If enabled, you will use Chargily Pay in Test Mode.', CHARGILY_TEXT_DOMAIN),
-        					'default'     => 'no',
-        					'desc_tip'    => true,
-        				),
-        				'Chargily_Gateway_api_key_v2_test' => array(
-                  'title'       => __('Test API Key', CHARGILY_TEXT_DOMAIN),
-        					'type'        => 'password',
-        					'description' => __('Enter your Chargily Test API key.', CHARGILY_TEXT_DOMAIN),
-        					'default'     => '',
-        					'desc_tip'    => true,
-                ),
-                'Chargily_Gateway_api_secret_v2_test' => array(
-                  'title'       => __('Test API Secret', CHARGILY_TEXT_DOMAIN),
-        					'type'        => 'password',
-        					'description' => __('Enter your Chargily Test API secret.', CHARGILY_TEXT_DOMAIN),
-        					'default'     => '',
-        					'desc_tip'    => true,
-                ),
-        				'Chargily_Gateway_api_authorization_v2_test' => array(
-                  'title'       => __('Check API keys', CHARGILY_TEXT_DOMAIN),
-        					'type'        => 'button',
-        					'description' => __('Check your API keys.', CHARGILY_TEXT_DOMAIN),
-        					'default'     => 'Check connection',
-        					'desc_tip'    => true,
-                ),
-        				'Chargily_Gateway_api_key_v2_live' => array(
-                  'title'       => __('Live API Key', CHARGILY_TEXT_DOMAIN),
-        					'type'        => 'password',
-        					'description' => __('Enter your Chargily Live API key.', CHARGILY_TEXT_DOMAIN),
-        					'default'     => '',
-        					'desc_tip'    => true,
-                ),
-                'Chargily_Gateway_api_secret_v2_live' => array(
-                  'title'       => __('Live API Secret', CHARGILY_TEXT_DOMAIN),
-        					'type'        => 'password',
-        					'description' => __('Enter your Chargily Live API secret.', CHARGILY_TEXT_DOMAIN),
-        					'default'     => '',
-        					'desc_tip'    => true,
-                ),
-        				'Chargily_Gateway_api_authorization_v2_live' => array(
-                  'title'       => __('Check API keys', CHARGILY_TEXT_DOMAIN),
-        					'type'        => 'button',
-        					'description' => __('Check your API keys.', CHARGILY_TEXT_DOMAIN),
-        					'default'     => 'Check connection',
-        					'desc_tip'    => true,
-                ),
-        				'title' => array(
-        					'title'       => __('Title', CHARGILY_TEXT_DOMAIN),
-        					'type'        => 'text',
-        					'description' => __('This controls the title which the user sees during checkout.', CHARGILY_TEXT_DOMAIN),
-        					'default'     => __('Chargily Pay Payment', CHARGILY_TEXT_DOMAIN),
-        					'desc_tip'    => true,
-        				),
-        				'description' => array(
-        					'title'       => __('Description', CHARGILY_TEXT_DOMAIN),
-        					'type'        => 'textarea',
-        					'description' => __('This controls the description which the user sees during checkout.', CHARGILY_TEXT_DOMAIN),
-        					'default'     => __('Pay via Chargily Pay.', CHARGILY_TEXT_DOMAIN),
-        					'desc_tip'    => true,
-        				),
-        				'instructions' => array(
-        					'title'       => __('On the thanks page', CHARGILY_TEXT_DOMAIN),
-        					'type'        => 'textarea',
-        					'description' => __('Place the message you want to appear on the thank you page after completing the purchase of the product.', CHARGILY_TEXT_DOMAIN),
-        					'default'     => __('Place the message you want to appear on the thank you page after completing the purchase of the product', CHARGILY_TEXT_DOMAIN),
-        					'desc_tip'    => true,
-        				),
-        				'pass_fees_to_customer' => array(
-        					'title'       => __('Pass Fees To Customer', 'CHARGILY_TEXT_DOMAIN'),
-        					'label'       => __('Pass Fees To Customer', 'CHARGILY_TEXT_DOMAIN'),
-        					'type'        => 'checkbox',
-        					'description' => __('If enabled, Chargily Pay fees will be paid by your customers.', 'CHARGILY_TEXT_DOMAIN'),
-        					'default'     => 'yes', 
-        				),
-        				'create_products' => array(
-        					'title'       => __('Create Products', 'CHARGILY_TEXT_DOMAIN'),
-        					'label'       => __('Enable product creation on Chargily Pay.', 'CHARGILY_TEXT_DOMAIN'),
-        					'type'        => 'checkbox',
-        					'description' => __('If enabled, products will be created on Chargily Pay upon checkout.', 'CHARGILY_TEXT_DOMAIN'),
-        					'default'     => 'no'
-        				),
-            );
-        }
-		
-		
+			'title'       => __('Enable/Disable', CHARGILY_TEXT_DOMAIN),
+			'label'       => __('Enable Chargily Pay', CHARGILY_TEXT_DOMAIN),
+			'type'        => 'checkbox',
+			'description' => '',
+			'default'     => 'no'
+			),
+			'test_mode' => array(
+			'title'       => __('Test mode', CHARGILY_TEXT_DOMAIN),
+			'label'       => __('Enable Test Mode', CHARGILY_TEXT_DOMAIN),
+			'type'        => 'checkbox',
+			'description' => __('If enabled, you will use Chargily Pay in Test Mode.', CHARGILY_TEXT_DOMAIN),
+			'default'     => 'no',
+			'desc_tip'    => true,
+			),
+			'Chargily_Gateway_api_key_v2_test' => array(
+			'title'       => __('Test API Key', CHARGILY_TEXT_DOMAIN),
+			'type'        => 'password',
+			'description' => __('Enter your Chargily Test API key.', CHARGILY_TEXT_DOMAIN),
+			'default'     => '',
+			'desc_tip'    => true,
+			),
+			'Chargily_Gateway_api_secret_v2_test' => array(
+			'title'       => __('Test API Secret', CHARGILY_TEXT_DOMAIN),
+			'type'        => 'password',
+			'description' => __('Enter your Chargily Test API secret.', CHARGILY_TEXT_DOMAIN),
+			'default'     => '',
+			'desc_tip'    => true,
+			),
+			'Chargily_Gateway_api_authorization_v2_test' => array(
+			'title'       => __('Check API keys', CHARGILY_TEXT_DOMAIN),
+			'type'        => 'button',
+			'description' => __('Check your API keys.', CHARGILY_TEXT_DOMAIN),
+			'default'     => 'Check connection',
+			'desc_tip'    => true,
+			),
+			'Chargily_Gateway_api_key_v2_live' => array(
+			'title'       => __('Live API Key', CHARGILY_TEXT_DOMAIN),
+			'type'        => 'password',
+			'description' => __('Enter your Chargily Live API key.', CHARGILY_TEXT_DOMAIN),
+			'default'     => '',
+			'desc_tip'    => true,
+			),
+			'Chargily_Gateway_api_secret_v2_live' => array(
+			'title'       => __('Live API Secret', CHARGILY_TEXT_DOMAIN),
+			'type'        => 'password',
+			'description' => __('Enter your Chargily Live API secret.', CHARGILY_TEXT_DOMAIN),
+			'default'     => '',
+			'desc_tip'    => true,
+			),
+			'Chargily_Gateway_api_authorization_v2_live' => array(
+			'title'       => __('Check API keys', CHARGILY_TEXT_DOMAIN),
+			'type'        => 'button',
+			'description' => __('Check your API keys.', CHARGILY_TEXT_DOMAIN),
+			'default'     => 'Check connection',
+			'desc_tip'    => true,
+			),
+			'title' => array(
+			'title'       => __('Title', CHARGILY_TEXT_DOMAIN),
+			'type'        => 'text',
+			'description' => __('This controls the title which the user sees during checkout.', CHARGILY_TEXT_DOMAIN),
+			'default'     => __('Chargily Pay Payment', CHARGILY_TEXT_DOMAIN),
+			'desc_tip'    => true,
+			),
+			'description' => array(
+			'title'       => __('Description', CHARGILY_TEXT_DOMAIN),
+			'type'        => 'textarea',
+			'description' => __('This controls the description which the user sees during checkout.', CHARGILY_TEXT_DOMAIN),
+			'default'     => __('Pay via Chargily Pay.', CHARGILY_TEXT_DOMAIN),
+			'desc_tip'    => true,
+			),
+			'instructions' => array(
+			'title'       => __('On the thanks page', CHARGILY_TEXT_DOMAIN),
+			'type'        => 'textarea',
+			'description' => __('Place the message you want to appear on the thank you page after completing the purchase of the product.', CHARGILY_TEXT_DOMAIN),
+			'default'     => __('Place the message you want to appear on the thank you page after completing the purchase of the product', CHARGILY_TEXT_DOMAIN),
+			'desc_tip'    => true,
+			),
+			'pass_fees_to_customer' => array(
+			'title'       => __('Pass Fees To Customer', 'CHARGILY_TEXT_DOMAIN'),
+			'label'       => __('Pass Fees To Customer', 'CHARGILY_TEXT_DOMAIN'),
+			'type'        => 'checkbox',
+			'description' => __('If enabled, Chargily Pay fees will be paid by your customers.', 'CHARGILY_TEXT_DOMAIN'),
+			'default'     => 'yes', 
+			),
+			'create_products' => array(
+			'title'       => __('Create Products', 'CHARGILY_TEXT_DOMAIN'),
+			'label'       => __('Enable product creation on Chargily Pay.', 'CHARGILY_TEXT_DOMAIN'),
+			'type'        => 'checkbox',
+			'description' => __('If enabled, products will be created on Chargily Pay upon checkout.', 'CHARGILY_TEXT_DOMAIN'),
+			'default'     => 'no'
+			),
+	    );
+	}
 		
 		 public function admin_options() {
-        	?>
-      <div style=" margin: 24px auto 0px; max-width: 1032px;">
-			<link rel="stylesheet" href="/wp-content/plugins/chargily-pay/assets/css/css-back.css?v=1.0">
-
-			<div class="css-q70wzv et1p4me2" style="display: flex;flex-flow: column;margin-bottom: 24px;  flex-direction: row;">
-        <div style="float: left; width: 30%;">
-          <div class="css-1p8kjge et1p4me1" bis_skin_checked="1">
-  					<h2>General</h2>
-  					<p>Activate or deactivate Chargily Pay on your store, input your API keys,
-  						and activate test mode to simulate purchases without real money.</p>
-  					<p><a class="components-external-link" href="https://dev.chargily.com/pay-v2/api-keys" target="_blank" rel="external noreferrer noopener">Find out where to find your API keys<span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">(opens in a new tab)</span>
-  						<img src="/wp-content/plugins/chargily-pay/assets/img/link-out.svg" alt="link">
-  						</a></p>
-  					<p><a class="components-external-link" href="https://dev.chargily.com/pay-v2/test-and-live-mode" target="_blank" rel="external noreferrer noopener">Learn more about Test and Live modes<span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">(opens in a new tab)</span>
-  						<img src="/wp-content/plugins/chargily-pay/assets/img/link-out.svg" alt="link">
-  						</a></p>
-  					<p><a class="components-external-link" href="https://chargi.link/WaPay" target="_blank" rel="external noreferrer noopener">Get support<span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">(opens in a new tab)</span>
-  						<img src="/wp-content/plugins/chargily-pay/assets/img/link-out.svg" alt="link">
-  						</a></p>
-  				</div>
-        </div>
-				
-      <div style="float: right; width: 90%;">
-				<div class="css-mkkf9p et1p4me0">
-				<div class="components-surface components-card css-cn3xcj e1ul4wtb1 css-1pd4mph e19lxcc00">
-				<div class="css-10klw3m e19lxcc00">
-				<div class="components-card__body components-card-body css-hqx46f eezfi080 css-188a3xf e19lxcc00">
-          
-                <h2><?php _e('Chargily Pay™ Settings', 'chargily_pay'); ?></h2>
-                <table class="form-table">
-                    <?php $this->generate_settings_html(); ?>
-                </table>
-				</div>
-				</div>
-				</div>
-				</div>	
-      </div>
-		</div>
-    </div>
+        		?>
+			 <div style=" margin: 24px auto 0px; max-width: 1032px;">
+				 <link rel="stylesheet" href="/wp-content/plugins/chargily-pay/assets/css/css-back.css?v=1.0">
+				 <div class="css-q70wzv et1p4me2" style="display: flex;flex-flow: column;margin-bottom: 24px;  flex-direction: row;">
+					 <div style="float: left; width: 30%;">
+						 <div class="css-1p8kjge et1p4me1" bis_skin_checked="1">
+							 <h2>' . __('General', 'chargily_text_domain') . '</h2>
+							 <p>' . __('Activate or deactivate Chargily Pay on your store, input your API keys, and activate test mode to simulate purchases without real money.', 'chargily_text_domain') . '</p>
+							 <p><a class="components-external-link" href="https://dev.chargily.com/pay-v2/api-keys" target="_blank" rel="external noreferrer noopener">Find out where to find your API keys<span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">(opens in a new tab)</span>
+								 <img src="/wp-content/plugins/chargily-pay/assets/img/link-out.svg" alt="link">
+							 </a></p>
+							 <p><a class="components-external-link" href="https://dev.chargily.com/pay-v2/test-and-live-mode" target="_blank" rel="external noreferrer noopener">Learn more about Test and Live modes<span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">(opens in a new tab)</span>
+								 <img src="/wp-content/plugins/chargily-pay/assets/img/link-out.svg" alt="link">
+							 </a></p>
+							 <p><a class="components-external-link" href="https://chargi.link/WaPay" target="_blank" rel="external noreferrer noopener">Get support<span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">(opens in a new tab)</span>
+								 <img src="/wp-content/plugins/chargily-pay/assets/img/link-out.svg" alt="link">
+							 </a></p>
+						 </div>
+					 </div>
+					 <div style="float: right; width: 90%;">
+						 <div class="css-mkkf9p et1p4me0">
+							 <div class="components-surface components-card css-cn3xcj e1ul4wtb1 css-1pd4mph e19lxcc00">
+								 <div class="css-10klw3m e19lxcc00">
+									 <div class="components-card__body components-card-body css-hqx46f eezfi080 css-188a3xf e19lxcc00">
+										 <h2><?php _e('Chargily Pay™ Settings', 'chargily_text_domain'); ?></h2>
+										 <table class="form-table">
+                    									<?php $this->generate_settings_html(); ?>
+                    								</table>
+									 </div>
+								 </div>
+							 </div>
+						 </div>	
+					 </div>
+				 </div>
+			 </div>
 		<?php
 		}
 		
@@ -188,7 +182,7 @@ function wc_chargily_pay_init() {
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked">
 			
 			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily">
-			  <span style="display: flex; align-items: center;"> <div style="opacity: 0;">card :</div><p> EDAHABIA </p> </span>
+			  <span style="display: flex; align-items: center;"> <div style="opacity: 0;">card :</div><p>' . __('EDAHABIA', 'chargily_text_domain') . '</p></span>
 			  
 			  <div class="Chargily-card-text" style=""></div>
 			  <img src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;"></img>
@@ -198,7 +192,8 @@ function wc_chargily_pay_init() {
 		    <div class="Chargily-option">
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB">
 			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily">
-			  <span style="display: flex; align-items: center;"><div style="opacity: 0;">card :</div> <p style="margin-top: 1.59em;">CIB </p><div style="opacity: 0;">-</div><p> CARD</p></span>
+			  <span style="display: flex; align-items: center;"><div style="opacity: 0;">card :</div>
+     			  <p style="margin-top: 1.59em;">CIB </p><div style="opacity: 0;">-</div><p> Card</p></span>
 			  <div class="Chargily-card-text" style=""></div>
 			  <img src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style=""></img>
 			  </label>
@@ -209,6 +204,7 @@ function wc_chargily_pay_init() {
 			  Powered By
 			  <img src="/wp-content/plugins/chargily-pay/assets/img/logo.svg" alt="chargily" style="/*width:42px;height:42px;*/">
 			  </a>
+     			  <p>' . __('🔒 Secure e-payment gateway.', 'chargily_text_domain') . '</p>
 		    </div>';	
 			
 		}
