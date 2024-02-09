@@ -1,0 +1,199 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Chargily Pay™\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-09 19:44+0000\n"
+"PO-Revision-Date: 2024-02-09 19:44+0000\n"
+"Last-Translator: \n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100 >= 3 "
+"&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.6; wp-6.4.3\n"
+"X-Domain: chargily-woocommerce-gateway"
+
+#. Description of the plugin
+msgid "Accept CIB and EDAHABIA cards on your WooCommerce store.."
+msgstr ""
+
+#. Author of the plugin
+msgid "Chargily"
+msgstr ""
+
+#. Name of the plugin
+msgid "Chargily Pay™"
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://epay.chargily.com/"
+msgstr ""
+
+msgid ""
+"Allow your customers to make payments using their Edahabia and CIB cards "
+"using Chargily Pay™ V2."
+msgstr ""
+
+msgid "Enable/Disable"
+msgstr "تفعيل/تعطيل"
+
+msgid "Enable Chargily Pay"
+msgstr "تفعيل دفع Chargily"
+
+msgid "Test mode"
+msgstr "وضع الاختبار"
+
+msgid "Enable Test Mode"
+msgstr "تفعيل وضع الاختبار"
+
+msgid "If enabled, you will use Chargily Pay in Test Mode."
+msgstr "إذا تم التفعيل، ستستخدم دفع Chargily في وضع الاختبار."
+
+msgid "Test API Key"
+msgstr "مفتاح API للاختبار"
+
+msgid "Enter your Chargily Test API key."
+msgstr "أدخل مفتاح API الخاص بالاختبار لـ Chargily."
+
+msgid "Test API Secret"
+msgstr "سر API للاختبار"
+
+msgid "Enter your Chargily Test API secret."
+msgstr "أدخل سر API الخاص بالاختبار لـ Chargily."
+
+msgid "Check API keys"
+msgstr "تحقق من مفاتيح API"
+
+msgid "Check your API keys."
+msgstr "تحقق من مفاتيح API الخاصة بك."
+
+msgid "Live API Key"
+msgstr "مفتاح API الحي"
+
+msgid "Enter your Chargily Live API key."
+msgstr "أدخل مفتاح API الحي لـ Chargily."
+
+msgid "Live API Secret"
+msgstr "سر API الحي"
+
+msgid "Enter your Chargily Live API secret."
+msgstr "أدخل سر API الحي لـ Chargily."
+
+msgid "Title"
+msgstr "العنوان"
+
+msgid "This controls the title which the user sees during checkout."
+msgstr "هذا يتحكم في العنوان الذي يراه المستخدم أثناء الدفع."
+
+msgid "Pay by EDAHABIA/CIB Card"
+msgstr "الدفع بواسطة بطاقة EDAHABIA/CIB"
+
+msgid "Description"
+msgstr "الوصف"
+
+msgid "This controls the description which the user sees during checkout."
+msgstr "هذا يتحكم في الوصف الذي يراه المستخدم أثناء الدفع."
+
+msgid "🔒 Secure e-payment gateway."
+msgstr "🔒 بوابة الدفع الإلكتروني الآمنة."
+
+msgid "On the thanks page"
+msgstr "على صفحة الشكر"
+
+msgid "thank you, the product will come soon."
+msgstr "شكرا لك، سيصل المنتج قريبا."
+
+msgid ""
+"Place the message you want to appear on the thank you page after completing "
+"the purchase of the product."
+msgstr "ضع الرسالة التي تريد ظهورها على صفحة الشكر بعد إتمام شراء المنتج."
+
+msgid "Pass Fees To Customer"
+msgstr "مرر الرسوم للعميل"
+
+msgid "Enable product creation on Chargily Pay."
+msgstr "تفعيل إنشاء المنتج على دفع Chargily."
+
+msgid "If enabled, products will be created on Chargily Pay upon checkout."
+msgstr "إذا تم التفعيل، سيتم إنشاء المنتجات على دفع Chargily عند الدفع."
+
+msgid "General"
+msgstr "عام"
+
+msgid ""
+"Activate or deactivate Chargily Pay on your store, input your API keys, and "
+"activate test mode to simulate purchases without real money."
+msgstr "تفعيل أو تعطيل دفع Chargily في متجرك، أدخل مفاتيح API الخاصة بك، وفعّل وضع الاختبار لمحاكاة الشراء بدون استخدام أموال حقيقية."
+
+msgid "Find out where to find your API keys"
+msgstr "اكتشف أين يمكنك العثور على مفاتيح API الخاصة بك"
+
+msgid "Learn more about Test and Live modes"
+msgstr "تعلم المزيد عن وضعي الاختبار والحي"
+
+msgid "Get support"
+msgstr "احصل على الدعم"
+
+msgid "Chargily Pay™ Settings"
+msgstr "إعدادات Chargily Pay™"
+
+msgid ""
+"Thank you for your order, please click the button below to pay with Chargily."
+msgstr "شكراً لطلبك، يرجى النقر على الزر أدناه للدفع باستخدام Chargily."
+
+msgid "Awaiting Chargily payment"
+msgstr "في انتظار دفع Chargily"
+
+msgid "An error occurred while processing your payment. Please try again."
+msgstr "حدث خطأ أثناء معالجة الدفع الخاص بك. يرجى المحاولة مرة أخرى."
+
+msgid "Payment successfully received from Chargily."
+msgstr "تم استلام الدفع بنجاح من Chargily."
+
+msgid "Payment has been cancelled."
+msgstr "تم إلغاء الدفع."
+
+msgid "Payment has been failed."
+msgstr "فشل الدفع."
+
+msgid "Received unknown payment status from Chargily: %s"
+msgstr "تم استلام حالة دفع غير معروفة من Chargily: %s"
+
+msgid ""
+"Just one more step to complete the setup of Chargily Pay™ and begin "
+"accepting payments."
+msgstr "خطوة واحدة فقط متبقية لإكمال إعداد Chargily Pay™ وبدء قبول الدفعات."
+
+msgid "Enter your API keys."
+msgstr "أدخل مفاتيح API الخاصة بك."
+
+msgid "Chargily Pay™: Test Mode is enabled."
+msgstr "Chargily Pay™: وضع الاختبار مفعل."
+
+msgid "Change status to expired"
+msgstr "تغيير الحالة إلى منتهية الصلاحية"
+
+msgid "Expired"
+msgstr "منتهية الصلاحية"
+
+msgid "Order status"
+msgstr "حالة الطلب"
+
+msgid "Correct API keys."
+msgstr "مفاتيح API صحيحة."
+
+msgid "Wrong API keys."
+msgstr "مفاتيح API خاطئة."
+
+msgid "Unknown response, try later"
+msgstr "استجابة غير معروفة، حاول لاحقاً"
+
+msgid "Error, duplicate 1: EDAHABIA"
+msgstr "خطأ، تكرار 1: EDAHABIA"
+
+msgid "CIB"
+msgstr "البطاقة البنكية CIB"
