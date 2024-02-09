@@ -102,14 +102,14 @@ function wc_chargily_pay_init() {
 			'title'       => __('Title', CHARGILY_TEXT_DOMAIN),
 			'type'        => 'text',
 			'description' => __('This controls the title which the user sees during checkout.', CHARGILY_TEXT_DOMAIN),
-			'default'     => __('Chargily Pay Payment', CHARGILY_TEXT_DOMAIN),
+			'default'     => __('Pay by EDAHABIA/CIB Card', CHARGILY_TEXT_DOMAIN),
 			'desc_tip'    => true,
 			),
 			'description' => array(
 			'title'       => __('Description', CHARGILY_TEXT_DOMAIN),
 			'type'        => 'textarea',
 			'description' => __('This controls the description which the user sees during checkout.', CHARGILY_TEXT_DOMAIN),
-			'default'     => __('Pay via Chargily Pay.', CHARGILY_TEXT_DOMAIN),
+			'default'     => __('🔒 Secure e-payment gateway.', CHARGILY_TEXT_DOMAIN),
 			'desc_tip'    => true,
 			),
 			'instructions' => array(
