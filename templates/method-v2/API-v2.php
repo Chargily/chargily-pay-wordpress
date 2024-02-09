@@ -144,15 +144,27 @@ function wc_chargily_pay_init() {
 				 <div class="css-q70wzv et1p4me2" style="display: flex;flex-flow: column;margin-bottom: 24px;  flex-direction: row;">
 					 <div style="float: left; width: 30%;">
 						 <div class="css-1p8kjge et1p4me1" bis_skin_checked="1">
-							 <h2>' . __('General', 'CHARGILY_TEXT_DOMAIN') . '</h2>
-							 <p>' . __('Activate or deactivate Chargily Pay on your store, input your API keys, and activate test mode to simulate purchases without real money.', 'CHARGILY_TEXT_DOMAIN') . '</p>
-							 <p><a class="components-external-link" href="https://dev.chargily.com/pay-v2/api-keys" target="_blank" rel="external noreferrer noopener">' . __('Find out where to find your API keys', 'CHARGILY_TEXT_DOMAIN') . '<span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">(opens in a new tab)</span>
+							 <h2><?php echo esc_html__( 'General', 'CHARGILY_TEXT_DOMAIN' ); ?></h2>
+							 <p><?php echo esc_html__( 'Activate or deactivate Chargily Pay on your store, input your API keys, and activate test mode to simulate purchases without real money.', 'CHARGILY_TEXT_DOMAIN' ); ?></p>
+							 <p><a class="components-external-link" href="https://dev.chargily.com/pay-v2/api-keys" target="_blank" rel="external noreferrer noopener">
+								 <?php echo esc_html__( 'Find out where to find your API keys', 'CHARGILY_TEXT_DOMAIN' ); ?>
+								 <span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">
+								 (<?php echo esc_html__( 'opens in a new tab', 'CHARGILY_TEXT_DOMAIN' ); ?>)
+								 </span>
 								 <img src="/wp-content/plugins/chargily-pay/assets/img/link-out.svg" alt="link">
 							 </a></p>
-							 <p><a class="components-external-link" href="https://dev.chargily.com/pay-v2/test-and-live-mode" target="_blank" rel="external noreferrer noopener">' . __('Learn more about Test and Live modes', 'CHARGILY_TEXT_DOMAIN') . '<span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">(opens in a new tab)</span>
+							 <p><a class="components-external-link" href="https://dev.chargily.com/pay-v2/test-and-live-mode" target="_blank" rel="external noreferrer noopener">
+								<?php echo esc_html__( 'Find out where to find your API keys', 'CHARGILY_TEXT_DOMAIN' ); ?>
+								 <span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">
+								 (<?php echo esc_html__( 'opens in a new tab', 'CHARGILY_TEXT_DOMAIN' ); ?>)
+								 </span>
 								 <img src="/wp-content/plugins/chargily-pay/assets/img/link-out.svg" alt="link">
 							 </a></p>
-							 <p><a class="components-external-link" href="https://chargi.link/WaPay" target="_blank" rel="external noreferrer noopener">' . __('Get support', 'CHARGILY_TEXT_DOMAIN') . '<span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">(opens in a new tab)</span>
+							 <p><a class="components-external-link" href="https://chargi.link/WaPay" target="_blank" rel="external noreferrer noopener">
+								 <?php echo esc_html__( 'Get support', 'CHARGILY_TEXT_DOMAIN' ); ?>
+								 <span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">
+								 (<?php echo esc_html__( 'opens in a new tab', 'CHARGILY_TEXT_DOMAIN' ); ?>)
+								 </span>
 								 <img src="/wp-content/plugins/chargily-pay/assets/img/link-out.svg" alt="link">
 							 </a></p>
 						 </div>
