@@ -52,3 +52,17 @@ function wc_chargilyv2_set_default_payment_gateway( $gateways ) {
     return $gateways;
 }
 add_filter( 'woocommerce_available_payment_gateways', 'wc_chargilyv2_set_default_payment_gateway', 999 );
+
+add_action('woocommerce_blocks_loaded', 'register_chargily_pay_blocks');
+function register_chargily_pay_blocks() {
+    if (!class_exists('Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType')) {
+        return;
+    }
+    require_once plugin_dir_path(__FILE__) . 'class-wc-chargily-pay-blocks.php';
+    add_action(
+        'woocommerce_blocks_payment_method_type_registration',
+        function($payment_method_registry) {
+            $payment_method_registry->register(new WC_Chargily_Pay_Blocks());
+        }
+    );
+}
