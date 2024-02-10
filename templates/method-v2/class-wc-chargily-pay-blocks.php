@@ -15,9 +15,9 @@ final class WC_Chargily_Pay_Blocks extends AbstractPaymentMethodType {
     public function get_payment_method_script_handles() {
         wp_register_script(
             'chargily-pay-blocks-integration',
-            plugins_url('assets/js/checkout.js', __FILE__),
+            plugins_url('../../assets/js/checkout.js', __FILE__),
             ['wc-blocks-registry', 'wc-settings', 'wp-element', 'wp-i18n'],
-            filemtime(plugin_dir_path(__FILE__) . 'assets/js/checkout.js'),
+            filemtime(plugin_dir_path(__FILE__) . '../../assets/js/checkout.js'),
             true
         );
 
