@@ -43,6 +43,11 @@ function chargily_css_loader_front() {
     }
 }
 
+function chargily_js_loader_front() {
+    wp_enqueue_script( 'chargily-script-front', plugins_url('/assets/js/js-front.js?v=1.1', __FILE__), array('jquery'), null, true );
+}
+add_action( 'wp_enqueue_scripts', 'chargily_js_loader_front' );
+
 function wc_chargilyv2_set_default_payment_gateway( $gateways ) {
     if ( isset( $gateways['chargily_pay'] ) ) {
         $chargily_gateway = $gateways['chargily_pay'];
