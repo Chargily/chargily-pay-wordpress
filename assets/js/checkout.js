@@ -7,7 +7,7 @@ const labels = {
         description: 'Pay with your EDAHABIA/CIB card',
         edahabia: 'EDAHABIA',
         cib: 'CIB',
-        Card: 'Card',
+		Card: 'Card',
         poweredBy: 'Powered By',
         securePayment: 'Secure e-payment gateway.',
     },
@@ -16,7 +16,7 @@ const labels = {
         description: 'ادفع باستخدام بطاقتك الإداهبية/سيب',
         edahabia: 'الذهبية',
         cib: 'البطاقة',
-        Card: 'البنكية',
+		Card: 'البنكية',
         poweredBy: 'بتقنية',
         securePayment: 'بوابة الدفع الإلكتروني الآمنة.',
     },
@@ -25,7 +25,7 @@ const labels = {
         description: 'Payez avec votre carte EDAHABIA/CIB',
         edahabia: 'EDAHABIA',
         cib: 'CIB',
-        Card: 'Card',
+		Card: 'Card',
         poweredBy: 'Propulsé par',
         securePayment: 'Passerelle de paiement électronique sécurisée.',
     }
@@ -104,7 +104,7 @@ const PaymentMethodContent = () => {
                     createElement('div', { style: { opacity: 0 } }, 'card :'),
                     createElement('p', { style: {} }, label.cib),
                     createElement('div', { style: { opacity: 0 } }, '-'),
-                    createElement('p', {}, ' Card')
+					createElement('p', { style: {} }, label.Card)
                 ),
                 createElement('div', { className: 'Chargily-card-text', style: {}, 'bis_skin_checked': 1 }),
                 createElement('img', { src: cibCardImage, alt: label.cib, style: {} })
@@ -123,12 +123,12 @@ const lang = document.documentElement.lang || 'en';
 
 const ChargilyPay = {
     name: 'chargily_pay',
-    label: labels[lang].chargilyPay,
+    label: labels[lang] ? labels[lang].chargilyPay : labels.en.chargilyPay,
     content: createElement(PaymentMethodContent),
     edit: createElement(PaymentMethodContent),
     canMakePayment: () => true,
     paymentMethodId: 'chargily_pay',
-    ariaLabel: labels[lang].chargilyPay,
+    ariaLabel: labels[lang] ? labels[lang].chargilyPay : labels.en.chargilyPay,
     supports: {
         features: ['products'],
     },
