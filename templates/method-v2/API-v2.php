@@ -210,7 +210,7 @@ function wc_chargily_pay_init() {
 			        echo '<div class=""><p>' . __('Chargily Pay™: Test Mode is enabled.', 'CHARGILY_TEXT_DOMAIN') . '</p></div>';
 			        // Display payment options
 			echo '<div class="Chargily-option">
-			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked">
+			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked" onclick="updateCookieValue(this)">
 			
 			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily">
 			  <span style="display: flex; align-items: center;"> <div style="opacity: 0;">card :</div><p>' . __('EDAHABIA', 'CHARGILY_TEXT_DOMAIN') . '</p></span>
@@ -221,7 +221,7 @@ function wc_chargily_pay_init() {
 			</div>
 			
 			<div class="Chargily-option">
-			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB">
+			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB" onclick="updateCookieValue(this)">
 			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily">
 			  <span style="display: flex; align-items: center;"><div style="opacity: 0;">card :</div>
 			   <p style="margin-top: 1.59em;">CIB </p><div style="opacity: 0;">-</div><p> Card</p></span>
@@ -249,7 +249,7 @@ function wc_chargily_pay_init() {
 			        // Live API keys are present
 			        // Display payment options
 			       echo '<div class="Chargily-option">
-			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked">
+			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked" onclick="updateCookieValue(this)">
 			
 			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily">
 			  <span style="display: flex; align-items: center;"> <div style="opacity: 0;">card :</div><p>' . __('EDAHABIA', 'CHARGILY_TEXT_DOMAIN') . '</p></span>
@@ -260,7 +260,7 @@ function wc_chargily_pay_init() {
 			</div>
 			
 			<div class="Chargily-option">
-			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB">
+			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB" onclick="updateCookieValue(this)">
 			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily">
 			  <span style="display: flex; align-items: center;"><div style="opacity: 0;">card :</div>
 			   <p style="margin-top: 1.59em;">CIB </p><div style="opacity: 0;">-</div><p> Card</p></span>
@@ -324,7 +324,13 @@ function wc_chargily_pay_init() {
 		public function process_payment( $order_id ) {
 			$credentials = $this->get_api_credentials();
 			$order = wc_get_order( $order_id );
-			$payment_method = isset($_POST['chargilyv2_payment_method']) ? wc_clean($_POST['chargilyv2_payment_method']) : 'EDAHABIA';
+			//$payment_method = isset($_POST['chargilyv2_payment_method']) ? wc_clean($_POST['chargilyv2_payment_method']) : 'EDAHABIA';
+			if (isset($_COOKIE['chargily_payment_method'])) {
+				$selected_payment_method = isset($_COOKIE['chargily_payment_method']) ? wc_clean($_COOKIE['chargily_payment_method']) : 'EDAHABIA';
+				$payment_method = $selected_payment_method;
+			} else {
+				$payment_method = 'EDAHABIA';
+			}
 			
 			$pass_fees_to_customer_settings = $this->get_option('pass_fees_to_customer') === 'yes';
 
@@ -334,7 +340,7 @@ function wc_chargily_pay_init() {
 				$pass_fees_to_customer = 0; // إذا لم يكن 'yes'، لا نمرر الرسوم
 			}
 			
-    	$encryption_key = $this->get_encryption_key();
+			$encryption_key = $this->get_encryption_key();
 			$user_id = get_current_user_id();
 			$chargily_customers_id = null;
 
@@ -402,7 +408,7 @@ function wc_chargily_pay_init() {
 					
 					$product = wc_get_product( $product_id );
 					$product_image_id = $product->get_image_id();
-    			$product_image_url = wp_get_attachment_image_url( $product_image_id, 'full' );
+					$product_image_url = wp_get_attachment_image_url( $product_image_id, 'full' );
 					$product_image_urls = $product_image_url ? array($product_image_url) : array();
 
 					$created_product_id = $this->create_chargily_product(array(
@@ -603,46 +609,47 @@ function wc_chargily_pay_init() {
 			}
 		}
 		
-        private function create_chargilyv2_checkout( $payload ) {
-			    $credentials = $this->get_api_credentials();
-    			$api_url = $this->get_option( 'test_mode' ) === 'yes'
-    				? 'https://pay.chargily.net/test/api/v2/checkouts'
-    				: 'https://pay.chargily.net/api/api/v2/checkouts';
-    
-    			$headers = array(
-    				'Authorization' => 'Bearer ' . $credentials['api_secret'],
-    				'Content-Type'  => 'application/json',
-    			);
-
-    			$response = wp_remote_post( $api_url, array(
-    				'method'    => 'POST',
-    				'headers'   => $headers,
-    				'body'      => json_encode( $payload ),
-    				'timeout'   => 45,
-    				'sslverify' => false,
-    			) );
-    
-    			return $response;
-    		}
-		
-        public function receipt_page( $order ) {
-            echo '<p>' . __( 'Thank you for your order, please click the button below to pay with Chargily.', 'CHARGILY_TEXT_DOMAIN' ) . '</p>';
-        }
-
-    		public function thankyou_page() {
-    			if ( $this->instructions ) {
-    				echo wpautop( wptexturize( $this->instructions ) );
-    			}
-    		}
-
-        public function email_instructions( $order, $sent_to_admin, $plain_text = false ) {
-            if ( $this->instructions && ! $sent_to_admin && $this->id === $order->get_payment_method() && $order->has_status( 'pending' ) ) {
-                echo wpautop( wptexturize( $this->instructions ) ) . PHP_EOL;
-            }
-        }
+	        private function create_chargilyv2_checkout( $payload ) {
+			
+			$credentials = $this->get_api_credentials();
+			$api_url = $this->get_option( 'test_mode' ) === 'yes'
+			? 'https://pay.chargily.net/test/api/v2/checkouts'
+			: 'https://pay.chargily.net/api/api/v2/checkouts';
+	    
+			$headers = array(
+				'Authorization' => 'Bearer ' . $credentials['api_secret'],
+				'Content-Type'  => 'application/json',
+			);
+	
+			$response = wp_remote_post( $api_url, array(
+				'method'    => 'POST',
+				'headers'   => $headers,
+				'body'      => json_encode( $payload ),
+				'timeout'   => 45,
+				'sslverify' => false,
+			) );
+			return $response;
+		}
+			
+	        public function receipt_page( $order ) {
+	            echo '<p>' . __( 'Thank you for your order, please click the button below to pay with Chargily.', 'CHARGILY_TEXT_DOMAIN' ) . '</p>';
+	        }
+	
+	    		
+	    public function thankyou_page() {
+		    if ( $this->instructions ) {
+			    echo wpautop( wptexturize( $this->instructions ) );
+		    }
+	    }
+	
+	        public function email_instructions( $order, $sent_to_admin, $plain_text = false ) {
+	            if ( $this->instructions && ! $sent_to_admin && $this->id === $order->get_payment_method() && $order->has_status( 'pending' ) ) {
+	                echo wpautop( wptexturize( $this->instructions ) ) . PHP_EOL;
+	            }
+	        }
 
 		public function display_chargily_admin_notices() {
-			
+
 			if (empty($this->get_option('Chargily_Gateway_api_key_v2_live')) || 
 				empty($this->get_option('Chargily_Gateway_api_secret_v2_live'))) {
 				echo '<div class="notice notice-error">
