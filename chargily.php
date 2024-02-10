@@ -58,7 +58,7 @@ function register_chargily_pay_blocks() {
     if (!class_exists('Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType')) {
         return;
     }
-    require_once plugin_dir_path(__FILE__) . 'class-wc-chargily-pay-blocks.php';
+    require_once plugin_dir_path(__FILE__) . '/templates/method-v2/class-wc-chargily-pay-blocks.php';
     add_action(
         'woocommerce_blocks_payment_method_type_registration',
         function($payment_method_registry) {
