@@ -90,27 +90,27 @@ function update_order_status($data) {
         switch ($status) {
             case 'paid':
                 if ($order->has_status(array('pending', 'processing'))) {
-          					$order->payment_complete();
-          					$order->update_status('completed', __('Payment successfully received.', 'woocommerce'));
-          					$order->save();
-				}
+			$order->payment_complete();
+			$order->update_status('completed', __('Payment successfully received.', 'woocommerce'));
+			$order->save();
+		}
                 break;
             case 'canceled':
                 if (!$order->has_status('cancelled')) {
-                    $order->update_status('cancelled', __('Payment has been cancelled.', 'woocommerce'));
-					          $order->save();
+			$order->update_status('cancelled', __('Payment has been cancelled.', 'woocommerce'));
+			$order->save();
                 }
                 break;
             case 'failed':
                 if (!$order->has_status('failed')) {
-                    $order->update_status('failed', __('Payment has been failed.', 'woocommerce'));
-					          $order->save();
+			$order->update_status('failed', __('Payment has been failed.', 'woocommerce'));
+			$order->save();
                 }
                 break;
 			case 'expired':
                 if (!$order->has_status('expired')) {
-                    $order->update_status('expired', __('Payment has expired.', 'woocommerce'));
-					          $order->save();
+			$order->update_status('expired', __('Payment has expired.', 'woocommerce'));
+			$order->save();
                 }
                 break;
             default:
