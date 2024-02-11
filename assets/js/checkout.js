@@ -11,10 +11,10 @@ const labels = {
         poweredBy: 'Powered By',
         securePayment: '🔒 Secure E-Payment Gateway ',
 		
-		istestMode: 'Chargily Pay™: Test Mode is enabled.',
-		TestWarningMessage: 'You are in Test Mode but your Test API keys are missing.',
-		TestLinkTextWarningMessage: 'Enter your Test API keys.',
-		LiveWarningMessage: 'You are in Live Mode but your Live API keys are missing.',
+        istestMode: 'Chargily Pay™: Test Mode is enabled.',
+        TestWarningMessage: 'You are in Test Mode but your Test API keys are missing.',
+        TestLinkTextWarningMessage: 'Enter your Test API keys.',
+        LiveWarningMessage: 'You are in Live Mode but your Live API keys are missing.',
     },
     ar: {
         chargilyPay: 'شحنيلي باي',
@@ -25,10 +25,10 @@ const labels = {
         poweredBy: 'بتقنية 🔒',
         securePayment: 'بوابة الدفع الإلكتروني الآمنة.',
 		
-		istestMode: 'Chargily Pay™: Test Mode is enabled.',
-		TestWarningMessage: 'You are in Test Mode but your Test API keys are missing.',
-		TestLinkTextWarningMessage: 'Enter your Test API keys.',
-		LiveWarningMessage: 'You are in Live Mode but your Live API keys are missing.',
+        istestMode: 'Chargily Pay™: Test Mode is enabled.',
+        TestWarningMessage: 'You are in Test Mode but your Test API keys are missing.',
+        TestLinkTextWarningMessage: 'Enter your Test API keys.',
+        LiveWarningMessage: 'You are in Live Mode but your Live API keys are missing.',
     },
     fr: {
         chargilyPay: 'Chargily Payer',
@@ -39,10 +39,10 @@ const labels = {
         poweredBy: '🔒 Propulsé par',
         securePayment: 'Passerelle de paiement électronique sécurisée.',
 		
-		istestMode: 'Chargily Pay™: Test Mode is enabled.',
-		TestWarningMessage: 'You are in Test Mode but your Test API keys are missing.',
-		TestLinkTextWarningMessage: 'Enter your Test API keys.',
-		LiveWarningMessage: 'You are in Live Mode but your Live API keys are missing.',
+        istestMode: 'Chargily Pay™: Test Mode is enabled.',
+        TestWarningMessage: 'You are in Test Mode but your Test API keys are missing.',
+        TestLinkTextWarningMessage: 'Enter your Test API keys.',
+        LiveWarningMessage: 'You are in Live Mode but your Live API keys are missing.',
     }
 };
 
