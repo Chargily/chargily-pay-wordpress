@@ -14,10 +14,10 @@
             }
 
             [type="radio"]:checked ~ label.Chargily {
-        				border-color: #16a34a;
-        				background-color: #16a34a2b;
-        				16a34a2b
-        				color: #000;
+		    cursor: pointer;
+		    border-color: #16a34a;
+		    background-color: #16a34a2b;
+		    color: #000;
             }
 
             [type="radio"]:checked ~ label.Chargily:before {
