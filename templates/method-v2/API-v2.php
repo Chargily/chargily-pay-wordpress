@@ -37,6 +37,8 @@ function wc_chargily_pay_init() {
             add_action( 'woocommerce_email_before_order_table', array( $this, 'email_instructions' ), 10, 3 );
             // admin api notices
             add_action('admin_notices', array($this, 'display_chargily_admin_notices'));
+			
+            add_action('woocommerce_update_options_payment_gateways_chargily_pay', array($this, 'update_chargily_pay_settings'));
         }
 
         public function init_form_fields() {
@@ -186,6 +188,26 @@ function wc_chargily_pay_init() {
 				 </div>
 			 </div>
 		<?php
+			 if ( is_admin() ) {
+				if (current_user_can('administrator') || current_user_can('shop_manager')) {
+					$test_mode = $this->get_option('test_mode') === 'yes';
+					$live_api_key_present = !empty($this->get_option('Chargily_Gateway_api_key_v2_live'));
+					$live_api_secret_present = !empty($this->get_option('Chargily_Gateway_api_secret_v2_live'));
+					$test_api_key_present = !empty($this->get_option('Chargily_Gateway_api_key_v2_test'));
+					$test_api_secret_present = !empty($this->get_option('Chargily_Gateway_api_secret_v2_test'));
+
+					$data = array(
+						'testMode' => $test_mode,
+						'liveApiKeyPresent' => $live_api_key_present,
+						'liveApiSecretPresent' => $live_api_secret_present,
+						'testApiKeyPresent' => $test_api_key_present,
+						'testApiSecretPresent' => $test_api_secret_present,
+					);
+
+					$file_path = plugin_dir_path(__FILE__) . 'chargily_data.json';
+					file_put_contents($file_path, json_encode($data));
+				}
+			}
 		}
 		
 		public function payment_fields() {
@@ -668,6 +690,30 @@ function wc_chargily_pay_init() {
 			}
 		}
 		
+		function update_chargily_pay_settings() {
+			if ( is_admin() ) {
+				if (current_user_can('administrator') || current_user_can('shop_manager')) {
+					$options = get_option('woocommerce_chargily_pay_settings');
+
+					$test_mode = isset($options['test_mode']) && 'yes' === $options['test_mode'];
+					$live_api_key_present = !empty($options['Chargily_Gateway_api_key_v2_live']);
+					$live_api_secret_present = !empty($options['Chargily_Gateway_api_secret_v2_live']);
+					$test_api_key_present = !empty($options['Chargily_Gateway_api_key_v2_test']);
+					$test_api_secret_present = !empty($options['Chargily_Gateway_api_secret_v2_test']);
+
+					$data = array(
+						'testMode' => $test_mode,
+						'liveApiKeyPresent' => $live_api_key_present,
+						'liveApiSecretPresent' => $live_api_secret_present,
+						'testApiKeyPresent' => $test_api_key_present,
+						'testApiSecretPresent' => $test_api_secret_present,
+					);
+
+					$file_path = plugin_dir_path(__FILE__) . 'chargily_data.json';
+					file_put_contents($file_path, json_encode($data));
+				}
+			}
+		}
 		// END WC Chargily V2
     }
 }
@@ -872,26 +918,26 @@ function check_chargily_connection_callback() {
 }
 
 
-add_action('woocommerce_update_options_payment_gateways_chargily_pay', 'update_chargily_pay_settings');
-
-function update_chargily_pay_settings() {
+add_action('woocommerce_update_options_payment_gateways_chargily_pay', 'update_chargily_pay_settingss');
+function update_chargily_pay_settingss() {
 	if ( is_admin() ) {
 		if (current_user_can('administrator') || current_user_can('shop_manager')) {
-			$test_mode = 'yes' === get_option('woocommerce_chargily_pay_settings')['test_mode'];
-			$live_api_key_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_key_v2_live']);
-			$live_api_secret_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_secret_v2_live']);
-			$test_api_key_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_key_v2_test']);
-			$test_api_secret_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_secret_v2_test']);
-
-			$data = array(
-				'testMode' => $test_mode,
-				'liveApiKeyPresent' => $live_api_key_present,
-				'liveApiSecretPresent' => $live_api_secret_present,
-				'testApiKeyPresent' => $test_api_key_present,
-				'testApiSecretPresent' => $test_api_secret_present,
-			);
-			$file_path = plugin_dir_path(__FILE__) . 'chargily_data.json';
-			file_put_contents($file_path, json_encode($data));
+			    $test_mode = 'yes' === get_option('woocommerce_chargily_pay_settings')['test_mode'];
+			    $live_api_key_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_key_v2_live']);
+			    $live_api_secret_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_secret_v2_live']);
+			    $test_api_key_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_key_v2_test']);
+			    $test_api_secret_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_secret_v2_test']);
+			
+			    $data = array(
+			        'testMode' => $test_mode,
+			        'liveApiKeyPresent' => $live_api_key_present,
+			        'liveApiSecretPresent' => $live_api_secret_present,
+			        'testApiKeyPresent' => $test_api_key_present,
+			        'testApiSecretPresent' => $test_api_secret_present,
+			    );
+			
+			    $file_path = plugin_dir_path(__FILE__) . 'chargily_data.json';
+			    file_put_contents($file_path, json_encode($data));
 		}
 	}
 }
