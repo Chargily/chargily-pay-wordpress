@@ -156,7 +156,7 @@ function wc_chargily_pay_init() {
 								 <img src="/wp-content/plugins/chargily-pay/assets/img/link-out.svg" alt="link">
 							 </a></p>
 							 <p><a class="components-external-link" href="https://dev.chargily.com/pay-v2/test-and-live-mode" target="_blank" rel="external noreferrer noopener">
-								<?php echo esc_html__( 'Find out where to find your API keys', 'CHARGILY_TEXT_DOMAIN' ); ?>
+								<?php echo esc_html__( 'Understand Test and Live modes', 'CHARGILY_TEXT_DOMAIN' ); ?>
 								 <span data-wp-c16t="true" data-wp-component="VisuallyHidden" class="components-visually-hidden css-0 e19lxcc00" style="">
 								 (<?php echo esc_html__( 'opens in a new tab', 'CHARGILY_TEXT_DOMAIN' ); ?>)
 								 </span>
