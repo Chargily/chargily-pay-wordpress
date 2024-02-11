@@ -83,19 +83,19 @@ const PaymentMethodContent = () => {
     const label = labels[lang] || labels.en;
 
 	
-	const edahabiacardcib = `${window.location.origin}/wp-content/plugins/chargily-pay/assets/img/edahabia-card-cib.svg`;
+    const edahabiacardcib = `${window.location.origin}/wp-content/plugins/chargily-pay/assets/img/edahabia-card-cib.svg`;
     const edahabiaCardImage = `${window.location.origin}/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg`;
     const cibCardImage = `${window.location.origin}/wp-content/plugins/chargily-pay/assets/img/cib-card.svg`;
     const chargilyLogo = `${window.location.origin}/wp-content/plugins/chargily-pay/assets/img/logo.svg`;
 
-useEffect(() => {
-	setCookie('chargily_payment_method', paymentMethod, 7);
-        const settingsUrl = `${window.location.origin}/wp-content/plugins/chargily-pay/templates/method-v2/chargily_data.json`;
-
-        fetch(settingsUrl)
-            .then(response => response.json())
-            .then(data => setSettings(data));
-    }, [paymentMethod]);
+	useEffect(() => {
+		setCookie('chargily_payment_method', paymentMethod, 7);
+		const randomVersion = Math.random().toString(36).substring(2, 15);
+		const settingsUrl = `${window.location.origin}/wp-content/plugins/chargily-pay/templates/method-v2/chargily_data.json?v=${randomVersion}`;
+		fetch(settingsUrl)
+			.then(response => response.json())
+			.then(data => setSettings(data));
+	}, [paymentMethod]);
 
     const onPaymentMethodChange = (event) => {
         setPaymentMethod(event.target.value);
