@@ -8,8 +8,8 @@ const labels = {
         edahabia: 'EDAHABIA',
         cib: 'CIB',
         Card: 'Card',
-        poweredBy: 'Powered By',
-        securePayment: '🔒 Secure E-Payment Gateway ',
+        poweredBy: 'provided by ',
+        securePayment: '🔒 Secure E-Payment ',
 		
         istestMode: 'Chargily Pay™: Test Mode is enabled.',
         TestWarningMessage: 'You are in Test Mode but your Test API keys are missing.',
