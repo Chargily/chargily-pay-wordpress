@@ -1,0 +1,199 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Chargily Pay™\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-09 19:44+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.6; wp-6.4.3\n"
+"X-Domain: chargily-woocommerce-gateway"
+
+#. Description of the plugin
+msgid "Accept CIB and EDAHABIA cards on your WooCommerce store.."
+msgstr ""
+
+#. Author of the plugin
+msgid "Chargily"
+msgstr ""
+
+#. Name of the plugin
+msgid "Chargily Pay™"
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://epay.chargily.com/"
+msgstr ""
+
+msgid ""
+"Allow your customers to make payments using their Edahabia and CIB cards "
+"using Chargily Pay™ V2."
+msgstr ""
+
+msgid "Enable/Disable"
+msgstr ""
+
+msgid "Enable Chargily Pay"
+msgstr ""
+
+msgid "Test mode"
+msgstr ""
+
+msgid "Enable Test Mode"
+msgstr ""
+
+msgid "If enabled, you will use Chargily Pay in Test Mode."
+msgstr ""
+
+msgid "Test API Key"
+msgstr ""
+
+msgid "Enter your Chargily Test API key."
+msgstr ""
+
+msgid "Test API Secret"
+msgstr ""
+
+msgid "Enter your Chargily Test API secret."
+msgstr ""
+
+msgid "Check API keys"
+msgstr ""
+
+msgid "Check your API keys."
+msgstr ""
+
+msgid "Live API Key"
+msgstr ""
+
+msgid "Enter your Chargily Live API key."
+msgstr ""
+
+msgid "Live API Secret"
+msgstr ""
+
+msgid "Enter your Chargily Live API secret."
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+
+msgid "Pay by EDAHABIA/CIB Card"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "This controls the description which the user sees during checkout."
+msgstr ""
+
+msgid "🔒 Secure e-payment gateway."
+msgstr ""
+
+msgid "On the thanks page"
+msgstr ""
+
+msgid "thank you, the product will come soon."
+msgstr ""
+
+msgid ""
+"Place the message you want to appear on the thank you page after completing "
+"the purchase of the product."
+msgstr ""
+
+msgid "Pass Fees To Customer"
+msgstr ""
+
+msgid "Enable product creation on Chargily Pay."
+msgstr ""
+
+msgid "If enabled, products will be created on Chargily Pay upon checkout."
+msgstr ""
+
+msgid "General"
+msgstr ""
+
+msgid ""
+"Activate or deactivate Chargily Pay on your store, input your API keys, and "
+"activate test mode to simulate purchases without real money."
+msgstr ""
+
+msgid "Find out where to find your API keys"
+msgstr ""
+
+msgid "Learn more about Test and Live modes"
+msgstr ""
+
+msgid "Get support"
+msgstr ""
+
+msgid "Chargily Pay™ Settings"
+msgstr ""
+
+msgid ""
+"Thank you for your order, please click the button below to pay with Chargily."
+msgstr ""
+
+msgid "Awaiting Chargily payment"
+msgstr ""
+
+msgid "An error occurred while processing your payment. Please try again."
+msgstr ""
+
+msgid "Payment successfully received from Chargily."
+msgstr ""
+
+msgid "Payment has been cancelled."
+msgstr ""
+
+msgid "Payment has been failed."
+msgstr ""
+
+msgid "Received unknown payment status from Chargily: %s"
+msgstr ""
+
+msgid ""
+"Just one more step to complete the setup of Chargily Pay™ and begin "
+"accepting payments."
+msgstr ""
+
+msgid "Enter your API keys."
+msgstr ""
+
+msgid "Chargily Pay™: Test Mode is enabled."
+msgstr ""
+
+msgid "Change status to expired"
+msgstr ""
+
+msgid "Expired"
+msgstr ""
+
+msgid "Order status"
+msgstr ""
+
+msgid "Correct API keys."
+msgstr ""
+
+msgid "Wrong API keys."
+msgstr ""
+
+msgid "Unknown response, try later"
+msgstr ""
+
+msgid "Error, duplicate 1: EDAHABIA"
+msgstr ""
+
+msgid "CIB"
+msgstr ""
