@@ -19,7 +19,7 @@ const labels = {
          "You are in Live Mode but your Live API keys are missing.",
    },
    ar: {
-      chargilyPay: "شارجيلي باي (الذهبية  CIB) ",
+      chargilyPay: "شارجيلي باي (الذهبية / CIB) ",
       description: "ادفع باستخدام بطاقتك الذهبيالبنكية CIB",
       edahabia: "الذهبية",
       cib: "البنكية CIB",
