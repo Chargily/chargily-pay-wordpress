@@ -1,341 +1,356 @@
-            .Chargily-container {
-                /*display: flex;*/
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                /*width: 100vw;
+.Chargily-container {
+	/*display: flex;*/
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	/*width: 100vw;
                 height: 100vh;*/
-            }
+}
 
-            [type="radio"]  {
-                z-index: -1;
-                position: absolute;
-                opacity: 0;
-            }
+span#radio-control-wc-payment-method-options-chargily_pay__label {
+	gap: 10px;
+}
 
-            [type="radio"]:checked ~ label.Chargily {
-		    cursor: pointer;
-		    border-color: #16a34a;
-		    background-color: #16a34a2b;
-		    color: #000;
-            }
+[type="radio"] {
+	z-index: -1;
+	position: absolute;
+	opacity: 0;
+}
 
-            [type="radio"]:checked ~ label.Chargily:before {
-                will-change: transform, border-width, border-color;
-                -webkit-animation: bubble 1s ease-in;
-                animation: bubble 1s ease-in;
-            }
+[type="radio"]:checked~label.Chargily {
+	cursor: pointer;
+	border-color: #16a34a;
+	background-color: #16a34a2b;
+	color: #000;
+}
 
-            [type="radio"]:checked ~ label.Chargily:after {
-                will-change: opacity, box-shadow;
-                -webkit-animation: sparkles 700ms ease-in-out;
-                animation: sparkles 700ms ease-in-out;
-            }
+[type="radio"]:checked~label.Chargily:before {
+	will-change: transform, border-width, border-color;
+	-webkit-animation: bubble 1s ease-in;
+	animation: bubble 1s ease-in;
+}
 
-            [type="radio"]:checked ~ label.Chargily > span {
-                will-change: transform;
-                border: 0;
-                background-image: linear-gradient(to top right, #16a34a, #16a34a);
-                -webkit-animation: radio 400ms cubic-bezier(0.17, 0.89, 0.32, 1.49);
-                animation: radio 400ms cubic-bezier(0.17, 0.89, 0.32, 1.49);
-            }
+[type="radio"]:checked~label.Chargily:after {
+	will-change: opacity, box-shadow;
+	-webkit-animation: sparkles 700ms ease-in-out;
+	animation: sparkles 700ms ease-in-out;
+}
 
-            [type="radio"]:checked ~ label.Chargily > span:after {
-                content: "";
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 6px;
-                height: 6px;
-                border-radius: 10px;
-                background-color: #fff;
-            }
+[type="radio"]:checked~label.Chargily>span {
+	will-change: transform;
+	border: 0;
+	background-image: linear-gradient(to top right, #16a34a, #16a34a);
+	-webkit-animation: radio 400ms cubic-bezier(0.17, 0.89, 0.32, 1.49);
+	animation: radio 400ms cubic-bezier(0.17, 0.89, 0.32, 1.49);
+}
 
-            [type="radio"]:checked ~ label.Chargily .card {
-                will-change: box-shadow;
-                -webkit-animation: card 500ms ease-in-out forwards;
-                animation: card 500ms ease-in-out forwards;
-            }
+[type="radio"]:checked~label.Chargily>span:after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 6px;
+	height: 6px;
+	border-radius: 10px;
+	background-color: #fff;
+}
 
-            [type="radio"]:checked ~ label.Chargily .card:after {
-                will-change: transform;
-                -webkit-animation: shine 500ms ease-in forwards;
-                animation: shine 500ms ease-in forwards;
-                -webkit-animation-delay: 100ms;
-                animation-delay: 100ms;
-            }
+[type="radio"]:checked~label.Chargily .card {
+	will-change: box-shadow;
+	-webkit-animation: card 500ms ease-in-out forwards;
+	animation: card 500ms ease-in-out forwards;
+}
 
-            label.Chargily {
-                position: relative;
-                display: grid;
-                align-items: center;
-                grid-template-columns: 20px auto 100px;
-                grid-gap: 20px;
-                width: 100% ;
-                height: 62px;
-                padding: 0 20px;
-                border-radius: 6px;
-                border: 2px solid transparent;
-                background-color: transparent;
-                transition: all 300ms ease-in;
-        				justify-content: space-between;
-        				align-items: center;
-        				justify-items: end;
-            }
+[type="radio"]:checked~label.Chargily .card:after {
+	will-change: transform;
+	-webkit-animation: shine 500ms ease-in forwards;
+	animation: shine 500ms ease-in forwards;
+	-webkit-animation-delay: 100ms;
+	animation-delay: 100ms;
+}
 
-            label.Chargily:hover {
-        				border-color: #16a34a;
-        				background-color: #16a34a2b;
-        				color: #000;
-            }
+label.Chargily {
+	position: relative;
+	display: grid;
+	align-items: center;
+	grid-template-columns: 20px auto 100px;
+	grid-gap: 20px;
+	width: 100%;
+	height: 62px;
+	padding: 0 20px;
+	border-radius: 6px;
+	border: 2px solid transparent;
+	background-color: transparent;
+	transition: all 300ms ease-in;
+	justify-content: space-between;
+	align-items: center;
+	justify-items: end;
+}
 
-            label.Chargily:before, label:after {
-                position: absolute;
-                left: 29px;
-                border-radius: 50%;
-                content: '';
-            }
+label.Chargily:hover {
+	border-color: #16a34a;
+	background-color: #16a34a2b;
+	color: #000;
+}
 
-            label.Chargily:before {
-                margin: -2rem;
-                border: solid 2rem #545461;
-                width: 4rem;
-                height: 4rem;
-                transform: scale(0);
-            }
+label.Chargily:before,
+label:after {
+	position: absolute;
+	left: 29px;
+	border-radius: 50%;
+	content: '';
+}
 
-            label.Chargily:after {
-                margin: -0.1875rem;
-                width: 0.375rem;
-                height: 0.375rem;
-                box-shadow: 0.32476rem -2.6875rem 0 -0.1875rem #ff8080, -0.32476rem -2.3125rem 0 -0.1875rem #ffed80, 2.30366rem -1.42172rem 0 -0.1875rem #ffed80, 1.6055rem -1.69573rem 0 -0.1875rem #a4ff80, 2.54785rem 0.91464rem 0 -0.1875rem #a4ff80, 2.32679rem 0.19796rem 0 -0.1875rem #80ffc8, 0.87346rem 2.56226rem 0 -0.1875rem #80ffc8, 1.29595rem 1.94258rem 0 -0.1875rem #80c8ff, -1.45866rem 2.28045rem 0 -0.1875rem #80c8ff, -0.71076rem 2.2244rem 0 -0.1875rem #a480ff, -2.69238rem 0.28141rem 0 -0.1875rem #a480ff, -2.18226rem 0.8312rem 0 -0.1875rem #ff80ed, -1.89869rem -1.92954rem 0 -0.1875rem #ff80ed, -2.01047rem -1.18791rem 0 -0.1875rem #ff8080;
-            }
+label.Chargily:before {
+	margin: -2rem;
+	border: solid 2rem #545461;
+	width: 4rem;
+	height: 4rem;
+	transform: scale(0);
+}
 
-            label.Chargily > span {
-                position: relative;
-                display: inline-flex;
-                width: 20px;
-                height: 20px;
-                border-radius: 20px;
-                border: 2px solid #454861;
-                background-image: linear-gradient(to bottom, #3B4059, #1C1E2D);
-            }
+label.Chargily:after {
+	margin: -0.1875rem;
+	width: 0.375rem;
+	height: 0.375rem;
+	box-shadow: 0.32476rem -2.6875rem 0 -0.1875rem #ff8080, -0.32476rem -2.3125rem 0 -0.1875rem #ffed80, 2.30366rem -1.42172rem 0 -0.1875rem #ffed80, 1.6055rem -1.69573rem 0 -0.1875rem #a4ff80, 2.54785rem 0.91464rem 0 -0.1875rem #a4ff80, 2.32679rem 0.19796rem 0 -0.1875rem #80ffc8, 0.87346rem 2.56226rem 0 -0.1875rem #80ffc8, 1.29595rem 1.94258rem 0 -0.1875rem #80c8ff, -1.45866rem 2.28045rem 0 -0.1875rem #80c8ff, -0.71076rem 2.2244rem 0 -0.1875rem #a480ff, -2.69238rem 0.28141rem 0 -0.1875rem #a480ff, -2.18226rem 0.8312rem 0 -0.1875rem #ff80ed, -1.89869rem -1.92954rem 0 -0.1875rem #ff80ed, -2.01047rem -1.18791rem 0 -0.1875rem #ff8080;
+}
 
-            .card {
-                position: relative;
-                width: 243px;
-                height: 152px;
-                padding: 22px 24px;
-                border-radius: 16px;
-                box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.25);
-                background-image: linear-gradient(45deg, #FFF, #CDCDCD);
-                overflow: hidden;
-            }
+label.Chargily>span {
+	position: relative;
+	display: inline-flex;
+	width: 20px;
+	height: 20px;
+	border-radius: 20px;
+	border: 2px solid #454861;
+	background-image: linear-gradient(to bottom, #3B4059, #1C1E2D);
+}
 
-            .card:before {
-                content: "";
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-	 			        background: url('/wp-content/plugins/chargily-epay-gateway/assets/img/ch-card.png') no-repeat;
-            }
+.card {
+	position: relative;
+	width: 243px;
+	height: 152px;
+	padding: 22px 24px;
+	border-radius: 16px;
+	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.25);
+	background-image: linear-gradient(45deg, #FFF, #CDCDCD);
+	overflow: hidden;
+}
 
-            .card:after {
-                content: "";
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                width: 40px;
-                transform: translateX(-70px);
-                background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
-            }
+.card:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: url('/wp-content/plugins/chargily-epay-gateway/assets/img/ch-card.png') no-repeat;
+}
 
-            .card--blue {
-                background-image: linear-gradient(45deg, #748DFB, #3859E8);
-            }
+.card:after {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 40px;
+	transform: translateX(-70px);
+	background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+}
 
-            .card--dark {
-                background-image: linear-gradient(45deg, #616161, #484848);
-            }
+.card--blue {
+	background-image: linear-gradient(45deg, #748DFB, #3859E8);
+}
 
-            .card--sm {
-                position: absolute;
-                right: -76px;
-                transform: scale(0.24);
-            }
+.card--dark {
+	background-image: linear-gradient(45deg, #616161, #484848);
+}
 
-            .card__chip {
-                width: 39px;
-                height: 28px;
-                border-radius: 7px;
-                border: 1px solid rgba(102, 84, 50, 0.5);
-                box-shadow: inset 1px 1px 0px rgba(179, 146, 86, 0.5);
-                background-image: linear-gradient(90deg, #D0A963, #FFE6BA);
-            }
+.card--sm {
+	position: absolute;
+	right: -76px;
+	transform: scale(0.24);
+}
 
-            .card__content {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 46px;
-            }
+.card__chip {
+	width: 39px;
+	height: 28px;
+	border-radius: 7px;
+	border: 1px solid rgba(102, 84, 50, 0.5);
+	box-shadow: inset 1px 1px 0px rgba(179, 146, 86, 0.5);
+	background-image: linear-gradient(90deg, #D0A963, #FFE6BA);
+}
 
-            .card__symbol {
-                display: flex;
-            }
+.card__content {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 46px;
+}
 
-            .card__symbol span {
-                display: block;
-                width: 30px;
-                height: 30px;
-                border-radius: 30px;
-                background-color: #FB4646;
-            }
+.card__symbol {
+	display: flex;
+}
 
-            .card__symbol span:last-child {
-                background-color: rgba(255, 163, 55, 0.75);
-                margin-left: -13px;
-            }
+.card__symbol span {
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 30px;
+	background-color: #FB4646;
+}
 
-            .text__row {
-                display: grid;
-                grid-template-columns: 54px 64px;
-                grid-gap: 6px;
-            }
+.card__symbol span:last-child {
+	background-color: rgba(255, 163, 55, 0.75);
+	margin-left: -13px;
+}
 
-            .text__row:last-of-type {
-                grid-template-columns: 45px 54px;
-                margin-top: 7px;
-            }
+.text__row {
+	display: grid;
+	grid-template-columns: 54px 64px;
+	grid-gap: 6px;
+}
 
-            .text__loader {
-                height: 13px;
-                border-radius: 2px;
-                background-color: rgba(0, 0, 0, 0.4);
-            }
+.text__row:last-of-type {
+	grid-template-columns: 45px 54px;
+	margin-top: 7px;
+}
 
-            .Chargily-option:not(:last-child) {
-                margin-bottom: 4px;
-            }
+.text__loader {
+	height: 13px;
+	border-radius: 2px;
+	background-color: rgba(0, 0, 0, 0.4);
+}
 
-            @-webkit-keyframes radio {
-                0%, 17.5% {
-                    transform: scale(0);
-                }
-            }
+.Chargily-option:not(:last-child) {
+	margin-bottom: 4px;
+}
 
-            @keyframes radio {
-                0%, 17.5% {
-                    transform: scale(0);
-                }
-            }
+@-webkit-keyframes radio {
 
-            @-webkit-keyframes card {
-                0% {
-                    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.25);
-                    transform: scale(0.24);
-                }
+	0%,
+	17.5% {
+		transform: scale(0);
+	}
+}
 
-                45% {
-                    box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.5);
-                    transform: scale(0.25);
-                }
+@keyframes radio {
 
-                100% {
-                    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
-                    transform: scale(0.24);
-                }
-            }
+	0%,
+	17.5% {
+		transform: scale(0);
+	}
+}
 
-            @keyframes card {
-                0% {
-                    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.25);
-                    transform: scale(0.24);
-                }
+@-webkit-keyframes card {
+	0% {
+		box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.25);
+		transform: scale(0.24);
+	}
 
-                45% {
-                    box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.5);
-                    transform: scale(0.25);
-                }
+	45% {
+		box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.5);
+		transform: scale(0.25);
+	}
 
-                100% {
-                    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
-                    transform: scale(0.24);
-                }
-            }
+	100% {
+		box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
+		transform: scale(0.24);
+	}
+}
 
-            @-webkit-keyframes shine {
-                from {
-                    transform: translateX(-70px) rotate(10deg);
-                }
+@keyframes card {
+	0% {
+		box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.25);
+		transform: scale(0.24);
+	}
 
-                to {
-                    transform: translateX(300px) rotate(10deg);
-                }
-            }
+	45% {
+		box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.5);
+		transform: scale(0.25);
+	}
 
-            @keyframes shine {
-                from {
-                    transform: translateX(-70px) rotate(10deg);
-                }
+	100% {
+		box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
+		transform: scale(0.24);
+	}
+}
 
-                to {
-                    transform: translateX(300px) rotate(10deg);
-                }
-            }
+@-webkit-keyframes shine {
+	from {
+		transform: translateX(-70px) rotate(10deg);
+	}
 
-            @-webkit-keyframes bubble {
-                15% {
-                    transform: scale(1);
-                    border-color: #545461;
-                    border-width: 2rem;
-                }
+	to {
+		transform: translateX(300px) rotate(10deg);
+	}
+}
 
-                30%, 100% {
-                    transform: scale(1);
-                    border-color: #545461;
-                    border-width: 0;
-                }
-            }
+@keyframes shine {
+	from {
+		transform: translateX(-70px) rotate(10deg);
+	}
 
-            @keyframes bubble {
-                15% {
-                    transform: scale(1);
-                    border-color: #545461;
-                    border-width: 2rem;
-                }
+	to {
+		transform: translateX(300px) rotate(10deg);
+	}
+}
 
-                30%, 100% {
-                    transform: scale(1);
-                    border-color: #545461;
-                    border-width: 0;
-                }
-            }
+@-webkit-keyframes bubble {
+	15% {
+		transform: scale(1);
+		border-color: #545461;
+		border-width: 2rem;
+	}
 
-            @-webkit-keyframes sparkles {
-                0%, 10% {
-                    opacity: 0;
-                    transform: scale(0);
-                }
+	30%,
+	100% {
+		transform: scale(1);
+		border-color: #545461;
+		border-width: 0;
+	}
+}
 
-                15% {
-                    opacity: 1;
-                    transform: scale(1.2) rotate(-20deg);
-                    box-shadow: 0.32476rem -2.1875rem 0 0rem #ff8080, -0.32476rem -1.8125rem 0 0rem #ffed80, 1.91274rem -1.10998rem 0 0rem #ffed80, 1.21459rem -1.38398rem 0 0rem #a4ff80, 2.06039rem 0.80338rem 0 0rem #a4ff80, 1.83932rem 0.0867rem 0 0rem #80ffc8, 0.65652rem 2.11178rem 0 0rem #80ffc8, 1.07901rem 1.4921rem 0 0rem #80c8ff, -1.24172rem 1.82996rem 0 0rem #80c8ff, -0.49382rem 1.77391rem 0 0rem #a480ff, -2.20492rem 0.17015rem 0 0rem #a480ff, -1.69479rem 0.71994rem 0 0rem #ff80ed, -1.50777rem -1.61779rem 0 0rem #ff80ed, -1.61955rem -0.87617rem 0 0rem #ff8080;
-                }
-            }
+@keyframes bubble {
+	15% {
+		transform: scale(1);
+		border-color: #545461;
+		border-width: 2rem;
+	}
 
-            @keyframes sparkles {
-                0%, 10% {
-                    opacity: 0;
-                    transform: scale(0);
-                }
+	30%,
+	100% {
+		transform: scale(1);
+		border-color: #545461;
+		border-width: 0;
+	}
+}
 
-                15% {
-                    opacity: 1;
-                    transform: scale(1.2) rotate(-20deg);
-                    box-shadow: 0.32476rem -2.1875rem 0 0rem #ff8080, -0.32476rem -1.8125rem 0 0rem #ffed80, 1.91274rem -1.10998rem 0 0rem #ffed80, 1.21459rem -1.38398rem 0 0rem #a4ff80, 2.06039rem 0.80338rem 0 0rem #a4ff80, 1.83932rem 0.0867rem 0 0rem #80ffc8, 0.65652rem 2.11178rem 0 0rem #80ffc8, 1.07901rem 1.4921rem 0 0rem #80c8ff, -1.24172rem 1.82996rem 0 0rem #80c8ff, -0.49382rem 1.77391rem 0 0rem #a480ff, -2.20492rem 0.17015rem 0 0rem #a480ff, -1.69479rem 0.71994rem 0 0rem #ff80ed, -1.50777rem -1.61779rem 0 0rem #ff80ed, -1.61955rem -0.87617rem 0 0rem #ff8080;
-                }
-            }
+@-webkit-keyframes sparkles {
+
+	0%,
+	10% {
+		opacity: 0;
+		transform: scale(0);
+	}
+
+	15% {
+		opacity: 1;
+		transform: scale(1.2) rotate(-20deg);
+		box-shadow: 0.32476rem -2.1875rem 0 0rem #ff8080, -0.32476rem -1.8125rem 0 0rem #ffed80, 1.91274rem -1.10998rem 0 0rem #ffed80, 1.21459rem -1.38398rem 0 0rem #a4ff80, 2.06039rem 0.80338rem 0 0rem #a4ff80, 1.83932rem 0.0867rem 0 0rem #80ffc8, 0.65652rem 2.11178rem 0 0rem #80ffc8, 1.07901rem 1.4921rem 0 0rem #80c8ff, -1.24172rem 1.82996rem 0 0rem #80c8ff, -0.49382rem 1.77391rem 0 0rem #a480ff, -2.20492rem 0.17015rem 0 0rem #a480ff, -1.69479rem 0.71994rem 0 0rem #ff80ed, -1.50777rem -1.61779rem 0 0rem #ff80ed, -1.61955rem -0.87617rem 0 0rem #ff8080;
+	}
+}
+
+@keyframes sparkles {
+
+	0%,
+	10% {
+		opacity: 0;
+		transform: scale(0);
+	}
+
+	15% {
+		opacity: 1;
+		transform: scale(1.2) rotate(-20deg);
+		box-shadow: 0.32476rem -2.1875rem 0 0rem #ff8080, -0.32476rem -1.8125rem 0 0rem #ffed80, 1.91274rem -1.10998rem 0 0rem #ffed80, 1.21459rem -1.38398rem 0 0rem #a4ff80, 2.06039rem 0.80338rem 0 0rem #a4ff80, 1.83932rem 0.0867rem 0 0rem #80ffc8, 0.65652rem 2.11178rem 0 0rem #80ffc8, 1.07901rem 1.4921rem 0 0rem #80c8ff, -1.24172rem 1.82996rem 0 0rem #80c8ff, -0.49382rem 1.77391rem 0 0rem #a480ff, -2.20492rem 0.17015rem 0 0rem #a480ff, -1.69479rem 0.71994rem 0 0rem #ff80ed, -1.50777rem -1.61779rem 0 0rem #ff80ed, -1.61955rem -0.87617rem 0 0rem #ff8080;
+	}
+}
