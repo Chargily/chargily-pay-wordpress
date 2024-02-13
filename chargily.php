@@ -78,3 +78,27 @@ function register_chargily_pay_blocks() {
         }
     );
 }
+
+function chargily_copy_language_files() {
+    $source_path = plugin_dir_path( __FILE__ ) . 'languages/';
+    $destination_path = WP_CONTENT_DIR . '/languages/plugins/';
+    if ( ! file_exists( $destination_path ) ) {
+        wp_mkdir_p( $destination_path );
+    }
+    $language_files = [
+        'chargily-woocommerce-gateway-ar.mo',
+        'chargily-woocommerce-gateway-ar.po',
+        'chargily-woocommerce-gateway-fr_FR.mo',
+        'chargily-woocommerce-gateway-fr_FR.po',
+    ];
+    foreach ( $language_files as $file ) {
+        $source_file = $source_path . $file;
+        $destination_file = $destination_path . $file;
+
+        if ( file_exists( $source_file ) ) {
+            copy( $source_file, $destination_file );
+        }
+    }
+}
+register_activation_hook( __FILE__, 'chargily_copy_language_files' );
+add_action( 'upgrader_process_complete', 'chargily_copy_language_files', 10, 2 );
