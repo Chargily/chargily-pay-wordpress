@@ -8,6 +8,7 @@ const labels = {
       edahabia: "EDAHABIA",
       cib: "CIB",
       Card: "Card",
+      bank: "", // dont add
       poweredBy: "provided by ",
       securePayment: "🔒 Secure E-Payment ",
 
@@ -22,8 +23,9 @@ const labels = {
       chargilyPay: "شارجيلي باي (الذهبية / CIB) ",
       description: "ادفع باستخدام بطاقتك الذهبيالبنكية CIB",
       edahabia: "الذهبية",
-      cib: "البنكية CIB",
-      Card: "البطاقة",
+      cib: " CIB ",
+      Card: " البطاقة",
+      bank: " البنكية", // add to fix
       poweredBy: "بواسطة ",
       securePayment: "🔒 بوابة دفع إلكتروني آمنة ",
 
@@ -40,6 +42,7 @@ const labels = {
       edahabia: "EDAHABIA",
       cib: "CIB",
       Card: "Card",
+      bank: "", // dont add
       poweredBy: "🔒 Propulsé par",
       securePayment: "Passerelle de paiement électronique sécurisée.",
 
@@ -196,7 +199,9 @@ const PaymentMethodContent = () => {
                         ),
                         createElement("p", { style: {} }, label.cib),
                         createElement("div", { style: { opacity: 0 } }, "-"),
-                        createElement("p", { style: {} }, label.Card)
+                        createElement("p", { style: {} }, label.Card),
+                        createElement("div", { style: { opacity: 0 } }, "-"),
+                        createElement("p", { style: {} }, label.bank)
                      ),
                      createElement("div", {
                         className: "Chargily-card-text",
@@ -218,6 +223,7 @@ const PaymentMethodContent = () => {
                   createElement(
                      "a",
                      {
+                        class: "chlogo",
                         href: "https://chargily.com/business/pay",
                         target: "_blank",
                         style: { color: "black" },
@@ -298,7 +304,9 @@ const PaymentMethodContent = () => {
                      createElement("div", { style: { opacity: 0 } }, "card :"),
                      createElement("p", { style: {} }, label.cib),
                      createElement("div", { style: { opacity: 0 } }, "-"),
-                     createElement("p", { style: {} }, label.Card)
+                     createElement("p", { style: {} }, label.Card),
+                     createElement("div", { style: { opacity: 0 } }, "-"),
+                     createElement("p", { style: {} }, label.bank)
                   ),
                   createElement("div", {
                      className: "Chargily-card-text",
@@ -320,6 +328,7 @@ const PaymentMethodContent = () => {
                createElement(
                   "a",
                   {
+                     class: "chlogo",
                      href: "https://chargily.com/business/pay",
                      target: "_blank",
                      style: { color: "black" },
