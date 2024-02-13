@@ -1,3 +1,7 @@
 label.Chargily:before, label:after {
     right: 29px;
 }
+
+a.chlogo {
+    padding-right: 10px;
+}
