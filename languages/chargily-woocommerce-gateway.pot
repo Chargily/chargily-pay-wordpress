@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chargily Pay™\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-09 19:44+0000\n"
+"POT-Creation-Date: 2024-02-13 20:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -33,9 +33,7 @@ msgstr ""
 msgid "https://epay.chargily.com/"
 msgstr ""
 
-msgid ""
-"Allow your customers to make payments using their Edahabia and CIB cards "
-"using Chargily Pay™ V2."
+msgid "Allow your customers to make payments using their Edahabia and CIB cards using Chargily Pay™ V2."
 msgstr ""
 
 msgid "Enable/Disable"
@@ -53,13 +51,13 @@ msgstr ""
 msgid "If enabled, you will use Chargily Pay in Test Mode."
 msgstr ""
 
-msgid "Test API Key"
+msgid "Test Public key"
 msgstr ""
 
 msgid "Enter your Chargily Test API key."
 msgstr ""
 
-msgid "Test API Secret"
+msgid "Test Secret key"
 msgstr ""
 
 msgid "Enter your Chargily Test API secret."
@@ -83,6 +81,7 @@ msgstr ""
 msgid "Enter your Chargily Live API secret."
 msgstr ""
 
+#: templates/method-v2/API-v2.php:104
 msgid "Title"
 msgstr ""
 
@@ -107,9 +106,7 @@ msgstr ""
 msgid "thank you, the product will come soon."
 msgstr ""
 
-msgid ""
-"Place the message you want to appear on the thank you page after completing "
-"the purchase of the product."
+msgid "Place the message you want to appear on the thank you page after completing the purchase of the product."
 msgstr ""
 
 msgid "Pass Fees To Customer"
@@ -124,9 +121,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-msgid ""
-"Activate or deactivate Chargily Pay on your store, input your API keys, and "
-"activate test mode to simulate purchases without real money."
+msgid "Activate or deactivate Chargily Pay on your store, input your API keys, and activate test mode to simulate purchases without real money."
 msgstr ""
 
 msgid "Find out where to find your API keys"
@@ -141,8 +136,7 @@ msgstr ""
 msgid "Chargily Pay™ Settings"
 msgstr ""
 
-msgid ""
-"Thank you for your order, please click the button below to pay with Chargily."
+msgid "Thank you for your order, please click the button below to pay with Chargily."
 msgstr ""
 
 msgid "Awaiting Chargily payment"
@@ -163,9 +157,7 @@ msgstr ""
 msgid "Received unknown payment status from Chargily: %s"
 msgstr ""
 
-msgid ""
-"Just one more step to complete the setup of Chargily Pay™ and begin "
-"accepting payments."
+msgid "Just one more step to complete the setup of Chargily Pay™ and begin accepting payments."
 msgstr ""
 
 msgid "Enter your API keys."
@@ -196,4 +188,16 @@ msgid "Error, duplicate 1: EDAHABIA"
 msgstr ""
 
 msgid "CIB"
+msgstr ""
+
+msgid "Create Products"
+msgstr ""
+
+msgid "If enabled, Chargily Pay fees will be paid by your customers."
+msgstr ""
+
+msgid "Chargily Pay™ (EDAHABIA/CIB)"
+msgstr ""
+
+msgid "Understand Test and Live modes"
 msgstr ""

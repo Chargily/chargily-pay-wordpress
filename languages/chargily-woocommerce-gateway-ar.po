@@ -83,6 +83,7 @@ msgstr "سر API الحي"
 msgid "Enter your Chargily Live API secret."
 msgstr "أدخل سر API الحي لـ Chargily."
 
+#: templates/method-v2/API-v2.php:104
 msgid "Title"
 msgstr "العنوان"
 
