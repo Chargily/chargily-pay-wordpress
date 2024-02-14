@@ -1,10 +1,7 @@
 .Chargily-container {
-	/*display: flex;*/
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	/*width: 100vw;
-                height: 100vh;*/
 }
 
 span#radio-control-wc-payment-method-options-chargily_pay__label {
@@ -71,6 +68,7 @@ span#radio-control-wc-payment-method-options-chargily_pay__label {
 }
 
 label.Chargily {
+	cursor: pointer;
 	position: relative;
 	display: grid;
 	align-items: center;
