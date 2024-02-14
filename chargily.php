@@ -1,10 +1,10 @@
 <?php
 /*
 *Plugin Name: Chargily Pay™
-*Plugin URI: https://epay.chargily.com/
+*Plugin URI: https://chargily.com/
 *Description: Accept CIB and EDAHABIA cards on your WooCommerce store.
 *Author: Chargily
-Author URI: https://epay.chargily.com/
+Author URI: https://chargily.com/
 *Version: 2.0.3
 *Text Domain: chargily-woocommerce-gateway
 *Domain Path: /languages
