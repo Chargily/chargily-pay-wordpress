@@ -16,187 +16,176 @@ msgstr ""
 "X-Domain: chargily-woocommerce-gateway"
 
 #. Description of the plugin
-msgid "Accept CIB and EDAHABIA cards on your WooCommerce store.."
-msgstr ""
-
-msgid "Activate or deactivate Chargily Pay on your store, input your API keys, and activate test mode to simulate purchases without real money."
-msgstr ""
-
 msgid "Allow your customers to make payments using their Edahabia and CIB cards using Chargily Pay™ V2."
-msgstr ""
+msgstr "Permettez à vos clients de faire des paiements en utilisant leurs cartes Edahabia et CIB en utilisant Chargily Pay™ V2."
 
 msgid "An error occurred while processing your payment. Please try again."
-msgstr ""
+msgstr "Une erreur s'est produite lors du traitement de votre paiement. Veuillez réessayer."
 
 msgid "Awaiting Chargily payment"
-msgstr ""
+msgstr "En attente de paiement Chargily"
 
 msgid "Change status to expired"
-msgstr ""
+msgstr "Changer le statut en expiré"
 
-#. Author of the plugin
 msgid "Chargily"
-msgstr ""
+msgstr "Chargily"
 
-#. Name of the plugin
 msgid "Chargily Pay™"
-msgstr ""
+msgstr "Chargily Pay™"
 
 msgid "Chargily Pay™ (EDAHABIA/CIB)"
-msgstr ""
+msgstr "Chargily Pay™ (EDAHABIA/CIB)"
 
 msgid "Chargily Pay™ Settings"
-msgstr ""
+msgstr "Paramètres de Chargily Pay™"
 
 msgid "Chargily Pay™: Test Mode is enabled."
-msgstr ""
+msgstr "Chargily Pay™: Le mode test est activé."
 
 msgid "Check API keys"
-msgstr ""
+msgstr "Vérifier les clés API"
 
 msgid "Check your API keys."
-msgstr ""
+msgstr "Vérifiez vos clés API."
 
 msgid "CIB"
-msgstr ""
+msgstr "CIB"
 
 msgid "Correct API keys."
-msgstr ""
+msgstr "Corriger les clés API."
 
 msgid "Create Products"
-msgstr ""
+msgstr "Créer des produits"
 
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 msgid "Enable Chargily Pay"
-msgstr ""
+msgstr "Activer Chargily Pay"
 
 msgid "Enable product creation on Chargily Pay."
-msgstr ""
+msgstr "Activer la création de produits sur Chargily Pay."
 
 msgid "Enable Test Mode"
-msgstr ""
+msgstr "Activer le mode test"
 
 msgid "Enable/Disable"
-msgstr ""
+msgstr "Activer/Désactiver"
 
 msgid "Enter your API keys."
-msgstr ""
+msgstr "Entrez vos clés API."
 
 msgid "Enter your Chargily Live API key."
-msgstr ""
+msgstr "Entrez votre clé API en direct de Chargily."
 
 msgid "Enter your Chargily Live API secret."
-msgstr ""
+msgstr "Entrez votre secret API en direct de Chargily."
 
 msgid "Enter your Chargily Test API key."
-msgstr ""
+msgstr "Entrez votre clé API de test Chargily."
 
 msgid "Enter your Chargily Test API secret."
-msgstr ""
+msgstr "Entrez votre secret API de test Chargily."
 
 msgid "Error, duplicate 1: EDAHABIA"
-msgstr ""
+msgstr "Erreur, doublon 1 : EDAHABIA"
 
 msgid "Expired"
-msgstr ""
+msgstr "Expiré"
 
 msgid "Find out where to find your API keys"
-msgstr ""
+msgstr "Découvrez où trouver vos clés API"
 
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 msgid "Get support"
-msgstr ""
+msgstr "Obtenir de l'aide"
 
-#. URI of the plugin
-#. Author URI of the plugin
 msgid "https://epay.chargily.com/"
-msgstr ""
+msgstr "https://epay.chargily.com/"
 
 msgid "If enabled, Chargily Pay fees will be paid by your customers."
-msgstr ""
+msgstr "Si activé, les frais de Chargily Pay seront payés par vos clients."
 
 msgid "If enabled, products will be created on Chargily Pay upon checkout."
-msgstr ""
+msgstr "Si activé, les produits seront créés sur Chargily Pay lors du paiement."
 
 msgid "If enabled, you will use Chargily Pay in Test Mode."
-msgstr ""
+msgstr "Si activé, vous utiliserez Chargily Pay en mode Test."
 
 msgid "Just one more step to complete the setup of Chargily Pay™ and begin accepting payments."
-msgstr ""
+msgstr "Il ne reste plus qu'une étape pour terminer la configuration de Chargily Pay™ et commencer à accepter les paiements."
 
 msgid "Learn more about Test and Live modes"
-msgstr ""
+msgstr "En savoir plus sur les modes Test et Live"
 
 msgid "Live API Key"
-msgstr ""
+msgstr "Clé API en direct"
 
 msgid "Live API Secret"
-msgstr ""
+msgstr "Secret API en direct"
 
 msgid "On the thanks page"
-msgstr ""
+msgstr "Sur la page de remerciements"
 
 msgid "Order status"
-msgstr ""
+msgstr "Statut de la commande"
 
 msgid "Pass Fees To Customer"
-msgstr ""
+msgstr "Transférer les frais au client"
 
 msgid "Pay by EDAHABIA/CIB Card"
-msgstr ""
+msgstr "Payer par carte EDAHABIA/CIB"
 
 msgid "Payment has been cancelled."
-msgstr ""
+msgstr "Le paiement a été annulé."
 
 msgid "Payment has been failed."
-msgstr ""
+msgstr "Le paiement a échoué."
 
 msgid "Payment successfully received from Chargily."
-msgstr ""
+msgstr "Paiement reçu avec succès de Chargily."
 
 msgid "Place the message you want to appear on the thank you page after completing the purchase of the product."
-msgstr ""
+msgstr "Placez le message que vous souhaitez voir apparaître sur la page de remerciements après l'achat du produit."
 
 msgid "Received unknown payment status from Chargily: %s"
-msgstr ""
+msgstr "Statut de paiement inconnu reçu de Chargily : %s"
 
 msgid "Test mode"
-msgstr ""
+msgstr "Mode test"
 
 msgid "Test Public key"
-msgstr ""
+msgstr "Clé publique de test"
 
 msgid "Test Secret key"
-msgstr ""
+msgstr "Clé secrète de test"
 
 msgid "Thank you for your order, please click the button below to pay with Chargily."
-msgstr ""
+msgstr "Merci pour votre commande, veuillez cliquer sur le bouton ci-dessous pour payer avec Chargily."
 
 msgid "thank you, the product will come soon."
-msgstr ""
+msgstr "merci, le produit arrivera bientôt."
 
 msgid "This controls the description which the user sees during checkout."
-msgstr ""
+msgstr "Ceci contrôle la description que l'utilisateur voit lors du paiement."
 
 msgid "This controls the title which the user sees during checkout."
-msgstr ""
+msgstr "Ceci contrôle le titre que l'utilisateur voit lors du paiement."
 
-#: templates/method-v2/API-v2.php:104
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 msgid "Understand Test and Live modes"
-msgstr ""
+msgstr "Comprendre les modes Test et Live"
 
 msgid "Unknown response, try later"
-msgstr ""
+msgstr "Réponse inconnue, essayez plus tard"
 
 msgid "Wrong API keys."
-msgstr ""
+msgstr "Mauvaises clés API."
 
 msgid "🔒 Secure e-payment gateway."
-msgstr ""
+msgstr "🔒 Passerelle de paiement électronique sécurisée."
