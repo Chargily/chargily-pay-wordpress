@@ -342,11 +342,10 @@ function wc_chargily_pay_init() {
 			return $secret_key;
 		}
 
-		
 		public function process_payment( $order_id ) {
 			$credentials = $this->get_api_credentials();
 			$order = wc_get_order( $order_id );
-			//$payment_method = isset($_POST['chargilyv2_payment_method']) ? wc_clean($_POST['chargilyv2_payment_method']) : 'EDAHABIA';
+			
 			if (isset($_COOKIE['chargily_payment_method'])) {
 				$selected_payment_method = isset($_COOKIE['chargily_payment_method']) ? wc_clean($_COOKIE['chargily_payment_method']) : 'EDAHABIA';
 				$payment_method = $selected_payment_method;
@@ -364,7 +363,7 @@ function wc_chargily_pay_init() {
 			
 			$encryption_key = $this->get_encryption_key();
 			$user_id = get_current_user_id();
-			$chargily_customers_id = null;
+			$chargily_customers_id = get_user_meta($user_id, 'chargily_customers_id', true);
 
 			function filter_empty_values($value) {
 			    if (is_array($value)) {
@@ -373,28 +372,28 @@ function wc_chargily_pay_init() {
 			    return ($value !== null && $value !== '');
 			}
 						
-			if ($user_id) {
-			    $chargily_customers_id = get_user_meta($user_id, 'chargily_customers_id', true);
-			    if (!$chargily_customers_id) {
-			        $user_data = array(
-			            "name" => $order->get_billing_first_name(),
-			            "email" => $order->get_billing_email(),
-			            "phone" => $order->get_billing_phone(),
-			            "address" => array(
-			                "country" => $order->get_billing_country(),
-			                "state" => $order->get_billing_state(),
-			                "address" => $order->get_billing_address_1()
-			            )
-			        );
-			
-			        $user_data = array_filter($user_data, 'filter_empty_values');
-			        $chargily_customers_id = $this->create_chargily_customer($user_data);
-			        if (is_wp_error($chargily_customers_id)) {
-			            wc_add_notice($chargily_customers_id->get_error_message(), 'error');
-			            return;
-			        }
-			        update_user_meta($user_id, 'chargily_customers_id', $chargily_customers_id);
-			    }
+			if ($user_id && $chargily_customers_id) {
+				if (!$this->customer_exists($chargily_customers_id, $user_id)) {
+					$user_data = array(
+						"name" => $order->get_billing_first_name(),
+						"email" => $order->get_billing_email(),
+						"phone" => $order->get_billing_phone(),
+						"address" => array(
+							"country" => $order->get_billing_country(),
+							"state" => $order->get_billing_state(),
+							"city" => $order->get_billing_city(),
+							"postcode" => $order->get_billing_postcode(),
+							"address_1" => $order->get_billing_address_1(),
+							"address_2" => $order->get_billing_address_2()
+						)
+					);
+					$chargily_customers_id = $this->create_chargily_customer($user_data, $user_id);
+					if (is_wp_error($chargily_customers_id)) {
+						wc_add_notice($chargily_customers_id->get_error_message(), 'error');
+						return;
+					}
+					update_user_meta($user_id, 'chargily_customers_id', $chargily_customers_id);
+				}
 			} else {
 			    if (isset($_COOKIE['chargily_customers_id'])) {
 			        $decrypted_customer_id = $this->decrypt($_COOKIE['chargily_customers_id'], $encryption_key);
@@ -528,13 +527,50 @@ function wc_chargily_pay_init() {
 			}
 		}
 
+	    
+		private function customer_exists( $customer_id, $user_id ) {
+			$credentials = $this->get_api_credentials();
+			$api_url = $this->get_option( 'test_mode' ) === 'yes'
+				? 'https://pay.chargily.net/test/api/v2/customers/' . $customer_id
+				: 'https://pay.chargily.net/api/v2/customers/' . $customer_id;
+
+			$headers = array(
+				'Authorization' => 'Bearer ' . $credentials['api_secret'],
+				'Content-Type'  => 'application/json',
+			);
+
+			$response = wp_remote_get( $api_url, array(
+				'headers'   => $headers,
+				'timeout'   => 45,
+				'sslverify' => false,
+			) );
+
+			if ( is_wp_error( $response ) ) {
+				return false;
+			}
+
+			$response_code = wp_remote_retrieve_response_code( $response );
+			if ($response_code == 200) {
+				return true; // Status code 200 means the customer exists.
+			} else if ($response_code >= 400 && $response_code <= 499) {
+				if ($user_id) {
+					delete_user_meta($user_id, 'chargily_customers_id');
+				}
+				return false;
+			}
+			return true;
+		}
+	    
 		
-		private function create_chargily_customer($user_data) {
+		private function create_chargily_customer($user_data, $user_id = null) {
+			$chargily_customers_id = isset($user_data['chargily_customers_id']) ? $user_data['chargily_customers_id'] : null;
+			if ($chargily_customers_id && !$this->customer_exists($chargily_customers_id, $user_id)) {
+		        	// The ID does not exist in the API and has been deleted from the database. You can now create a new user
+			}
 			$credentials = $this->get_api_credentials();
 			$api_url = $this->get_option( 'test_mode' ) === 'yes'
 				? 'https://pay.chargily.net/test/api/v2/customers'
 				: 'https://pay.chargily.net/api/v2/customers';
-
 			$headers = array(
 				'Authorization' => 'Bearer ' . $credentials['api_secret'],
 				'Content-Type'  => 'application/json',
@@ -556,7 +592,6 @@ function wc_chargily_pay_init() {
 			if ( isset( $body['id'] ) ) {
 				return $body['id'];
 			} else {
-				// تحليل الرد لاستخراج الأخطاء
 				$error_message = __('Failed to create customer in Chargily.', CHARGILY_TEXT_DOMAIN);
 				if (isset($body['message']) && isset($body['errors'])) {
 					$error_message = $body['message'] . "\n";
