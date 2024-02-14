@@ -366,53 +366,63 @@ function wc_chargily_pay_init() {
 			$user_id = get_current_user_id();
 			$chargily_customers_id = null;
 
-			if ($user_id) {
-				$chargily_customers_id = get_user_meta($user_id, 'chargily_customers_id', true);
-				if (!$chargily_customers_id) {
-					$user_data = array(
-						"name" => $order->get_billing_first_name(),
-						"email" => $order->get_billing_email(),
-						"phone" => $order->get_billing_phone(),
-						"address" => array(
-							"country" => $order->get_billing_country(),
-							"state" => $order->get_billing_state(),
-							"address" => $order->get_billing_address_1()
-						)
-					);
-					$chargily_customers_id = $this->create_chargily_customer($user_data);
-					if (is_wp_error($chargily_customers_id)) {
-						wc_add_notice( $chargily_customers_id->get_error_message(), 'error' );
-						return;
-					}
-					update_user_meta($user_id, 'chargily_customers_id', $chargily_customers_id);
-				}
-			} else {
-				if (isset($_COOKIE['chargily_customers_id'])) {
-					$decrypted_customer_id = $this->decrypt($_COOKIE['chargily_customers_id'], $encryption_key);
-					$chargily_customers_id = $decrypted_customer_id;
-				} else {
-					$user_data = array(
-						"name" => $order->get_billing_first_name(),
-						"email" => $order->get_billing_email(),
-						"phone" => $order->get_billing_phone(),
-						"address" => array(
-							"country" => $order->get_billing_country(),
-							"state" => $order->get_billing_state(),
-							"city" => $order->get_billing_city(),
-							"postcode" => $order->get_billing_postcode(),
-							"address_1" => $order->get_billing_address_1(),
-							"address_2" => $order->get_billing_address_2()
-						)
-					);
-
-					$chargily_customers_id = $this->create_chargily_customer($user_data);
-
-					if (!is_wp_error($chargily_customers_id)) {
-						$encrypted_customer_id = $this->encrypt($chargily_customers_id, $encryption_key);
-						setcookie('chargily_customers_id', $encrypted_customer_id, time() + (365 * 24 * 60 * 60), "/");
-					}
-				}
+			function filter_empty_values($value) {
+			    if (is_array($value)) {
+			        return array_filter($value, 'filter_empty_values');
+			    }
+			    return ($value !== null && $value !== '');
 			}
+						
+			if ($user_id) {
+			    $chargily_customers_id = get_user_meta($user_id, 'chargily_customers_id', true);
+			    if (!$chargily_customers_id) {
+			        $user_data = array(
+			            "name" => $order->get_billing_first_name(),
+			            "email" => $order->get_billing_email(),
+			            "phone" => $order->get_billing_phone(),
+			            "address" => array(
+			                "country" => $order->get_billing_country(),
+			                "state" => $order->get_billing_state(),
+			                "address" => $order->get_billing_address_1()
+			            )
+			        );
+			
+			        $user_data = array_filter($user_data, 'filter_empty_values');
+			        $chargily_customers_id = $this->create_chargily_customer($user_data);
+			        if (is_wp_error($chargily_customers_id)) {
+			            wc_add_notice($chargily_customers_id->get_error_message(), 'error');
+			            return;
+			        }
+			        update_user_meta($user_id, 'chargily_customers_id', $chargily_customers_id);
+			    }
+			} else {
+			    if (isset($_COOKIE['chargily_customers_id'])) {
+			        $decrypted_customer_id = $this->decrypt($_COOKIE['chargily_customers_id'], $encryption_key);
+			        $chargily_customers_id = $decrypted_customer_id;
+			    } else {
+			        $user_data = array(
+			            "name" => $order->get_billing_first_name(),
+			            "email" => $order->get_billing_email(),
+			            "phone" => $order->get_billing_phone(),
+			            "address" => array(
+			                "country" => $order->get_billing_country(),
+			                "state" => $order->get_billing_state(),
+			                "city" => $order->get_billing_city(),
+			                "postcode" => $order->get_billing_postcode(),
+			                "address_1" => $order->get_billing_address_1(),
+			                "address_2" => $order->get_billing_address_2()
+			            )
+			        );
+			        $user_data = array_filter($user_data, 'filter_empty_values');
+			        $chargily_customers_id = $this->create_chargily_customer($user_data);
+
+			        if (!is_wp_error($chargily_customers_id)) {
+			            $encrypted_customer_id = $this->encrypt($chargily_customers_id, $encryption_key);
+			            setcookie('chargily_customers_id', $encrypted_customer_id, time() + (365 * 24 * 60 * 60), "/");
+			        }
+			    }
+			}
+
 
 			$baseURL = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 			$webhookEndpoint = $baseURL . '/wp-content/plugins/chargily-pay/templates/method-v2/API-v2_webhook.php';
