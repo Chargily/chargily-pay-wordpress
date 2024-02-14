@@ -533,7 +533,7 @@ function wc_chargily_pay_init() {
 			$credentials = $this->get_api_credentials();
 			$api_url = $this->get_option( 'test_mode' ) === 'yes'
 				? 'https://pay.chargily.net/test/api/v2/customers'
-				: 'https://pay.chargily.net/api/api/v2/customers';
+				: 'https://pay.chargily.net/api/v2/customers';
 
 			$headers = array(
 				'Authorization' => 'Bearer ' . $credentials['api_secret'],
@@ -581,7 +581,7 @@ function wc_chargily_pay_init() {
 
 			$api_url = $this->get_option('test_mode') === 'yes'
 				? 'https://pay.chargily.net/test/api/v2/products'
-				: 'https://pay.chargily.net/api/api/v2/products';
+				: 'https://pay.chargily.net/api/v2/products';
 
 			$credentials = $this->get_api_credentials();
 
@@ -621,7 +621,7 @@ function wc_chargily_pay_init() {
 
 			$api_url = $this->get_option('test_mode') === 'yes'
 				? 'https://pay.chargily.net/test/api/v2/prices'
-				: 'https://pay.chargily.net/api/api/v2/prices';
+				: 'https://pay.chargily.net/api/v2/prices';
 
 			$credentials = $this->get_api_credentials();
 
@@ -656,7 +656,7 @@ function wc_chargily_pay_init() {
 			$credentials = $this->get_api_credentials();
 			$api_url = $this->get_option( 'test_mode' ) === 'yes'
 			? 'https://pay.chargily.net/test/api/v2/checkouts'
-			: 'https://pay.chargily.net/api/api/v2/checkouts';
+			: 'https://pay.chargily.net/api/v2/checkouts';
 	    
 			$headers = array(
 				'Authorization' => 'Bearer ' . $credentials['api_secret'],
@@ -807,7 +807,7 @@ function chargilyv2_admin_inline_scripts() {
 						});
 
 						function checkConnection(token, mode) {
-							var url = mode === 'test' ? 'https://pay.chargily.net/test/api/v2/balance' : 'https://pay.chargily.net/api/api/v2/balance';
+							var url = mode === 'test' ? 'https://pay.chargily.net/test/api/v2/balance' : 'https://pay.chargily.net/api/v2/balance';
 							$.ajax({
 								url: ajaxurl,
 								type: 'POST',
@@ -913,7 +913,7 @@ function check_chargily_connection_callback() {
 		if (current_user_can('administrator') || current_user_can('shop_manager')) {
 			$token = isset($_POST['token']) ? sanitize_text_field($_POST['token']) : '';
 			$mode = isset($_POST['mode']) ? sanitize_text_field($_POST['mode']) : 'test';
-			$url = $mode === 'test' ? 'https://pay.chargily.net/test/api/v2/balance' : 'https://pay.chargily.net/api/api/v2/balance';
+			$url = $mode === 'test' ? 'https://pay.chargily.net/test/api/v2/balance' : 'https://pay.chargily.net/api/v2/balance';
 
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $url);
