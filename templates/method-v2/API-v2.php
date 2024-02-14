@@ -489,7 +489,7 @@ function wc_chargily_pay_init() {
 			}
 
 
-			if ($chargily_customers_id) {
+			if (!empty($chargily_customers_id)) {
 				$payload['customer_id'] = $chargily_customers_id;
 			}
 
@@ -546,7 +546,17 @@ function wc_chargily_pay_init() {
 			if ( isset( $body['id'] ) ) {
 				return $body['id'];
 			} else {
-				return new WP_Error( 'chargily_customer_creation_failed', __( 'Failed to create customer in Chargily.', CHARGILY_TEXT_DOMAIN) );
+				// تحليل الرد لاستخراج الأخطاء
+				$error_message = __('Failed to create customer in Chargily.', CHARGILY_TEXT_DOMAIN);
+				if (isset($body['message']) && isset($body['errors'])) {
+					$error_message = $body['message'] . "\n";
+					foreach ($body['errors'] as $field => $messages) {
+						foreach ($messages as $msg) {
+							$error_message .= $field . ' : ' . $msg . "\n";
+						}
+					}
+				}
+				return new WP_Error('chargily_customer_creation_failed', $error_message);
 			}
 		}
 
