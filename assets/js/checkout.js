@@ -11,13 +11,10 @@ const labels = {
       bank: "", // dont add
       poweredBy: "provided by ",
       securePayment: "🔒 Secure E-Payment ",
-
       istestMode: "Test Mode is enabled.",
-      TestWarningMessage:
-         "You are in Test Mode but your Test API keys are missing.",
+      TestWarningMessage: "You are in Test Mode but your Test API keys are missing.",
       TestLinkTextWarningMessage: "Enter your Test API keys.",
-      LiveWarningMessage:
-         "You are in Live Mode but your Live API keys are missing.",
+      LiveWarningMessage: "You are in Live Mode but your Live API keys are missing.",
    },
    ar: {
       chargilyPay: "شارجيلي باي (الذهبية / CIB) ",
@@ -28,13 +25,10 @@ const labels = {
       bank: " البنكية", // add to fix
       poweredBy: "بواسطة ",
       securePayment: "🔒 بوابة دفع إلكتروني آمنة ",
-
       istestMode: "الTest Mode مفعل.",
-      TestWarningMessage:
-         "أنت في وضع التجربة ولكن مفاتيح الAPI لوضع التجربة الخاصة بك مفقودة.",
+      TestWarningMessage: "أنت في وضع التجربة ولكن مفاتيح الAPI لوضع التجربة الخاصة بك مفقودة.",
       TestLinkTextWarningMessage: "أدخل مفاتيح الAPI اللوضع التجربة الخاصة بك.",
-      LiveWarningMessage:
-         "أنت في وضع Live ولكن مفاتيح الAPI لوضع الLive الخاصه بك مفقودة.",
+      LiveWarningMessage: "أنت في وضع Live ولكن مفاتيح الAPI لوضع الLive الخاصه بك مفقودة.",
    },
    fr: {
       chargilyPay: "Chargily Pay™ (EDAHABIA/CIB) ",
@@ -45,13 +39,10 @@ const labels = {
       bank: "", // dont add
       poweredBy: "🔒 Propulsé par",
       securePayment: "Passerelle de paiement électronique sécurisée.",
-
       istestMode: "Le mode Test est activé.",
-      TestWarningMessage:
-         "Vous êtes en Mode Test mais vos clés API de Mode Test sont manquantes.",
+      TestWarningMessage: "Vous êtes en Mode Test mais vos clés API de Mode Test sont manquantes.",
       TestLinkTextWarningMessage: "Entrez vos clés API de Mode Test.",
-      LiveWarningMessage:
-         "Vous êtes en Mode Live mais vos clés API de Mode Live sont manquantes.",
+      LiveWarningMessage: "Vous êtes en Mode Live mais vos clés API de Mode Live sont manquantes.",
    },
 };
 
