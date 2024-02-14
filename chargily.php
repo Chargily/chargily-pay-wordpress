@@ -5,7 +5,7 @@
 *Description: Accept CIB and EDAHABIA cards on your WooCommerce store.
 *Author: Chargily
 Author URI: https://chargily.com/
-*Version: 2.0.4
+*Version: 2.0.5
 *Text Domain: chargily-woocommerce-gateway
 *Domain Path: /languages
 */
