@@ -196,5 +196,20 @@ msgstr "استجابة غير معروفة، حاول لاحقاً"
 msgid "Error, duplicate 1: EDAHABIA"
 msgstr "خطأ، تكرار 1: EDAHABIA"
 
-msgid "CIB"
+msgid "CIB Card"
 msgstr "البطاقة البنكية CIB"
+
+msgid "Confirmation status"
+msgstr "حالة التأكيد"
+
+msgid "completed"
+msgstr "مكتمل"
+
+msgid "on hold"
+msgstr "في الانتظار"
+
+msgid "processing"
+msgstr "قيد المعالجة"
+
+msgid "This status will be set when the payment succeeds."
+msgstr "سيتم تعيين هذه الحالة عند نجاح الدفع."
