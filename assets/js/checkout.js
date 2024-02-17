@@ -327,23 +327,3 @@ const ChargilyPay = {
    },
 };
 registerPaymentMethod(ChargilyPay);
-
-function tryToAddImage() {
-   var labelElement = document.getElementById(
-      "radio-control-wc-payment-method-options-chargily_pay__label"
-   );
-   if (labelElement && !imageAdded) {
-      clearInterval(tryInterval);
-      var imageElement = document.createElement("img");
-      var edahabiacardcib = `${window.location.origin}/wp-content/plugins/chargily-pay/assets/img/edahabia-card-cib.svg`;
-      imageElement.src = edahabiacardcib;
-      labelElement.appendChild(imageElement);
-      imageAdded = true;
-   }
-}
-
-var imageAdded = false;
-var tryInterval = setInterval(tryToAddImage, 200);
-setTimeout(function () {
-   clearInterval(tryInterval);
-}, 20000);
