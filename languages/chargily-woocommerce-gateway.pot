@@ -211,5 +211,8 @@ msgstr ""
 msgid "on hold"
 msgstr ""
 
+msgid "processing"
+msgstr ""
+
 msgid "This status will be set when the payment succeeds."
 msgstr ""
