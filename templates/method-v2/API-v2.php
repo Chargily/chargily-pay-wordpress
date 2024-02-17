@@ -17,7 +17,7 @@ function wc_chargily_pay_init() {
 
         public function __construct() {
             $this->id                 = 'chargily_pay';
-            $this->icon               = apply_filters('woocommerce_chargilyv2_icon', '/wp-content/plugins/chargily-pay/assets/img/edahabia-card-cib.svg');
+            $this->icon               = apply_filters('woocommerce_chargilyv2_icon', '');
             $this->has_fields         = false;
             $this->method_title       = __( 'Chargily Pay™', '' );
             $this->method_description = __( 'Allow your customers to make payments using their Edahabia and CIB cards using Chargily Pay™ V2.', '' );
