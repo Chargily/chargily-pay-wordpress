@@ -4,6 +4,14 @@
 	justify-content: center;
 }
 
+img.edahabiaCardImage {
+    margin-left: auto;
+}
+
+img.cibCardImage {
+    margin-left: auto;
+}
+
 span#radio-control-wc-payment-method-options-chargily_pay__label {
 	gap: 10px;
 }
@@ -68,9 +76,11 @@ span#radio-control-wc-payment-method-options-chargily_pay__label {
 }
 
 label.Chargily {
+	display: flex;
+	justify-content: space-between;
 	cursor: pointer;
 	position: relative;
-	display: grid;
+	/*display: grid;*/
 	align-items: center;
 	grid-template-columns: 20px auto 100px;
 	grid-gap: 20px;
