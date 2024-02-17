@@ -8,6 +8,7 @@ require_once($parse_uri[0] . 'wp-load.php');
 
 // Get the settings array from the WooCommerce settings
 $chargily_settings = get_option('woocommerce_chargily_pay_settings');
+$response_type = $chargily_settings['response_type'] ?? 'completed';
 
 // Check if the settings are available
 if (!empty($chargily_settings)) {
@@ -66,7 +67,7 @@ $data_array = json_decode($payload, true);
 /**
  * Function to update the order status based on webhook data
  */
-function update_order_status($data) {
+function update_order_status($data) {	
     // Check if metadata exists and contains order_id
     if (isset($data['data']['metadata']['order_id'])) {
         $order_id = $data['data']['metadata']['order_id'];
@@ -87,13 +88,15 @@ function update_order_status($data) {
     $order = wc_get_order($order_id);
 
     if ($order) {
+		$chargily_settings = get_option('woocommerce_chargily_pay_settings');
+        $response_type = $chargily_settings['response_type'] ?? 'completed';
         switch ($status) {
-            case 'paid':
+           case 'paid':
                 if ($order->has_status(array('pending', 'processing'))) {
-			$order->payment_complete();
-			$order->update_status('completed', __('Payment successfully received.', 'woocommerce'));
-			$order->save();
-		}
+                    $order->payment_complete();
+                    $order->update_status($response_type, __('Payment successfully received.', 'woocommerce'));
+                    $order->save();
+                }
                 break;
             case 'canceled':
                 if (!$order->has_status('cancelled')) {
@@ -133,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check if the data contains 'entity' and the value is 'event'
     if (isset($data_array['entity']) && $data_array['entity'] === 'event') {
-        update_order_status($data_array);
+        update_order_status($data_array, $response_type);
     }
 
     // Send a response back to acknowledge receipt of the webhook
