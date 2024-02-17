@@ -49,8 +49,8 @@ msgstr "Vérifier les clés API"
 msgid "Check your API keys."
 msgstr "Vérifiez vos clés API."
 
-msgid "CIB"
-msgstr "CIB"
+msgid "CIB Card"
+msgstr "CIB Card"
 
 msgid "Correct API keys."
 msgstr "Corriger les clés API."
@@ -189,3 +189,18 @@ msgstr "Mauvaises clés API."
 
 msgid "🔒 Secure e-payment gateway."
 msgstr "🔒 Passerelle de paiement électronique sécurisée."
+
+msgid "Confirmation status"
+msgstr "Statut de confirmation"
+
+msgid "completed"
+msgstr "complété"
+
+msgid "on hold"
+msgstr "en attente"
+
+msgid "processing"
+msgstr "traitement"
+
+msgid "This status will be set when the payment succeeds."
+msgstr "Ce statut sera défini une fois le paiement réussi."
