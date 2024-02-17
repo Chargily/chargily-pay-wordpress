@@ -235,20 +235,18 @@ function wc_chargily_pay_init() {
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked" onclick="updateCookieValue(this)">
 			
 			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily">
-			  <span style="display: flex; align-items: center;"> <div style="opacity: 0;">card :</div><p>' . __('EDAHABIA', CHARGILY_TEXT_DOMAIN) . '</p></span>
-			  
-			  <div class="Chargily-card-text" style=""></div>
-			  <img src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;"></img>
+			  <span style="display: flex; align-items: center;"></span>
+			  <div class="Chargily-card-text" style="">' . __('EDAHABIA', CHARGILY_TEXT_DOMAIN) . '</div>
+			  <img class="edahabiaCardImage" src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;"></img>
 			  </label>
 			</div>
 			
 			<div class="Chargily-option">
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB" onclick="updateCookieValue(this)">
 			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily">
-			  <span style="display: flex; align-items: center;"><div style="opacity: 0;">card :</div>
-			   <p style="margin-top: 1.59em;">CIB </p><div style="opacity: 0;">-</div><p> Card</p></span>
-			  <div class="Chargily-card-text" style=""></div>
-			  <img src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style=""></img>
+			  <span style="display: flex; align-items: center;"></span>
+			  <div class="Chargily-card-text" style="">CIB Card</div>
+			  <img class="cibCardImage" src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style=""></img>
 			  </label>
 			</div>
 			  
@@ -274,20 +272,19 @@ function wc_chargily_pay_init() {
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked" onclick="updateCookieValue(this)">
 			
 			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily">
-			  <span style="display: flex; align-items: center;"> <div style="opacity: 0;">card :</div><p>' . __('EDAHABIA', CHARGILY_TEXT_DOMAIN) . '</p></span>
+			  <span style="display: flex; align-items: center;"></span>
 			  
-			  <div class="Chargily-card-text" style=""></div>
-			  <img src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;"></img>
+			  <div class="Chargily-card-text" style="">' . __('EDAHABIA', CHARGILY_TEXT_DOMAIN) . '</div>
+			  <img class="edahabiaCardImage" src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;"></img>
 			  </label>
 			</div>
 			
 			<div class="Chargily-option">
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB" onclick="updateCookieValue(this)">
 			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily">
-			  <span style="display: flex; align-items: center;"><div style="opacity: 0;">card :</div>
-			   <p style="margin-top: 1.59em;">CIB </p><div style="opacity: 0;">-</div><p> Card</p></span>
-			  <div class="Chargily-card-text" style=""></div>
-			  <img src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style=""></img>
+			  <span style="display: flex; align-items: center;">/span>
+			  <div class="Chargily-card-text" style="">' . __('CIB Card', CHARGILY_TEXT_DOMAIN) . '</div>
+			  <img class="cibCardImage" src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style=""></img>
 			  </label>
 			</div>
 			  
