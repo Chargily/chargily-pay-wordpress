@@ -201,3 +201,15 @@ msgstr ""
 
 msgid "Understand Test and Live modes"
 msgstr ""
+
+msgid "Confirmation status"
+msgstr ""
+
+msgid "completed"
+msgstr ""
+
+msgid "on hold"
+msgstr ""
+
+msgid "This status will be set when the payment succeeds."
+msgstr ""
