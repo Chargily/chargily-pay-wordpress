@@ -5,3 +5,13 @@ label.Chargily:before, label:after {
 a.chlogo {
     padding-right: 10px;
 }
+
+img.edahabiaCardImage {
+    margin-right: auto;
+	margin-left: inherit;
+}
+
+img.cibCardImage {
+    margin-right: auto;
+	margin-left: inherit;
+}
