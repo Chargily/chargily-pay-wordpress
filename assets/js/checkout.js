@@ -6,9 +6,7 @@ const labels = {
       chargilyPay: "Chargily Pay™ (EDAHABIA/CIB) ",
       description: "Pay with your EDAHABIA/CIB card",
       edahabia: "EDAHABIA",
-      cib: "CIB",
-      Card: "Card",
-      bank: "", // dont add
+      cib: "CIB Card",
       poweredBy: "provided by ",
       securePayment: "🔒 Secure E-Payment ",
       istestMode: "Test Mode is enabled.",
@@ -20,9 +18,7 @@ const labels = {
       chargilyPay: "شارجيلي باي (الذهبية / CIB) ",
       description: "ادفع باستخدام بطاقتك الذهبيالبنكية CIB",
       edahabia: "الذهبية",
-      cib: " CIB ",
-      Card: " البطاقة",
-      bank: " البنكية", // add to fix
+      cib: "البطاقة البنكية Cib",
       poweredBy: "بواسطة ",
       securePayment: "🔒 بوابة دفع إلكتروني آمنة ",
       istestMode: "الTest Mode مفعل.",
@@ -34,9 +30,7 @@ const labels = {
       chargilyPay: "Chargily Pay™ (EDAHABIA/CIB) ",
       description: "Payez avec votre carte EDAHABIA/CIB",
       edahabia: "EDAHABIA",
-      cib: "CIB",
-      Card: "Card",
-      bank: "", // dont add
+      cib: "CIB Card",
       poweredBy: "🔒 Propulsé par",
       securePayment: "Passerelle de paiement électronique sécurisée.",
       istestMode: "Le mode Test est activé.",
@@ -121,7 +115,7 @@ const PaymentMethodContent = () => {
             return createElement(
                "div",
                { className: "" },
-               createElement("p", {}, label.istestMode),
+               createElement("div", {}, label.istestMode),
                createElement(
                   "div",
                   { className: "Chargily-option" },
@@ -140,25 +134,19 @@ const PaymentMethodContent = () => {
                         className: "Chargily",
                         "aria-label": label.edahabia,
                      },
-                     createElement(
-                        "span",
-                        { style: { display: "flex", alignItems: "center" } },
-                        createElement(
-                           "div",
-                           { style: { opacity: 0 } },
-                           "card :"
-                        ),
-                        createElement("p", {}, label.edahabia)
+                     createElement("span",{
+						 style: { display: "flex", alignItems: "center" } }
                      ),
                      createElement("div", {
                         className: "Chargily-card-text",
                         style: {},
                         bis_skin_checked: 1,
-                     }),
+                     }, label.edahabia),
                      createElement("img", {
+						 className: "edahabiaCardImage",
                         src: edahabiaCardImage,
                         alt: label.edahabia,
-                        style: { borderRadius: "4px" },
+                        style: { borderRadius: "4px", },
                      })
                   )
                ),
@@ -180,26 +168,16 @@ const PaymentMethodContent = () => {
                         className: "Chargily",
                         "aria-label": label.cib,
                      },
-                     createElement(
-                        "span",
-                        { style: { display: "flex", alignItems: "center" } },
-                        createElement(
-                           "div",
-                           { style: { opacity: 0 } },
-                           "card :"
-                        ),
-                        createElement("p", { style: {} }, label.cib),
-                        createElement("div", { style: { opacity: 0 } }, "-"),
-                        createElement("p", { style: {} }, label.Card),
-                        createElement("div", { style: { opacity: 0 } }, "-"),
-                        createElement("p", { style: {} }, label.bank)
+                     createElement("span",{
+						 style: { display: "flex", alignItems: "center" } }
                      ),
                      createElement("div", {
                         className: "Chargily-card-text",
                         style: {},
                         bis_skin_checked: 1,
-                     }),
+                     }, label.cib),
                      createElement("img", {
+						 className: "cibCardImage",
                         src: cibCardImage,
                         alt: label.cib,
                         style: {},
@@ -222,7 +200,7 @@ const PaymentMethodContent = () => {
                      createElement("img", {
                         src: chargilyLogo,
                         alt: "chargily",
-                        style: { height: "30px", marginBottom: "-7px" },
+                        style: { height: "30px"},
                      })
                   )
                )
@@ -247,29 +225,27 @@ const PaymentMethodContent = () => {
                   checked: paymentMethod === "EDAHABIA",
                }),
                createElement(
-                  "label",
-                  {
-                     htmlFor: "chargilyv2_edahabia",
-                     className: "Chargily",
-                     "aria-label": label.edahabia,
-                  },
-                  createElement(
-                     "span",
-                     { style: { display: "flex", alignItems: "center" } },
-                     createElement("div", { style: { opacity: 0 } }, "card :"),
-                     createElement("p", {}, label.edahabia)
-                  ),
-                  createElement("div", {
-                     className: "Chargily-card-text",
-                     style: {},
-                     bis_skin_checked: 1,
-                  }),
-                  createElement("img", {
-                     src: edahabiaCardImage,
-                     alt: label.edahabia,
-                     style: { borderRadius: "4px" },
-                  })
-               )
+                     "label",
+                     {
+                        htmlFor: "chargilyv2_edahabia",
+                        className: "Chargily",
+                        "aria-label": label.edahabia,
+                     },
+                     createElement("span",{
+						 style: { display: "flex", alignItems: "center" } }
+                     ),
+                     createElement("div", {
+                        className: "Chargily-card-text",
+                        style: {},
+                        bis_skin_checked: 1,
+                     }, label.edahabia),
+                     createElement("img", {
+						 className: "edahabiaCardImage",
+                        src: edahabiaCardImage,
+                        alt: label.edahabia,
+                        style: { borderRadius: "4px"},
+                     })
+                  )
             ),
             createElement(
                "div",
@@ -283,33 +259,27 @@ const PaymentMethodContent = () => {
                   checked: paymentMethod === "CIB",
                }),
                createElement(
-                  "label",
-                  {
-                     htmlFor: "chargilyv2_cib",
-                     className: "Chargily",
-                     "aria-label": label.cib,
-                  },
-                  createElement(
-                     "span",
-                     { style: { display: "flex", alignItems: "center" } },
-                     createElement("div", { style: { opacity: 0 } }, "card :"),
-                     createElement("p", { style: {} }, label.cib),
-                     createElement("div", { style: { opacity: 0 } }, "-"),
-                     createElement("p", { style: {} }, label.Card),
-                     createElement("div", { style: { opacity: 0 } }, "-"),
-                     createElement("p", { style: {} }, label.bank)
-                  ),
-                  createElement("div", {
-                     className: "Chargily-card-text",
-                     style: {},
-                     bis_skin_checked: 1,
-                  }),
-                  createElement("img", {
-                     src: cibCardImage,
-                     alt: label.cib,
-                     style: {},
-                  })
-               )
+                     "label",
+                     {
+                        htmlFor: "chargilyv2_cib",
+                        className: "Chargily",
+                        "aria-label": label.cib,
+                     },
+                     createElement("span",{
+						 style: { display: "flex", alignItems: "center" } }
+                     ),
+                     createElement("div", {
+                        className: "Chargily-card-text",
+                        style: {},
+                        bis_skin_checked: 1,
+                     }, label.cib),
+                     createElement("img", {
+						 className: "cibCardImage",
+                        src: cibCardImage,
+                        alt: label.cib,
+                        style: {},
+                     })
+                  )
             ),
             createElement(
                "p",
@@ -327,14 +297,14 @@ const PaymentMethodContent = () => {
                   createElement("img", {
                      src: chargilyLogo,
                      alt: "chargily",
-                     style: { height: "30px", marginBottom: "-7px" },
+                     style: { height: "30px" },
                   })
                )
             )
          );
       }
    };
-
+// marginBottom: "-7px"
    return createElement(
       "div",
       { className: "Chargily-container" },
