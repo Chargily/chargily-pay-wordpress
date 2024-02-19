@@ -213,3 +213,6 @@ msgstr "قيد المعالجة"
 
 msgid "This status will be set when the payment succeeds."
 msgstr "سيتم تعيين هذه الحالة عند نجاح الدفع."
+
+msgid "🔒 Secure E-Payment provided by"
+msgstr "🔒 بوابة دفع إلكتروني آمنة بواسطة"
