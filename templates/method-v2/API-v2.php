@@ -263,11 +263,13 @@ function wc_chargily_pay_init() {
 			</div>
 			  
 			<br>
-			<p> ' . __('🔒 Secure E-Payment provided by', CHARGILY_TEXT_DOMAIN) . '
-   			<a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;"> 
+			<div class="Chargily-logo-z" bis_skin_checked="1" style="display: flex;flex-wrap: nowrap;align-items: center;align-content: center;">
+			<p> ' . __('🔒 Secure E-Payment provided by', CHARGILY_TEXT_DOMAIN) . '</p>
+			<a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;"> 
 			<img src="/wp-content/plugins/chargily-pay/assets/img/logo.svg" alt="chargily" style="/*width:42px;height:42px;*/">
 			</a>
-			</p>
+			</div>
+   
 			';
 			}
 			} else {
@@ -302,11 +304,13 @@ function wc_chargily_pay_init() {
 			</div>
 			  
 			<br>
-			<p> ' . __('🔒 Secure E-Payment provided by', CHARGILY_TEXT_DOMAIN) . '
-   			<a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;"> 
+			<div class="Chargily-logo-z" bis_skin_checked="1" style="display: flex;flex-wrap: nowrap;align-items: center;align-content: center;">
+			<p> ' . __('🔒 Secure E-Payment provided by', CHARGILY_TEXT_DOMAIN) . '</p>
+			<a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;"> 
 			<img src="/wp-content/plugins/chargily-pay/assets/img/logo.svg" alt="chargily" style="/*width:42px;height:42px;*/">
 			</a>
-			</p>
+			</div>
+
 			';
 			}
 			}
