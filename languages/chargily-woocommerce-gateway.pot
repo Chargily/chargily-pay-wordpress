@@ -216,3 +216,6 @@ msgstr ""
 
 msgid "This status will be set when the payment succeeds."
 msgstr ""
+
+msgid "🔒 Secure E-Payment provided by"
+msgstr ""
