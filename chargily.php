@@ -5,8 +5,8 @@
 *Description: Accept CIB and EDAHABIA cards on your WooCommerce store.
 *Author: Chargily
 Author URI: https://chargily.com/
-*Version: 2.0.7
-*Text Domain: chargily-woocommerce-gateway
+*Version: 2.0.8
+*Text Domain: chargilytextdomain
 *Domain Path: /languages
 */
 
@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-if ( ! defined( 'CHARGILY_TEXT_DOMAIN' ) ) {
-    define( 'CHARGILY_TEXT_DOMAIN', 'chargily-woocommerce-gateway' );
+if ( ! defined( 'chargilytextdomain' ) ) {
+    define( 'chargilytextdomain', 'chargilytextdomain' );
 }
 
 function chargily_load_textdomain() {
-    load_plugin_textdomain( CHARGILY_TEXT_DOMAIN, false, basename( dirname( __FILE__ ) ) . '/languages/' );
+    load_plugin_textdomain( chargilytextdomain, false, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'chargily_load_textdomain' );
 
