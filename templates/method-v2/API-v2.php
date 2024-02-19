@@ -249,7 +249,7 @@ function wc_chargily_pay_init() {
 			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily">
 			  <span style="display: flex; align-items: center;"></span>
 			  <div class="Chargily-card-text" style="">' . __('EDAHABIA', CHARGILY_TEXT_DOMAIN) . '</div>
-			  <img class="edahabiaCardImage" src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;"></img>
+			  <img class="edahabiaCardImage" src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px; margin-inline-start: auto;"></img>
 			  </label>
 			</div>
 			
@@ -258,16 +258,17 @@ function wc_chargily_pay_init() {
 			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily">
 			  <span style="display: flex; align-items: center;"></span>
 			  <div class="Chargily-card-text" style="">CIB Card</div>
-			  <img class="cibCardImage" src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style=""></img>
+			  <img class="cibCardImage" src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style="margin-inline-start: auto;"></img>
 			  </label>
 			</div>
 			  
 			<br>
-			<a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;">
-			  Powered By
-			  <img src="/wp-content/plugins/chargily-pay/assets/img/logo.svg" alt="chargily" style="/*width:42px;height:42px;*/">
-			  </a>
-			   <p>' . __('🔒 Secure e-payment gateway.', CHARGILY_TEXT_DOMAIN) . '</p>';
+			<p> ' . __('🔒 Secure E-Payment provided by', CHARGILY_TEXT_DOMAIN) . '
+   			<a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;"> 
+			<img src="/wp-content/plugins/chargily-pay/assets/img/logo.svg" alt="chargily" style="/*width:42px;height:42px;*/">
+			</a>
+			</p>
+			';
 			}
 			} else {
 			    // We are in live mode
@@ -287,25 +288,26 @@ function wc_chargily_pay_init() {
 			  <span style="display: flex; align-items: center;"></span>
 			  
 			  <div class="Chargily-card-text" style="">' . __('EDAHABIA', CHARGILY_TEXT_DOMAIN) . '</div>
-			  <img class="edahabiaCardImage" src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;"></img>
+			  <img class="edahabiaCardImage" src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px; margin-inline-start: auto;"></img>
 			  </label>
 			</div>
 			
 			<div class="Chargily-option">
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB" onclick="updateCookieValue(this)">
 			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily">
-			  <span style="display: flex; align-items: center;">/span>
+			  <span style="display: flex; align-items: center;"></span>
 			  <div class="Chargily-card-text" style="">' . __('CIB Card', CHARGILY_TEXT_DOMAIN) . '</div>
-			  <img class="cibCardImage" src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style=""></img>
+			  <img class="cibCardImage" src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style="margin-inline-start: auto;"></img>
 			  </label>
 			</div>
 			  
 			<br>
-			<a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;">
-			  Powered By
-			  <img src="/wp-content/plugins/chargily-pay/assets/img/logo.svg" alt="chargily" style="/*width:42px;height:42px;*/">
-			  </a>
-			   <p>' . __('🔒 Secure e-payment gateway.', CHARGILY_TEXT_DOMAIN) . '</p>';
+			<p> ' . __('🔒 Secure E-Payment provided by', CHARGILY_TEXT_DOMAIN) . '
+   			<a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;"> 
+			<img src="/wp-content/plugins/chargily-pay/assets/img/logo.svg" alt="chargily" style="/*width:42px;height:42px;*/">
+			</a>
+			</p>
+			';
 			}
 			}
 			
