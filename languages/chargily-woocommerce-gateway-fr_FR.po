@@ -187,8 +187,6 @@ msgstr "Réponse inconnue, essayez plus tard"
 msgid "Wrong API keys."
 msgstr "Mauvaises clés API."
 
-msgid "🔒 Secure e-payment gateway."
-msgstr "🔒 Passerelle de paiement électronique sécurisée."
 
 msgid "Confirmation status"
 msgstr "Statut de confirmation"
@@ -204,3 +202,6 @@ msgstr "traitement"
 
 msgid "This status will be set when the payment succeeds."
 msgstr "Ce statut sera défini une fois le paiement réussi."
+
+msgid "🔒 Secure E-Payment provided by"
+msgstr "🔒 Passerelle de paiement électronique sécurisée Propulsé par"
