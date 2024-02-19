@@ -185,25 +185,27 @@ const PaymentMethodContent = () => {
                   )
                ),
                createElement(
-                  "p",
-                  { style: {} },
-                  label.securePayment,
-                  label.poweredBy,
-                  createElement(
-                     "a",
-                     {
-                        class: "chlogo",
-                        href: "https://chargily.com/business/pay",
-                        target: "_blank",
-                        style: { color: "black" },
-                     },
-                     createElement("img", {
-                        src: chargilyLogo,
-                        alt: "chargily",
-                        style: { height: "30px"},
-                     })
-                  )
+               "div",
+               {
+		className: "Chargily-logo-z",  
+		style: {display: "flex", flexWrap: "nowrap", alignItems: "center", alignContent: "center"} 
+	       },
+               createElement("p", {},  label.securePayment, label.poweredBy,),
+               createElement(
+                  "a",
+                  {
+                     className: "chlogo",
+                     href: "https://chargily.com/business/pay",
+                     target: "_blank",
+                     style: { color: "black" },
+                  },
+                  createElement("img", {
+                     src: chargilyLogo,
+                     alt: "chargily",
+                     style: { height: "30px" },
+                  })
                )
+            )
             );
          }
       } else {
@@ -282,14 +284,16 @@ const PaymentMethodContent = () => {
                   )
             ),
             createElement(
-               "p",
-               { style: {} },
-               label.securePayment,
-               label.poweredBy,
+               "div",
+               {
+		className: "Chargily-logo-z",  
+		style: {display: "flex", flexWrap: "nowrap", alignItems: "center", alignContent: "center"} 
+	       },
+               createElement("p", {},  label.securePayment, label.poweredBy,),
                createElement(
                   "a",
                   {
-                     class: "chlogo",
+                     className: "chlogo",
                      href: "https://chargily.com/business/pay",
                      target: "_blank",
                      style: { color: "black" },
