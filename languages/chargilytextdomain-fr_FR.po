@@ -17,31 +17,31 @@ msgstr ""
 
 #. Description of the plugin
 msgid "Accept CIB and EDAHABIA cards on your WooCommerce store."
-msgstr ""
+msgstr "Acceptez les paiements avec les cartes CIB et EDAHABIA sur votre boutique WooCommerce."
 
 #: templates/method-v2/API-v2.php:162
 msgid "Activate or deactivate Chargily Pay on your store, input your API keys, and activate test mode to simulate purchases without real money."
-msgstr ""
+msgstr "Activez ou désactivez Chargily Pay dans votre magasin, saisissez vos clés API et activez le mode test pour simuler des achats sans argent réel."
 
 #: templates/method-v2/API-v2.php:552
 msgid "An error occurred while processing your payment. Please try again."
-msgstr ""
+msgstr "Une erreur s'est produite lors du traitement de votre paiement. Veuillez réessayer."
 
 #: templates/method-v2/API-v2.php:543
 msgid "Awaiting Chargily payment"
-msgstr ""
+msgstr "En attente de paiement Chargily"
 
 #: templates/method-v2/API-v2.php:949
 msgid "Change status to expired"
-msgstr ""
+msgstr "Changer le statut en expiré"
 
 #. Author of the plugin
 msgid "Chargily"
-msgstr ""
+msgstr "Chargily"
 
 #. Name of the plugin
 msgid "Chargily Pay™"
-msgstr ""
+msgstr "Chargily Pay™"
 
 #: templates/method-v2/API-v2.php:107
 msgid "Chargily Pay™ (EDAHABIA/CIB)"
@@ -61,7 +61,7 @@ msgstr "Vérifier les clés API"
 
 #: templates/method-v2/API-v2.php:79 templates/method-v2/API-v2.php:100
 msgid "Check connection"
-msgstr ""
+msgstr "Vérifier la connexion"
 
 #: templates/method-v2/API-v2.php:78 templates/method-v2/API-v2.php:99
 msgid "Check your API keys."
@@ -129,30 +129,30 @@ msgstr "Entrez votre secret API de test Chargily."
 
 #: templates/method-v2/API-v2.php:281
 msgid "Enter your Live API keys."
-msgstr ""
+msgstr "Entrez vos clés API Live."
 
 #: templates/method-v2/API-v2.php:240
 msgid "Enter your Test API keys."
-msgstr ""
+msgstr "Entrez vos clés API de test."
 
 #: templates/method-v2/API-v2.php:931
 #, php-format
 msgid "Expired (%s)"
 msgid_plural "Expired (%s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Expiré (%s)"
+msgstr[1] "Expirés (%s)"
 
 #: templates/method-v2/API-v2.php:624
 msgid "Failed to create customer in Chargily."
-msgstr ""
+msgstr "Échec de la création du client dans Chargily Pay."
 
 #: templates/method-v2/API-v2.php:714
 msgid "Failed to create price in Chargily."
-msgstr ""
+msgstr "Échec de la création du prix dans Chargily Pay."
 
 #: templates/method-v2/API-v2.php:674
 msgid "Failed to create product in Chargily."
-msgstr ""
+msgstr "Échec de la création du produit dans Chargily Pay."
 
 #: templates/method-v2/API-v2.php:164
 msgid "Find out where to find your API keys"
@@ -191,11 +191,11 @@ msgstr "Il ne reste plus qu'une étape pour terminer la configuration de Chargil
 
 #: templates/method-v2/API-v2.php:83
 msgid "Live Public key"
-msgstr ""
+msgstr "Clé publique du mode Live"
 
 #: templates/method-v2/API-v2.php:90
 msgid "Live Secret key"
-msgstr ""
+msgstr "Clé secrète du mode Live"
 
 #: templates/method-v2/API-v2.php:144
 msgid "on hold"
@@ -207,12 +207,12 @@ msgstr "Sur la page de remerciements"
 
 #: templates/method-v2/API-v2.php:166 templates/method-v2/API-v2.php:173 templates/method-v2/API-v2.php:180
 msgid "opens in a new tab"
-msgstr ""
+msgstr "s'ouvre dans un nouvel onglet"
 
 #: templates/method-v2/API-v2.php:926 templates/method-v2/API-v2.php:941
 msgctxt "Order status"
 msgid "Expired"
-msgstr ""
+msgstr "Expiré"
 
 #: templates/method-v2/API-v2.php:126 templates/method-v2/API-v2.php:127
 msgid "Pass Fees To Customer"
@@ -268,15 +268,15 @@ msgstr "Comprendre les modes Test et Live"
 
 #: templates/method-v2/API-v2.php:280
 msgid "You are in Live Mode but your Live API keys are missing."
-msgstr ""
+msgstr "Vous êtes en mode Live mais vos clés API Live sont manquantes."
 
 #: templates/method-v2/API-v2.php:239
 msgid "You are in Test Mode but your Test API keys are missing."
-msgstr ""
+msgstr "Vous êtes en mode Test mais vos clés API Test sont manquantes."
 
 #: templates/method-v2/API-v2.php:114
 msgid "🔒 Secure e-payment gateway."
-msgstr ""
+msgstr "🔒 Passerelle de paiement électronique sécurisée."
 
 #: templates/method-v2/API-v2.php:267 templates/method-v2/API-v2.php:308
 msgid "🔒 Secure E-Payment provided by"
