@@ -34,12 +34,6 @@ function wc_chargily_gateway_plugin_action_links( $links ) {
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wc_chargily_gateway_plugin_action_links' );
 
-// Webhook For API V2
-function chargilyv2_add_rewrite_rule() {
-	add_rewrite_rule('^chargilyv2-webhook/?$', 'wp-content/plugins/chargily-pay/templates/method-v2/API-v2_webhook.php', 'top');
-}
-add_action('init', 'chargilyv2_add_rewrite_rule');
-
 add_action('wp_enqueue_scripts', 'chargily_css_loader_front');
 function chargily_css_loader_front() {
     if ( is_checkout() ) {
@@ -102,3 +96,9 @@ function chargily_copy_language_files() {
 }
 register_activation_hook( __FILE__, 'chargily_copy_language_files' );
 add_action( 'upgrader_process_complete', 'chargily_copy_language_files', 10, 2 );
+
+// Webhook For API V2
+function chargilyv2_add_rewrite_rule() {
+	add_rewrite_rule('^chargilyv2-webhook/?$', 'wp-content/plugins/chargily-pay/templates/method-v2/API-v2_webhook.php', 'top');
+}
+add_action('init', 'chargilyv2_add_rewrite_rule');
