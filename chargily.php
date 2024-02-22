@@ -2,8 +2,8 @@
 /*
 *Plugin Name: Chargily Pay™
 *Plugin URI: https://chargily.com/
-*Description: Accept CIB and EDAHABIA cards on your WooCommerce store.
-*Author: Chargily
+*Description: Accept payments using CIB and EDAHABIA cards on your WooCommerce store.
+*Author: Chargily Pay™
 Author URI: https://chargily.com/
 *Version: 2.0.9
 *Text Domain: chargilytextdomain
