@@ -69,7 +69,7 @@ $data_array = json_decode($payload, true);
  */
 function update_order_status($data) {	
     // Check if metadata exists and contains order_id
-    if (isset($data['data']['metadata']['order_id'])) {
+    if (isset($data['data']['metadata']['woocommerce_order_id'])) {
         $order_id = $data['data']['metadata']['woocommerce_order_id'];
     } else {
         // Handle error if order_id is not found
