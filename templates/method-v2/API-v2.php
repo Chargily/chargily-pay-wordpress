@@ -532,7 +532,7 @@ function wc_chargily_pay_init() {
 						'name' => $product_name,
 						"images" => $product_image_urls,
 						"metadata" => array(
-							"order_id" => (string)$order_id,
+							"woocommerce_order_id" => (string)$order_id,
 							"item_id" => (string)$product_id,
 						),
 					));
@@ -560,7 +560,7 @@ function wc_chargily_pay_init() {
 				}
 
 				$payload = array(
-					"metadata" => array("order_id" => (string)$order_id),
+					"metadata" => array("woocommerce_order_id" => (string)$order_id),
 					"items" => $items_data,
 					'payment_method'  => $payment_method,
 					'customer_id'  => $chargily_customers_id,
@@ -571,7 +571,7 @@ function wc_chargily_pay_init() {
 				);
 			} else {
 				$payload = array(
-					"metadata" => array("order_id" => (string)$order_id),
+					"metadata" => array("woocommerce_order_id" => (string)$order_id),
 					'amount'          => $order->get_total(),
 					'currency'        => 'dzd',
 					'payment_method'  => $payment_method,
