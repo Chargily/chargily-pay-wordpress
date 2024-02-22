@@ -281,3 +281,21 @@ msgstr "🔒 Passerelle de paiement électronique sécurisée."
 #: templates/method-v2/API-v2.php:267 templates/method-v2/API-v2.php:308
 msgid "🔒 Secure E-Payment provided by"
 msgstr "🔒 Passerelle de paiement électronique sécurisée Propulsé par"
+
+msgid "Webhook Type"
+msgstr ""
+
+msgid "Enable this option if your server support .htaccess file rewriting"
+msgstr ""
+
+#, php-format
+msgid "If enabled, Webhook will use the .htaccess rewrite rule method. Please re-save the Permalink settings again <a href=\"%s\" target=\"_blank\">Permalink</a>."
+msgstr ""
+
+msgid "Update the database"
+msgstr ""
+
+msgid ""
+"Use this button to Update the database. <br>\n"
+"\t\t\tClick this button if you have encountered problems in previous versions"
+msgstr ""
