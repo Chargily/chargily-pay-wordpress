@@ -965,6 +965,12 @@ function chargilyv2_admin_inline_scripts() {
 						if (button_authorization_v2_live) {
 						  button_authorization_v2_live.value = 'Check connection';
 						}
+						
+						var button_delete_chargily_customer_ids = document.getElementById(
+							'woocommerce_chargily_pay_delete_chargily_customer_ids');
+						if (button_delete_chargily_customer_ids) {
+						  button_delete_chargily_customer_ids.value = 'Update the database';
+						}
 					});
 				</script>
 				<style>
