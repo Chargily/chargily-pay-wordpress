@@ -152,7 +152,10 @@ function wc_chargily_pay_init() {
 			'title'       => __('Webhook Type', 'chargilytextdomain'),
 			'label'       => __('Disable this option if your server does not support .htaccess file rewriting', 'chargilytextdomain'),
 			'type'        => 'checkbox',
-			'description' => __('If enabled, Webhook will be use .htaccess rewrite rule method.', 'chargilytextdomain'),
+			'description' => sprintf(
+			__('If enabled, Webhook will use the .htaccess rewrite rule method. Please re-save the settings again <a href="%s" target="_blank">Permalink</a>.', 'chargilytextdomain'),
+			'/wp-admin/options-permalink.php'
+			),
 			'default'     => 'yes'
 			),
 	    );
