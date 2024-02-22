@@ -158,6 +158,14 @@ function wc_chargily_pay_init() {
 			),
 			'default'     => 'no'
 			),
+			'delete_chargily_customer_ids' => array(
+			'title'       => __('Update the database', 'chargilytextdomain'),
+			'type'        => 'button',
+			'description' => __('Use this button to Update the database. <br>
+			Click this button if you have encountered problems in previous versions', 'chargilytextdomain'),
+			),
+		    
+		// END
 	    );
 	}
 		
@@ -962,6 +970,23 @@ function chargilyv2_admin_inline_scripts() {
 				<style>
 				 
 				</style>
+
+				<script type="text/javascript">
+				jQuery(document).ready(function( $ ) {
+					$('#woocommerce_chargily_pay_delete_chargily_customer_ids').on('click', function(e) {
+						e.preventDefault();
+						if (confirm(' Are you sure you want to update the database? Use this procedure only if you have encountered a problem in previous versions.')) {
+							var data = {
+								'action': 'delete_chargily_customer_ids',
+							};
+
+							$.post(ajaxurl, data, function(response) {
+								alert(response.data);
+							});
+						}
+					});
+				});
+				</script>
 				<?php
 			}
 		}
@@ -1107,3 +1132,18 @@ jQuery(document).ready(function($) {
     }
 }
 add_action( 'wp_footer', 'custom_checkout_phone_validation_script' );
+
+
+add_action('wp_ajax_delete_chargily_customer_ids', 'delete_chargily_customer_ids_callback');
+function delete_chargily_customer_ids_callback() {
+	if ( is_admin() ) {
+		if (current_user_can('administrator') || current_user_can('shop_manager')) {
+			$users = get_users();
+			foreach ($users as $user) {
+				delete_user_meta($user->ID, 'chargily_customers_id');
+			}
+			wp_send_json_success('The database has been updated successfully.');
+			wp_die();
+			}
+		}
+}
