@@ -453,7 +453,7 @@ function wc_chargily_pay_init() {
 			}
 
 			$baseURL = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-			$webhookEndpoint = $baseURL . '/wp-content/plugins/chargily-pay/templates/method-v2/API-v2_webhook.php';
+			$webhookEndpoint = $baseURL . '/chargilyv2-webhook';
 
 			$create_products = $this->get_option('create_products') === 'yes';
 
