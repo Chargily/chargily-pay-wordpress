@@ -137,16 +137,23 @@ function wc_chargily_pay_init() {
 			'default'     => 'no'
 			),
 			'response_type' => array(
-				'title'       => __('Confirmation status', 'chargilytextdomain'),
-				'type'        => 'select',
-				'options'     => array(
-					'completed'  => __('completed', 'chargilytextdomain'),
-					'on-hold'    => __('on hold', 'chargilytextdomain'),
-					'processing' => __('processing', 'chargilytextdomain')
-				),
-				'description' => __('This status will be set when the payment succeeds.', 'chargilytextdomain'),
-				'default'     => 'completed',
-				'desc_tip'    => true,
+			'title'       => __('Confirmation status', 'chargilytextdomain'),
+			'type'        => 'select',
+			'options'     => array(
+				'completed'  => __('completed', 'chargilytextdomain'),
+				'on-hold'    => __('on hold', 'chargilytextdomain'),
+				'processing' => __('processing', 'chargilytextdomain')
+			),
+			'description' => __('This status will be set when the payment succeeds.', 'chargilytextdomain'),
+			'default'     => 'completed',
+			'desc_tip'    => true,
+			),
+			'webhook_rewrite_rule' => array(
+			'title'       => __('Webhook Type', 'chargilytextdomain'),
+			'label'       => __('Disable this option if your server does not support .htaccess file rewriting', 'chargilytextdomain'),
+			'type'        => 'checkbox',
+			'description' => __('If enabled, Webhook will be use .htaccess rewrite rule method.', 'chargilytextdomain'),
+			'default'     => 'yes'
 			),
 	    );
 	}
@@ -223,7 +230,7 @@ function wc_chargily_pay_init() {
 		}
 		
 		public function payment_fields() {
-			$test_mode = $this->get_option('test_mode') === 'yes';
+			$test_mode = $this->get_option('test_mode') === 'yes';	
 			$live_api_key = $this->get_option('Chargily_Gateway_api_key_v2_live');
 			$live_api_secret = $this->get_option('Chargily_Gateway_api_secret_v2_live');
 			$test_api_key = $this->get_option('Chargily_Gateway_api_key_v2_test');
@@ -484,8 +491,15 @@ function wc_chargily_pay_init() {
 				}
 			}
 
+			$is_webhook_rewrite_rule = $this->get_option('webhook_rewrite_rule') === 'yes';
+			if (isset($is_webhook_rewrite_rule['webhook_rewrite_rule']) && $is_webhook_rewrite_rule['webhook_rewrite_rule'] === 'yes') {
+			$baseURL = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
+			$webhookEndpoint = $baseURL . '/chargilyv2-webhook/';
+			} else {
 			$baseURL = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 			$webhookEndpoint = $baseURL . '/wp-content/plugins/chargily-pay/templates/method-v2/API-v2_webhook.php';
+			}
+			
 
 			$create_products = $this->get_option('create_products') === 'yes';
 
