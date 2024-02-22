@@ -398,15 +398,28 @@ function wc_chargily_pay_init() {
 						"address_2" => $order->get_billing_address_2()
 					), 'filter_empty_values');
 
-					$user_data = array(
-						"name" => $order->get_billing_first_name(),
-						"email" => $order->get_billing_email(),
-						"phone" => $order->get_billing_phone()
-					);
-
-					if (!empty($address)) {
-						$user_data["address"] = $address;
-					}
+					    $user_data = array();
+					
+					    if (!empty($order->get_billing_first_name())) {
+					        $user_data["name"] = $order->get_billing_first_name();
+					    }
+					
+					    if (!empty($order->get_billing_email())) {
+					        $user_data["email"] = $order->get_billing_email();
+					    }
+					
+					    if (!empty($order->get_billing_phone())) {
+					        $user_data["phone"] = $order->get_billing_phone();
+					    }
+					
+					    if (!empty($address)) {
+					        $user_data["address"] = $address;
+					    }
+					
+					    if (empty($user_data)) {
+					        // No data to send
+					        return;
+					    }
 
 					$chargily_customers_id = $this->create_chargily_customer($user_data, $user_id);
 					if (is_wp_error($chargily_customers_id)) {
@@ -435,9 +448,28 @@ function wc_chargily_pay_init() {
 						"phone" => $order->get_billing_phone()
 					);
 
-					if (!empty($address)) {
-						$user_data["address"] = $address;
-					}
+					    $user_data = array();
+					
+					    if (!empty($order->get_billing_first_name())) {
+					        $user_data["name"] = $order->get_billing_first_name();
+					    }
+					
+					    if (!empty($order->get_billing_email())) {
+					        $user_data["email"] = $order->get_billing_email();
+					    }
+					
+					    if (!empty($order->get_billing_phone())) {
+					        $user_data["phone"] = $order->get_billing_phone();
+					    }
+					
+					    if (!empty($address)) {
+					        $user_data["address"] = $address;
+					    }
+					
+					    if (empty($user_data)) {
+					        // No data to send
+					        return;
+					    }
 
 					$user_data = array_filter($user_data, 'filter_empty_values');
 
