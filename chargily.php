@@ -5,7 +5,7 @@
 *Description: Accept CIB and EDAHABIA cards on your WooCommerce store.
 *Author: Chargily
 Author URI: https://chargily.com/
-*Version: 2.0.8
+*Version: 2.0.9
 *Text Domain: chargilytextdomain
 *Domain Path: /languages
 */
@@ -28,7 +28,7 @@ include ( plugin_dir_path( __FILE__ ) . 'templates/method-v2/API-v2.php');
 // Plugin action links
 function wc_chargily_gateway_plugin_action_links( $links ) {
     $plugin_links = array(
-        '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=chargily_pay' ) . '">' . __( 'Settings', CHARGILY_TEXT_DOMAIN ) . '</a>'
+        '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=chargily_pay' ) . '">' . __( 'Settings', chargilytextdomain ) . '</a>'
     );
     return array_merge( $plugin_links, $links );
 }
@@ -43,15 +43,15 @@ add_action('init', 'chargilyv2_add_rewrite_rule');
 add_action('wp_enqueue_scripts', 'chargily_css_loader_front');
 function chargily_css_loader_front() {
     if ( is_checkout() ) {
-        wp_enqueue_style('chargily-style-front', plugins_url('/assets/css/css-front.css?v=28', __FILE__));
+        wp_enqueue_style('chargily-style-front', plugins_url('/assets/css/css-front.css?v=209', __FILE__));
 		 if (is_rtl()) {
-        	wp_enqueue_style('rtl-style',  plugins_url('/assets/css/css-front-rtl.css?v=28', __FILE__));
+        	wp_enqueue_style('rtl-style',  plugins_url('/assets/css/css-front-rtl.css?v=209', __FILE__));
     	}
     }
 }
 
 function chargily_js_loader_front() {
-    wp_enqueue_script( 'chargily-script-front', plugins_url('/assets/js/js-front.js?v=28', __FILE__), array('jquery'), null, true );
+    wp_enqueue_script( 'chargily-script-front', plugins_url('/assets/js/js-front.js?v=209', __FILE__), array('jquery'), null, true );
 }
 add_action( 'wp_enqueue_scripts', 'chargily_js_loader_front' );
 
