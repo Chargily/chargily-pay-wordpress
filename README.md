@@ -1,10 +1,10 @@
+# Chargily Pay™ V2
+
+WooCommerce Plugin for [Chargily Pay™ V2](https://chargily.com/business/pay "Chargily Pay™ V2") Gateway V2.
+
+The easiest and free way to integrate e-payment API is through EDAHABIA of Algerie Poste and CIB of SATIM into your WooCommerce/Wordpress platform.
+
 <p align="center"><img src="https://i.imgur.com/KT5f1l4.png"></p>
-
-# Chargily Pay V2
-
-WooCommerce Plugin for [Chargily Pay™ V2](https://chargily.com/business/pay "Chargily Pay™ V2") payment gateway.
-
-The easiest and free way to integrate e-payment API is through EDAHABIA of Algerie Poste and CIB of SATIM into your WooCommerce/Wordpress project.
 
 Easily accept payments from your customers using their Edahabia and CIB cards.
 
