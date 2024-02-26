@@ -1153,3 +1153,26 @@ function delete_chargily_customer_ids_callback() {
 			}
 		}
 }
+
+add_filter( 'manage_edit-shop_order_columns', 'chargily_order_items_column' );
+add_filter( 'manage_woocommerce_page_wc-orders_columns', 'chargily_order_items_column' );
+function chargily_order_items_column( $columns ) {
+	$columns = array_slice( $columns, 0, 4, true ) 
+	+ array( 'chargily_order_type' => 'Order Type' ) 
+	+ array_slice( $columns, 4, NULL, true );
+	return $columns;
+}
+
+add_action( 'manage_shop_order_posts_custom_column', 'chargily_type_order_items_column', 25, 2 );
+add_action( 'manage_woocommerce_page_wc-orders_custom_column', 'chargily_type_order_items_column', 25, 2 );
+function chargily_type_order_items_column( $column_name, $order_or_order_id ) {
+	$order = $order_or_order_id instanceof WC_Order ? $order_or_order_id : wc_get_order( $order_or_order_id );
+	if( 'chargily_order_type' === $column_name ) {
+		foreach ( $order->get_meta_data() as $meta ) {
+			if ( $meta->key === 'chargily_order_type' ) { 
+				echo $meta->value;
+				break; 
+			}
+		}
+	}
+}
