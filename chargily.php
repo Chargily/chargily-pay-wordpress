@@ -5,7 +5,7 @@
 *Description: Accept payments using CIB and EDAHABIA cards on your WooCommerce store.
 *Author: Chargily Pay
 Author URI: https://chargily.com/
-*Version: 1.0.0
+*Version: 2.1.0
 *Text Domain: chargilytextdomain
 *Domain Path: /languages
 */
