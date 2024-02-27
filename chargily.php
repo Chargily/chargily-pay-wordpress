@@ -106,24 +106,20 @@ add_action('init', 'chargilyv2_add_rewrite_rule');
 register_activation_hook(__FILE__, 'update_chargily_pay_settings_data');
 add_action('upgrader_process_complete', 'update_chargily_pay_settings_data', 10, 2);
 function update_chargily_pay_settings_data() {
-    if ( is_admin() ) {
-        if (current_user_can('administrator')) {
-            $test_mode = 'yes' === get_option('woocommerce_chargily_pay_settings')['test_mode'];
-            $live_api_key_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_key_v2_live']);
-            $live_api_secret_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_secret_v2_live']);
-            $test_api_key_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_key_v2_test']);
-            $test_api_secret_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_secret_v2_test']);
+	$test_mode = 'yes' === get_option('woocommerce_chargily_pay_settings')['test_mode'];
+	$live_api_key_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_key_v2_live']);
+	$live_api_secret_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_secret_v2_live']);
+	$test_api_key_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_key_v2_test']);
+	$test_api_secret_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_secret_v2_test']);
         
-            $data = array(
-                'testMode' => $test_mode,
+	$data = array(
+		'testMode' => $test_mode,
                 'liveApiKeyPresent' => $live_api_key_present,
                 'liveApiSecretPresent' => $live_api_secret_present,
                 'testApiKeyPresent' => $test_api_key_present,
                 'testApiSecretPresent' => $test_api_secret_present,
-            );
-        
-            $file_path = plugin_dir_path(__FILE__) . '/templates/method-v2/chargily_data.json';
-            file_put_contents($file_path, json_encode($data));
-        }
-    }
+            
+	);
+	$file_path = plugin_dir_path(__FILE__) . '/templates/method-v2/chargily_data.json';  
+	file_put_contents($file_path, json_encode($data));
 }
