@@ -107,7 +107,7 @@ register_activation_hook(__FILE__, 'update_chargily_pay_settings_data');
 add_action('upgrader_process_complete', 'update_chargily_pay_settings_data', 10, 2);
 function update_chargily_pay_settings_data() {
     if ( is_admin() ) {
-        if (current_user_can('administrator') || current_user_can('shop_manager')) {
+        if (current_user_can('administrator')) {
             $test_mode = 'yes' === get_option('woocommerce_chargily_pay_settings')['test_mode'];
             $live_api_key_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_key_v2_live']);
             $live_api_secret_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_secret_v2_live']);
