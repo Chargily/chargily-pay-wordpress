@@ -378,6 +378,17 @@ function wc_chargily_pay_init() {
 		public function process_payment( $order_id ) {
 			$credentials = $this->get_api_credentials();
 			$order = wc_get_order( $order_id );
+
+			$test_mode = $this->get_option('test_mode') === 'yes';	
+			if ($test_mode) {
+				$order_type ='Test';
+				$order->update_meta_data( 'chargily_order_type', $order_type );
+				$order->save();
+			} else {
+				$order_type ='Live';
+				$order->update_meta_data( 'chargily_order_type', $order_type );
+				$order->save();
+			}
 			
 			if (isset($_COOKIE['chargily_payment_method'])) {
 				$selected_payment_method = isset($_COOKIE['chargily_payment_method']) ? wc_clean($_COOKIE['chargily_payment_method']) : 'EDAHABIA';
