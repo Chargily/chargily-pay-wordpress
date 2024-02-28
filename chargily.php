@@ -2,7 +2,7 @@
 /*
 *Plugin Name: Chargily Pay
 *Plugin URI: https://chargily.com/business/pay
-*Description: The easiest and free way to integrate e-payment API is through EDAHABIA of Algerie Poste and CIB of SATIM into your Wordpress/WooCommerce platform.
+*Description: The easiest and free way to integrate e-payment API through EDAHABIA of Algerie Poste and CIB of SATIM into your Wordpress/WooCommerce platform.
 *Author: Chargily
 Author URI: https://chargily.com
 *Version: 2.1.1
