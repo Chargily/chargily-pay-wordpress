@@ -392,6 +392,16 @@ function wc_chargily_pay_init() {
 			$credentials = $this->get_api_credentials();
 			$order = wc_get_order( $order_id );
 
+			$test_mode = $this->get_option('test_mode') === 'yes';	
+			if ($test_mode) {
+				$order_type ='Test';
+				$order->update_meta_data( 'chargily_order_type', $order_type );
+				$order->save();
+			} else {
+				$order_type ='Live';
+				$order->update_meta_data( 'chargily_order_type', $order_type );
+				$order->save();
+			}
 
 			$languages_type = $this->get_option('languages_type');
 			if ($languages_type === 'en') {
