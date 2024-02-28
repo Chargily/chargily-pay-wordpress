@@ -136,6 +136,19 @@ function wc_chargily_pay_init() {
 			'description' => __('If enabled, products will be created on Chargily Pay upon checkout.', 'chargilytextdomain'),
 			'default'     => 'no'
 			),
+			'languages_type' => array(
+			'title'       => __('Select the language of the payment page', 'chargilytextdomain'),
+			'type'        => 'select',
+			'options'     => array(
+				'en'  => __('English', 'chargilytextdomain'),
+				'ar'    => __('Arabic', 'chargilytextdomain'),
+				'fr' => __('French', 'chargilytextdomain')
+			),
+			'description' => __('The language that will appear on chargily payment page', 'chargilytextdomain'),
+			'default'     => 'en',
+			'desc_tip'    => true,
+			),
+		    
 			'response_type' => array(
 			'title'       => __('Confirmation status', 'chargilytextdomain'),
 			'type'        => 'select',
@@ -379,15 +392,16 @@ function wc_chargily_pay_init() {
 			$credentials = $this->get_api_credentials();
 			$order = wc_get_order( $order_id );
 
-			$test_mode = $this->get_option('test_mode') === 'yes';	
-			if ($test_mode) {
-				$order_type ='Test';
-				$order->update_meta_data( 'chargily_order_type', $order_type );
-				$order->save();
+
+			$languages_type = $this->get_option('languages_type');
+			if ($languages_type === 'en') {
+			    $languages_use = 'en';
+			} elseif ($languages_type === 'ar') {
+			    $languages_use = 'ar';
+			} elseif ($languages_type === 'fr') {
+			    $languages_use = 'fr';
 			} else {
-				$order_type ='Live';
-				$order->update_meta_data( 'chargily_order_type', $order_type );
-				$order->save();
+			    $languages_use = 'en';
 			}
 			
 			if (isset($_COOKIE['chargily_payment_method'])) {
@@ -571,6 +585,7 @@ function wc_chargily_pay_init() {
 				}
 
 				$payload = array(
+					"locale" => $languages_use,
 					"metadata" => array("woocommerce_order_id" => (string)$order_id),
 					"items" => $items_data,
 					'payment_method'  => $payment_method,
@@ -582,6 +597,7 @@ function wc_chargily_pay_init() {
 				);
 			} else {
 				$payload = array(
+					"locale" => $languages_use,
 					"metadata" => array("woocommerce_order_id" => (string)$order_id),
 					'amount'          => $order->get_total(),
 					'currency'        => 'dzd',
