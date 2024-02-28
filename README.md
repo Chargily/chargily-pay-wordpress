@@ -2,7 +2,7 @@
 
 - Requires at least: 2.0
 - Tested up to: 6.4.3
-- Stable tag: 2.1.0
+- Stable tag: 2.1.1
 - Requires PHP: 7.0
 - License: GPLv2
 - License URI: https://www.gnu.org/licenses/gpl-2.0.html
