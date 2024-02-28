@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Chargily Pay™\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-19 18:35+0000\n"
-"PO-Revision-Date: 2024-02-22 21:43+0000\n"
+"PO-Revision-Date: 2024-02-28 22:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "Language: ar\n"
@@ -20,36 +20,41 @@ msgstr ""
 msgid "Accept payments using CIB and EDAHABIA cards on your WooCommerce store."
 msgstr "إقبل الدفع الإلكتروني ببطاقات CIB و EDAHABIA في متجر WooCommerce الخاص بك."
 
-#: templates/method-v2/API-v2.php:180
+#: templates/method-v2/API-v2.php:193
 msgid "Activate or deactivate Chargily Pay on your store, input your API keys, and activate test mode to simulate purchases without real money."
 msgstr "قم بتنشيط أو إلغاء تنشيط Chargily Pay في متجرك، أدخل مفاتيح API الخاصة بك، وقم بتنشيط وضع التجربة لمحاكاة الشراء بدون أموال حقيقية."
 
-#: templates/method-v2/API-v2.php:609
+#: templates/method-v2/API-v2.php:636
 msgid "An error occurred while processing your payment. Please try again."
 msgstr "حدث خطأ أثناء معالجة الدفع الخاص بك. يرجى المحاولة مرة أخرى."
 
-#: templates/method-v2/API-v2.php:600
+#: templates/method-v2/API-v2.php:144
+msgid "Arabic"
+msgstr ""
+
+#: templates/method-v2/API-v2.php:627
 msgid "Awaiting Chargily payment"
 msgstr "في انتظار الدفع من Chargily"
 
-#: templates/method-v2/API-v2.php:1023
+#: templates/method-v2/API-v2.php:1056
 msgid "Change status to expired"
 msgstr "تغيير الحالة إلى منتهية الصلاحية"
 
 #. Name of the plugin
 #. Author of the plugin
-msgid "Chargily Pay™"
+#| msgid "Chargily Pay™"
+msgid "Chargily Pay"
 msgstr "شارجيلي باي"
 
 #: templates/method-v2/API-v2.php:107
 msgid "Chargily Pay™ (EDAHABIA/CIB)"
 msgstr "شارجيلي باي (EDAHABIA/CIB)"
 
-#: templates/method-v2/API-v2.php:209
+#: templates/method-v2/API-v2.php:222
 msgid "Chargily Pay™ Settings"
 msgstr "إعدادات Chargily Pay™"
 
-#: templates/method-v2/API-v2.php:262 templates/method-v2/API-v2.php:829
+#: templates/method-v2/API-v2.php:275 templates/method-v2/API-v2.php:856
 msgid "Chargily Pay™: Test Mode is enabled."
 msgstr "Chargily Pay™: وضع الاختبار مفعل."
 
@@ -65,15 +70,15 @@ msgstr "تحقق من الاتصال"
 msgid "Check your API keys."
 msgstr "تحقق من مفاتيح API الخاصة بك."
 
-#: templates/method-v2/API-v2.php:319
+#: templates/method-v2/API-v2.php:332
 msgid "CIB Card"
 msgstr "البطاقة البنكية CIB"
 
-#: templates/method-v2/API-v2.php:143
+#: templates/method-v2/API-v2.php:156
 msgid "completed"
 msgstr "مكتمل"
 
-#: templates/method-v2/API-v2.php:140
+#: templates/method-v2/API-v2.php:153
 msgid "Confirmation status"
 msgstr "حالة التأكيد"
 
@@ -85,7 +90,7 @@ msgstr "إنشاء المنتجات"
 msgid "Description"
 msgstr "الوصف"
 
-#: templates/method-v2/API-v2.php:269 templates/method-v2/API-v2.php:310
+#: templates/method-v2/API-v2.php:282 templates/method-v2/API-v2.php:323
 msgid "EDAHABIA"
 msgstr "الذهبية"
 
@@ -101,7 +106,7 @@ msgstr "تفعيل إنشاء المنتج على دفع Chargily."
 msgid "Enable Test Mode"
 msgstr "تفعيل وضع الاختبار"
 
-#: templates/method-v2/API-v2.php:153
+#: templates/method-v2/API-v2.php:166
 msgid "Enable this option if your server support .htaccess file rewriting"
 msgstr "قم بتمكين هذا الخيار إذا كان خادمك يدعم إعادة كتابة ملف htaccess"
 
@@ -109,7 +114,11 @@ msgstr "قم بتمكين هذا الخيار إذا كان خادمك يدعم 
 msgid "Enable/Disable"
 msgstr "تفعيل/تعطيل"
 
-#: templates/method-v2/API-v2.php:823
+#: templates/method-v2/API-v2.php:143
+msgid "English"
+msgstr ""
+
+#: templates/method-v2/API-v2.php:850
 msgid "Enter your API keys."
 msgstr "أدخل مفاتيح API الخاصة بك."
 
@@ -129,15 +138,15 @@ msgstr "أدخل مفتاح API الخاص بالاختبار لـ Chargily."
 msgid "Enter your Chargily Test API secret."
 msgstr "أدخل سر API الخاص بالاختبار لـ Chargily."
 
-#: templates/method-v2/API-v2.php:299
+#: templates/method-v2/API-v2.php:312
 msgid "Enter your Live API keys."
 msgstr "أدخل مفاتيح API Live الخاصة بك."
 
-#: templates/method-v2/API-v2.php:258
+#: templates/method-v2/API-v2.php:271
 msgid "Enter your Test API keys."
 msgstr "أدخل مفاتيح API Test الخاصة بك للتجربة."
 
-#: templates/method-v2/API-v2.php:1005
+#: templates/method-v2/API-v2.php:1038
 #, php-format
 msgid "Expired (%s)"
 msgid_plural "Expired (%s)"
@@ -148,27 +157,31 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: templates/method-v2/API-v2.php:681
+#: templates/method-v2/API-v2.php:708
 msgid "Failed to create customer in Chargily."
 msgstr "فشل في إنشاء العميل في Chargily."
 
-#: templates/method-v2/API-v2.php:771
+#: templates/method-v2/API-v2.php:798
 msgid "Failed to create price in Chargily."
 msgstr "فشل في إنشاء السعر في Chargily."
 
-#: templates/method-v2/API-v2.php:731
+#: templates/method-v2/API-v2.php:758
 msgid "Failed to create product in Chargily."
 msgstr "فشل في إنشاء المنتج في Chargily."
 
-#: templates/method-v2/API-v2.php:182
+#: templates/method-v2/API-v2.php:195
 msgid "Find out where to find your API keys"
 msgstr "اكتشف أين يمكنك العثور على مفاتيح API الخاصة بك"
 
-#: templates/method-v2/API-v2.php:179
+#: templates/method-v2/API-v2.php:145
+msgid "French"
+msgstr ""
+
+#: templates/method-v2/API-v2.php:192
 msgid "General"
 msgstr "عام"
 
-#: templates/method-v2/API-v2.php:196
+#: templates/method-v2/API-v2.php:209
 msgid "Get support"
 msgstr "احصل على الدعم"
 
@@ -185,7 +198,7 @@ msgstr "إذا تم تفعيله، سيتم دفع رسوم Chargily Pay بوا�
 msgid "If enabled, products will be created on Chargily Pay upon checkout."
 msgstr "إذا تم التفعيل، سيتم إنشاء المنتجات على دفع Chargily عند الدفع."
 
-#: templates/method-v2/API-v2.php:156
+#: templates/method-v2/API-v2.php:169
 #, php-format
 msgid "If enabled, Webhook will use the .htaccess rewrite rule method. Please re-save the Permalink settings again <a href=\"%s\" target=\"_blank\">Permalink</a>."
 msgstr "في حالة التمكين، سيستخدم Webhook طريقة قاعدة إعادة الكتابة ‎.htaccess الرجاء إعادة حفظ إعدادات الرابط الثابت مرة أخرى <a href=\"%s\" target=\"_blank\">Permalink</a>."
@@ -194,7 +207,7 @@ msgstr "في حالة التمكين، سيستخدم Webhook طريقة قاع�
 msgid "If enabled, you will use Chargily Pay in Test Mode."
 msgstr "إذا تم التفعيل، ستستخدم دفع Chargily في وضع الاختبار."
 
-#: templates/method-v2/API-v2.php:823
+#: templates/method-v2/API-v2.php:850
 msgid "Just one more step to complete the setup of Chargily Pay™ and begin accepting payments."
 msgstr "خطوة واحدة فقط متبقية لإكمال إعداد Chargily Pay™ وبدء قبول الدفعات."
 
@@ -206,7 +219,7 @@ msgstr "المفتاح العام للLive Mode"
 msgid "Live Secret key"
 msgstr "المفتاح السري للLive Mode"
 
-#: templates/method-v2/API-v2.php:144
+#: templates/method-v2/API-v2.php:157
 msgid "on hold"
 msgstr "في الانتظار"
 
@@ -214,11 +227,11 @@ msgstr "في الانتظار"
 msgid "On the thanks page"
 msgstr "على صفحة الشكر"
 
-#: templates/method-v2/API-v2.php:184 templates/method-v2/API-v2.php:191 templates/method-v2/API-v2.php:198
+#: templates/method-v2/API-v2.php:197 templates/method-v2/API-v2.php:204 templates/method-v2/API-v2.php:211
 msgid "opens in a new tab"
 msgstr "يفتح في تبويب جديد"
 
-#: templates/method-v2/API-v2.php:1000 templates/method-v2/API-v2.php:1015
+#: templates/method-v2/API-v2.php:1033 templates/method-v2/API-v2.php:1048
 msgctxt "Order status"
 msgid "Expired"
 msgstr "منتهي الصلاحية"
@@ -231,9 +244,13 @@ msgstr "مرر الرسوم للعميل"
 msgid "Place the message you want to appear on the thank you page after completing the purchase of the product."
 msgstr "ضع الرسالة التي تريد ظهورها على صفحة الشكر بعد إتمام شراء المنتج."
 
-#: templates/method-v2/API-v2.php:145
+#: templates/method-v2/API-v2.php:158
 msgid "processing"
 msgstr "قيد المعالجة"
+
+#: templates/method-v2/API-v2.php:140
+msgid "Select the language of the payment page"
+msgstr ""
 
 #: templates/method-v2/API-v2.php:54
 msgid "Test mode"
@@ -247,7 +264,7 @@ msgstr "المفتاح العام للTest Mode"
 msgid "Test Secret key"
 msgstr "المفتاح السري للTest Mode"
 
-#: templates/method-v2/API-v2.php:798
+#: templates/method-v2/API-v2.php:825
 msgid "Thank you for your order, please click the button below to pay with Chargily."
 msgstr "شكراً لطلبك، يرجى النقر على الزر أدناه للدفع باستخدام Chargily."
 
@@ -263,7 +280,7 @@ msgstr "هذا يتحكم في الوصف الذي يراه المستخدم أ�
 msgid "This controls the title which the user sees during checkout."
 msgstr "هذا يتحكم في العنوان الذي يراه المستخدم أثناء الدفع."
 
-#: templates/method-v2/API-v2.php:147
+#: templates/method-v2/API-v2.php:147 templates/method-v2/API-v2.php:160
 msgid "This status will be set when the payment succeeds."
 msgstr "سيتم تعيين هذه الحالة عند نجاح الدفع."
 
@@ -271,15 +288,15 @@ msgstr "سيتم تعيين هذه الحالة عند نجاح الدفع."
 msgid "Title"
 msgstr "العنوان"
 
-#: templates/method-v2/API-v2.php:189
+#: templates/method-v2/API-v2.php:202
 msgid "Understand Test and Live modes"
 msgstr "فهم أوضاع Test وLive"
 
-#: templates/method-v2/API-v2.php:162
+#: templates/method-v2/API-v2.php:175
 msgid "Update the database"
 msgstr "تحديث قاعدة البيانات"
 
-#: templates/method-v2/API-v2.php:164
+#: templates/method-v2/API-v2.php:177
 msgid ""
 "Use this button to Update the database. <br>\n"
 "\t\t\tClick this button if you have encountered problems in previous versions"
@@ -287,15 +304,15 @@ msgstr ""
 "استخدم هذا الزر لتحديث قاعدة البيانات. <br>\n"
 "انقر فوق هذا الزر إذا واجهت مشاكل في الإصدارات السابقة."
 
-#: templates/method-v2/API-v2.php:152
+#: templates/method-v2/API-v2.php:165
 msgid "Webhook Type"
 msgstr "نوع الخطاف (Webhook )"
 
-#: templates/method-v2/API-v2.php:298
+#: templates/method-v2/API-v2.php:311
 msgid "You are in Live Mode but your Live API keys are missing."
 msgstr "أنت في  Live Mode ولكن مفاتيح API Live الخاصة بك مفقودة."
 
-#: templates/method-v2/API-v2.php:257
+#: templates/method-v2/API-v2.php:270
 msgid "You are in Test Mode but your Test API keys are missing."
 msgstr "أنت في Test Mode ولكن مفاتيح API Test الاختبار الخاصة بك مفقودة."
 
@@ -303,6 +320,6 @@ msgstr "أنت في Test Mode ولكن مفاتيح API Test الاختبار ا
 msgid "🔒 Secure e-payment gateway."
 msgstr "🔒 بوابة الدفع الإلكتروني الآمنة."
 
-#: templates/method-v2/API-v2.php:285 templates/method-v2/API-v2.php:326
+#: templates/method-v2/API-v2.php:298 templates/method-v2/API-v2.php:339
 msgid "🔒 Secure E-Payment provided by"
 msgstr "🔒 بوابة الدفع الإلكتروني الآمنة."
