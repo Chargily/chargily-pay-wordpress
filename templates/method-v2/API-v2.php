@@ -171,13 +171,6 @@ function wc_chargily_pay_init() {
 			),
 			'default'     => 'no'
 			),
-			'delete_chargily_customer_ids' => array(
-			'title'       => __('Update the database', 'chargilytextdomain'),
-			'type'        => 'button',
-			'description' => __('Use this button to Update the database. <br>
-			Click this button if you have encountered problems in previous versions', 'chargilytextdomain'),
-			),
-		    
 		// END
 	    );
 	}
@@ -397,14 +390,10 @@ function wc_chargily_pay_init() {
 				$order_type ='Test';
 				$order->update_meta_data( 'chargily_order_type', $order_type );
 				$order->save();
-				$user_id = get_current_user_id();
-				$chargily_customers_id = get_user_meta($user_id, 'chargily_customers_id_test', true);
 			} else {
 				$order_type ='Live';
 				$order->update_meta_data( 'chargily_order_type', $order_type );
 				$order->save();
-				$user_id = get_current_user_id();
-				$chargily_customers_id = get_user_meta($user_id, 'chargily_customers_id_live', true);
 			}
 
 			$languages_type = $this->get_option('languages_type');
@@ -434,8 +423,6 @@ function wc_chargily_pay_init() {
 			}
 			
 			$encryption_key = $this->get_encryption_key();
-			$user_id = get_current_user_id();
-			//$chargily_customers_id = get_user_meta($user_id, 'chargily_customers_id', true);
 
 			function filter_empty_values($value) {
 				if (is_array($value)) {
@@ -445,34 +432,12 @@ function wc_chargily_pay_init() {
 			}
 
 			if ( is_user_logged_in() ) {
-				if ( isset( $_COOKIE['chargily_customers_id_test'] ) ) {
-					unset( $_COOKIE['chargily_customers_id_test'] );
-				}
-				if ( isset( $_COOKIE['chargily_customers_id_live'] ) ) {
-					unset( $_COOKIE['chargily_customers_id_live'] );
-				}
-			}
-
-			if ($user_id) {
 				
-				if ( is_user_logged_in() ) {
-				if ( isset( $_COOKIE['chargily_customers_id_test'] ) ) {unset( $_COOKIE['chargily_customers_id_test'] );}
-				if ( isset( $_COOKIE['chargily_customers_id_live'] ) ) {unset( $_COOKIE['chargily_customers_id_live'] );}
-				}
-
+				$user_id = get_current_user_id();
 				$is_test_mode = $this->get_option('test_mode') === 'yes';
 				$meta_key = $is_test_mode ? 'chargily_customers_id_test' : 'chargily_customers_id_live';
 				$chargily_customers_id = get_user_meta($user_id, $meta_key, true);
-				if (isset($chargily_customers_id)) {
-					$is_test_mode = $this->get_option('test_mode') === 'yes';
-					$meta_key = $is_test_mode ? 'chargily_customers_id_test' : 'chargily_customers_id_live';
-					$chargily_customers_id = get_user_meta($user_id, $meta_key, true);
-				} else {
-					$user_id = get_current_user_id();
-					$is_test_mode = $this->get_option('test_mode') === 'yes';
-					$meta_key = $is_test_mode ? 'chargily_customers_id_test' : 'chargily_customers_id_live';
-					$chargily_customers_id = get_user_meta($user_id, $meta_key, true);
-					if (!$this->customer_exists($chargily_customers_id, $user_id)) {
+				if (!$this->customer_exists($chargily_customers_id, $user_id)) {
 						// إنشاء بيانات العميل لإرسالها إلى API
 						$address = array_filter(array(
 							"country" => $order->get_billing_country(),
@@ -505,13 +470,14 @@ function wc_chargily_pay_init() {
 					        // No data to send
 					        return;
 					    }
+					
 						$user_id = get_current_user_id();
 						$chargily_customers_id = $this->create_chargily_customer($user_data, $user_id);
 						if (is_wp_error($chargily_customers_id)) {
 							wc_add_notice($chargily_customers_id->get_error_message(), 'error');
 							return;
 						}
-					}
+					// end
 				}
 			} else {
 				// العميل هو زائر
@@ -644,11 +610,6 @@ function wc_chargily_pay_init() {
 				);
 			}
 
-
-			if (!empty($chargily_customers_id)) {
-				$payload['customer_id'] = $chargily_customers_id;
-			}
-
 			$response = $this->create_chargilyv2_checkout($payload);
 
 			if (is_wp_error($response)) {
@@ -675,12 +636,15 @@ function wc_chargily_pay_init() {
 		}
 
 	    
-		private function customer_exists($customer_id, $user_id) {
+		private function customer_exists($chargily_customers_id, $user_id) {
+			if (empty($chargily_customers_id)) {
+				$chargily_customers_id = "0000000099999";
+			}
 		    $credentials = $this->get_api_credentials();
 		    $is_test_mode = $this->get_option('test_mode') === 'yes';
 		    $api_url = $is_test_mode
-		        ? 'https://pay.chargily.net/test/api/v2/customers/' . $customer_id
-		        : 'https://pay.chargily.net/api/v2/customers/' . $customer_id;
+		        ? 'https://pay.chargily.net/test/api/v2/customers/' . $chargily_customers_id
+		        : 'https://pay.chargily.net/api/v2/customers/' . $chargily_customers_id;
 		
 		    $headers = array(
 		        'Authorization' => 'Bearer ' . $credentials['api_secret'],
@@ -1175,7 +1139,6 @@ function update_chargily_pay_settingss() {
 	}
 }
 
-//-------------
 function custom_override_checkout_fields( $fields ) {
     $fields['billing']['billing_phone']['validate'] = array( 'phone' );
     $fields['billing']['billing_phone']['custom_attributes'] = array(
@@ -1190,38 +1153,37 @@ add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
 
 function custom_checkout_phone_validation_script() {
     if ( is_checkout() ) {
-?>
-<script>
-jQuery(document).ready(function($) {
-    $('#billing_phone').on('change', function(){
-        var phone = $(this).val();
-        if ( phone.length < 8 || phone.length > 20 || !$.isNumeric(phone) ) {
-            $(this).get(0).setCustomValidity('رقم الهاتف يجب أن يكون بين 8 إلى 20 رقمًا.');
-        } else {
-            $(this).get(0).setCustomValidity('');
-        }
-    });
-});
-</script>
-<?php
+		if ( is_user_logged_in() ) {
+			if ( isset( $_COOKIE['chargily_customers_id'] ) ) {unset( $_COOKIE['chargily_customers_id'] );}
+			if ( isset( $_COOKIE['chargily_customers_id_test'] ) ) {unset( $_COOKIE['chargily_customers_id_test'] );}
+			if ( isset( $_COOKIE['chargily_customers_id_live'] ) ) {unset( $_COOKIE['chargily_customers_id_live'] );}
+		}
+		?>
+		<script>
+		jQuery(document).ready(function($) {
+			$('#billing_phone').on('change', function(){
+				var phone = $(this).val();
+				if ( phone.length < 8 || phone.length > 20 || !$.isNumeric(phone) ) {
+					$(this).get(0).setCustomValidity('رقم الهاتف يجب أن يكون بين 8 إلى 20 رقمًا.');
+				} else {
+					$(this).get(0).setCustomValidity('');
+				}
+			});
+		});
+		function deleteCookie(name) {
+		  document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		}
+
+		window.onload = function() {
+		  deleteCookie('chargily_customers_id');
+		  deleteCookie('chargily_customers_id_test');
+		  deleteCookie('chargily_customers_id_live');
+		};
+		</script>
+		<?php
     }
 }
 add_action( 'wp_footer', 'custom_checkout_phone_validation_script' );
-
-
-add_action('wp_ajax_delete_chargily_customer_ids', 'delete_chargily_customer_ids_callback');
-function delete_chargily_customer_ids_callback() {
-	if ( is_admin() ) {
-		if (current_user_can('administrator') || current_user_can('shop_manager')) {
-			$users = get_users();
-			foreach ($users as $user) {
-				delete_user_meta($user->ID, 'chargily_customers_id');
-			}
-			wp_send_json_success('The database has been updated successfully.');
-			wp_die();
-			}
-		}
-}
 
 add_filter( 'manage_edit-shop_order_columns', 'chargily_order_items_column' );
 add_filter( 'manage_woocommerce_page_wc-orders_columns', 'chargily_order_items_column' );
