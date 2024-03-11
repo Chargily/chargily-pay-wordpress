@@ -5,7 +5,7 @@
 *Description: The easiest and free way to integrate e-payment API through EDAHABIA of Algerie Poste and CIB of SATIM into your Wordpress/WooCommerce platform.
 *Author: Chargily
 Author URI: https://chargily.com
-*Version: 2.1.4
+*Version: 2.1.6
 *Text Domain: chargilytextdomain
 *Domain Path: /languages
 */
@@ -37,27 +37,17 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wc_chargily_g
 add_action('wp_enqueue_scripts', 'chargily_css_loader_front');
 function chargily_css_loader_front() {
     if ( is_checkout() ) {
-        wp_enqueue_style('chargily-style-front', plugins_url('/assets/css/css-front.css?v=114', __FILE__));
+        wp_enqueue_style('chargily-style-front', plugins_url('/assets/css/css-front.css?v=116', __FILE__));
 		 if (is_rtl()) {
-        	wp_enqueue_style('rtl-style',  plugins_url('/assets/css/css-front-rtl.css?v=114', __FILE__));
+        	wp_enqueue_style('rtl-style',  plugins_url('/assets/css/css-front-rtl.css?v=116', __FILE__));
     	}
     }
 }
 
 function chargily_js_loader_front() {
-    wp_enqueue_script( 'chargily-script-front', plugins_url('/assets/js/js-front.js?v=114', __FILE__), array('jquery'), null, true );
+    wp_enqueue_script( 'chargily-script-front', plugins_url('/assets/js/js-front.js?v=116', __FILE__), array('jquery'), null, true );
 }
 add_action( 'wp_enqueue_scripts', 'chargily_js_loader_front' );
-
-function wc_chargilyv2_set_default_payment_gateway( $gateways ) {
-    if ( isset( $gateways['chargily_pay'] ) ) {
-        $chargily_gateway = $gateways['chargily_pay'];
-        unset( $gateways['chargily_pay'] );
-        $gateways = array_merge( array( 'chargily_pay' => $chargily_gateway ), $gateways );
-    }
-    return $gateways;
-}
-add_filter( 'woocommerce_available_payment_gateways', 'wc_chargilyv2_set_default_payment_gateway', 999 );
 
 add_action('woocommerce_blocks_loaded', 'register_chargily_pay_blocks');
 function register_chargily_pay_blocks() {
