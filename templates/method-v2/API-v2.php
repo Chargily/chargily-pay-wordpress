@@ -136,6 +136,20 @@ function wc_chargily_pay_init() {
 			'description' => __('If enabled, products will be created on Chargily Pay upon checkout.', 'chargilytextdomain'),
 			'default'     => 'no'
 			),
+			'collect_shipping_address' => array(
+			'title'       => __('Collect Shipping Address', 'chargilytextdomain'),
+			'label'       => __('Collect shipping address on checkout page.', 'chargilytextdomain'),
+			'type'        => 'checkbox',
+			'description' => __('If enabled, shipping address fields will appear and should be filled on checkout page.', 'chargilytextdomain'),
+			'default'     => 'yes'
+			),
+			'fix_for_compatibility_plugins' => array(
+			'title'       => __('Force Chargily Pay plugin styling', 'chargilytextdomain'),
+			'label'       => __('Fix styling compatibility.', 'chargilytextdomain'),
+			'type'        => 'checkbox',
+			'description' => __('If the style of the Chargily Pay plugin is compromised due to a styling modification by another plugin, activating this option will rectify the issue.', 'chargilytextdomain'),
+			'default'     => 'no'
+			),
 			'languages_type' => array(
 			'title'       => __('Select the language of the payment page', 'chargilytextdomain'),
 			'type'        => 'select',
@@ -252,6 +266,14 @@ function wc_chargily_pay_init() {
 			$live_api_secret = $this->get_option('Chargily_Gateway_api_secret_v2_live');
 			$test_api_key = $this->get_option('Chargily_Gateway_api_key_v2_test');
 			$test_api_secret = $this->get_option('Chargily_Gateway_api_secret_v2_test');
+			
+			$fix_for_compatibility_plugins = $this->get_option('fix_for_compatibility_plugins') === 'yes';
+			if ($fix_for_compatibility_plugins) {
+				$fix_for_compatibility_label = "display: flex; justify-content: space-between; position: relative; align-items: center; grid-gap: 20px; padding: 0 20px; ";
+			} else {
+				$fix_for_compatibility_label = "";
+			}
+
 
 			echo '<div class="Chargily-container">';
 
@@ -270,7 +292,7 @@ function wc_chargily_pay_init() {
 			echo '<div class="Chargily-option">
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked" onclick="updateCookieValue(this)">
 			
-			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily">
+			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily" style="' . $fix_for_compatibility_label .'">
 			  <span style="display: flex; align-items: center;"></span>
 			  <div class="Chargily-card-text" style="">' . __('EDAHABIA', 'chargilytextdomain') . '</div>
 			  <img class="edahabiaCardImage" src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px; margin-inline-start: auto;"></img>
@@ -279,7 +301,7 @@ function wc_chargily_pay_init() {
 			
 			<div class="Chargily-option">
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB" onclick="updateCookieValue(this)">
-			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily">
+			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily" style="' . $fix_for_compatibility_label .'">
 			  <span style="display: flex; align-items: center;"></span>
 			  <div class="Chargily-card-text" style="">CIB Card</div>
 			  <img class="cibCardImage" src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style="margin-inline-start: auto;"></img>
@@ -310,7 +332,7 @@ function wc_chargily_pay_init() {
 			       echo '<div class="Chargily-option">
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked" onclick="updateCookieValue(this)">
 			
-			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily">
+			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily" style="' . $fix_for_compatibility_label .'">
 			  <span style="display: flex; align-items: center;"></span>
 			  
 			  <div class="Chargily-card-text" style="">' . __('EDAHABIA', 'chargilytextdomain') . '</div>
@@ -320,7 +342,7 @@ function wc_chargily_pay_init() {
 			
 			<div class="Chargily-option">
 			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB" onclick="updateCookieValue(this)">
-			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily">
+			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily" style="' . $fix_for_compatibility_label .'">
 			  <span style="display: flex; align-items: center;"></span>
 			  <div class="Chargily-card-text" style="">' . __('CIB Card', 'chargilytextdomain') . '</div>
 			  <img class="cibCardImage" src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style="margin-inline-start: auto;"></img>
@@ -357,7 +379,7 @@ function wc_chargily_pay_init() {
 			}
 		}
 		
-		
+
 		private function encrypt($data, $key) {
 			$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
 			$encrypted = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
@@ -536,6 +558,12 @@ function wc_chargily_pay_init() {
 			$webhookEndpoint = $baseURL . '/wp-content/plugins/chargily-pay/templates/method-v2/API-v2_webhook.php';
 			}
 			
+			$collect_shipping_address = $this->get_option('collect_shipping_address') === 'yes';
+			if ($collect_shipping_address) {
+				$collect_shipping_address_is = '1';
+			} else {
+				$collect_shipping_address_is = '0';
+			}
 
 			$create_products = $this->get_option('create_products') === 'yes';
 
@@ -591,6 +619,7 @@ function wc_chargily_pay_init() {
 					'payment_method'  => $payment_method,
 					'customer_id'  => $chargily_customers_id,
 					'pass_fees_to_customer'  => $pass_fees_to_customer,
+					'collect_shipping_address'  => $collect_shipping_address_is,
 					'success_url'     => $this->get_return_url( $order ),
 					'failure_url'     => $order->get_cancel_order_url(),
 					'webhook_endpoint' => $webhookEndpoint,
@@ -603,6 +632,7 @@ function wc_chargily_pay_init() {
 					'currency'        => 'dzd',
 					'payment_method'  => $payment_method,
 					'customer_id'  => $chargily_customers_id,
+					'collect_shipping_address'  => $collect_shipping_address_is,
 					'pass_fees_to_customer'  => $pass_fees_to_customer,
 					'success_url'     => $this->get_return_url( $order ),
 					'failure_url'     => $order->get_cancel_order_url(),
