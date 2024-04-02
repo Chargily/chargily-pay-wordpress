@@ -9,7 +9,7 @@ final class WC_Chargily_Pay_Blocks extends AbstractPaymentMethodType {
     }
 
     public function is_active() {
-        return 'yes' === $this->settings['enabled'];
+        return isset($this->settings['enabled']) && 'yes' === $this->settings['enabled'];
     }
 
     public function get_payment_method_script_handles() {
