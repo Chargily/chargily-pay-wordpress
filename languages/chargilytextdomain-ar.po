@@ -25,7 +25,7 @@ msgstr "حدث خطأ أثناء معالجة الدفع الخاص بك. يرج
 
 #: templates/method-v2/API-v2.php:158
 msgid "Arabic"
-msgstr ""
+msgstr "العربية"
 
 #: templates/method-v2/API-v2.php:652
 msgid "Awaiting Chargily payment"
@@ -37,7 +37,7 @@ msgstr "تغيير الحالة إلى منتهية الصلاحية"
 
 #. Author of the plugin
 msgid "Chargily"
-msgstr ""
+msgstr "شارجيلي"
 
 #. Name of the plugin
 #| msgid "Chargily Pay™"
@@ -74,11 +74,11 @@ msgstr "البطاقة البنكية CIB"
 
 #: templates/method-v2/API-v2.php:140
 msgid "Collect Shipping Address"
-msgstr ""
+msgstr "طلب عنوان الشحن"
 
 #: templates/method-v2/API-v2.php:141
 msgid "Collect shipping address on checkout page."
-msgstr ""
+msgstr "طلب عنوان الشحن على صفحة الدفع."
 
 #: templates/method-v2/API-v2.php:170
 msgid "completed"
@@ -122,7 +122,7 @@ msgstr "تفعيل/تعطيل"
 
 #: templates/method-v2/API-v2.php:157
 msgid "English"
-msgstr ""
+msgstr "الإنجليزية"
 
 #: templates/method-v2/API-v2.php:886
 msgid "Enter your API keys."
@@ -181,15 +181,15 @@ msgstr "اكتشف أين يمكنك العثور على مفاتيح API الخ
 
 #: templates/method-v2/API-v2.php:148
 msgid "Fix styling compatibility."
-msgstr ""
+msgstr "إصلاح توافق التصميم."
 
 #: templates/method-v2/API-v2.php:147
 msgid "Force Chargily Pay plugin styling"
-msgstr ""
+msgstr "فرض تصميم بلاجن شارجيلي باي"
 
 #: templates/method-v2/API-v2.php:159
 msgid "French"
-msgstr ""
+msgstr "الفرنسية"
 
 #: templates/method-v2/API-v2.php:199
 msgid "General"
@@ -218,7 +218,7 @@ msgstr "إذا تم التفعيل، سيتم إنشاء المنتجات على
 
 #: templates/method-v2/API-v2.php:143
 msgid "If enabled, shipping address fields will appear and should be filled on checkout page."
-msgstr ""
+msgstr "إذا كان مفعل، ستظهر حقول عنوان الشحن ويجب ملؤها في صفحة الدفع."
 
 #: templates/method-v2/API-v2.php:183
 #, php-format
@@ -231,7 +231,7 @@ msgstr "إذا تم التفعيل، ستستخدم دفع Chargily في وضع 
 
 #: templates/method-v2/API-v2.php:150
 msgid "If the style of the Chargily Pay plugin is compromised due to a styling modification by another plugin, activating this option will rectify the issue."
-msgstr ""
+msgstr "إذا تضرر تصميم بلاجن شارجيلي باي بسبب بلاجن آخر، سيؤدي تفعيل هذا الخيار إلى تصحيح المشكلة."
 
 #: templates/method-v2/API-v2.php:886
 msgid "Just one more step to complete the setup of Chargily Pay™ and begin accepting payments."
@@ -300,11 +300,11 @@ msgstr "شكرا لك، سيصل المنتج قريبا."
 
 #. Description of the plugin
 msgid "The easiest and free way to integrate e-payment API through EDAHABIA of Algerie Poste and CIB of SATIM into your Wordpress/WooCommerce platform."
-msgstr ""
+msgstr "الطريقة الأسهل والمجانية لدمج الدفع الإلكتروني عن طريق الذهبية الخاصة ببريد الجزائر وCIB الخاصة بالبنوك الجزائرية في منصة الووردبراس\ووكومرس الخاصة بك."
 
 #: templates/method-v2/API-v2.php:161
 msgid "The language that will appear on chargily payment page"
-msgstr ""
+msgstr "لغة صفحة الدفع على شارجيلي باي"
 
 #: templates/method-v2/API-v2.php:113
 msgid "This controls the description which the user sees during checkout."
@@ -328,7 +328,7 @@ msgstr "فهم أوضاع Test وLive"
 
 #: templates/method-v2/API-v2.php:179
 msgid "Webhook Type"
-msgstr "نوع الخطاف (Webhook )"
+msgstr "نوع الخطاف (Webhook)"
 
 #: templates/method-v2/API-v2.php:326
 msgid "You are in Live Mode but your Live API keys are missing."

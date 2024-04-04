@@ -25,7 +25,7 @@ msgstr "Une erreur s'est produite lors du traitement de votre paiement. Veuillez
 
 #: templates/method-v2/API-v2.php:158
 msgid "Arabic"
-msgstr ""
+msgstr "Arabe"
 
 #: templates/method-v2/API-v2.php:652
 msgid "Awaiting Chargily payment"
@@ -37,7 +37,7 @@ msgstr "Changer le statut en expiré"
 
 #. Author of the plugin
 msgid "Chargily"
-msgstr ""
+msgstr "Chargily"
 
 #. Name of the plugin
 #| msgid "Chargily Pay™"
@@ -73,12 +73,12 @@ msgid "CIB Card"
 msgstr "CIB Card"
 
 #: templates/method-v2/API-v2.php:140
-msgid "Collect Shipping Address"
+msgid "Collection de l'adresse de livraison"
 msgstr ""
 
 #: templates/method-v2/API-v2.php:141
 msgid "Collect shipping address on checkout page."
-msgstr ""
+msgstr "Collectez l'adresse de livraison sur la page de paiement."
 
 #: templates/method-v2/API-v2.php:170
 msgid "completed"
@@ -98,7 +98,7 @@ msgstr "Description"
 
 #: templates/method-v2/API-v2.php:297 templates/method-v2/API-v2.php:338
 msgid "EDAHABIA"
-msgstr ""
+msgstr "EDAHABIA"
 
 #: templates/method-v2/API-v2.php:48
 msgid "Enable Chargily Pay"
@@ -114,7 +114,7 @@ msgstr "Activer le mode test"
 
 #: templates/method-v2/API-v2.php:180
 msgid "Enable this option if your server support .htaccess file rewriting"
-msgstr ""
+msgstr "Activez cette option si votre serveur prend en charge la réécriture de fichiers .htaccess"
 
 #: templates/method-v2/API-v2.php:47
 msgid "Enable/Disable"
@@ -122,7 +122,7 @@ msgstr "Activer/Désactiver"
 
 #: templates/method-v2/API-v2.php:157
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: templates/method-v2/API-v2.php:886
 msgid "Enter your API keys."
@@ -177,15 +177,15 @@ msgstr "Découvrez où trouver vos clés API"
 
 #: templates/method-v2/API-v2.php:148
 msgid "Fix styling compatibility."
-msgstr ""
+msgstr "Correction de la compatibilité des styles."
 
 #: templates/method-v2/API-v2.php:147
 msgid "Force Chargily Pay plugin styling"
-msgstr ""
+msgstr "Forcer le style du plugin Chargily Pay"
 
 #: templates/method-v2/API-v2.php:159
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: templates/method-v2/API-v2.php:199
 msgid "General"
@@ -214,12 +214,12 @@ msgstr "Si activé, les produits seront créés sur Chargily Pay lors du paiemen
 
 #: templates/method-v2/API-v2.php:143
 msgid "If enabled, shipping address fields will appear and should be filled on checkout page."
-msgstr ""
+msgstr "L'activation de cette option fera apparaître les champs d'adresse de livraison et devront être remplis sur la page de paiement."
 
 #: templates/method-v2/API-v2.php:183
 #, php-format
 msgid "If enabled, Webhook will use the .htaccess rewrite rule method. Please re-save the Permalink settings again <a href=\"%s\" target=\"_blank\">Permalink</a>."
-msgstr ""
+msgstr "S'il est activé, Webhook utilisera la méthode de règle de réécriture .htaccess. Veuillez réenregistrer les paramètres du lien permanent <a href=\"%s\" target=\"_blank\">Permalien</a>."
 
 #: templates/method-v2/API-v2.php:57
 msgid "If enabled, you will use Chargily Pay in Test Mode."
@@ -227,7 +227,7 @@ msgstr "Si activé, vous utiliserez Chargily Pay en mode Test."
 
 #: templates/method-v2/API-v2.php:150
 msgid "If the style of the Chargily Pay plugin is compromised due to a styling modification by another plugin, activating this option will rectify the issue."
-msgstr ""
+msgstr "Si le style du plugin Chargily Pay est compromis en raison d'une modification de style par un autre plugin, l'activation de cette option corrigera le problème."
 
 #: templates/method-v2/API-v2.php:886
 msgid "Just one more step to complete the setup of Chargily Pay™ and begin accepting payments."
@@ -272,7 +272,7 @@ msgstr "traitement"
 
 #: templates/method-v2/API-v2.php:154
 msgid "Select the language of the payment page"
-msgstr ""
+msgstr "Sélectionnez la langue de la page de paiement"
 
 #: templates/method-v2/API-v2.php:54
 msgid "Test mode"
@@ -296,11 +296,11 @@ msgstr "merci, le produit arrivera bientôt."
 
 #. Description of the plugin
 msgid "The easiest and free way to integrate e-payment API through EDAHABIA of Algerie Poste and CIB of SATIM into your Wordpress/WooCommerce platform."
-msgstr ""
+msgstr "Le moyen le plus simple et gratuit d'intégrer l'API de paiement électronique via EDAHABIA d'Algérie Poste et CIB de SATIM dans votre plateforme Wordpress/WooCommerce."
 
 #: templates/method-v2/API-v2.php:161
 msgid "The language that will appear on chargily payment page"
-msgstr ""
+msgstr "La langue qui apparaîtra sur la page de paiement Chargily"
 
 #: templates/method-v2/API-v2.php:113
 msgid "This controls the description which the user sees during checkout."
@@ -324,7 +324,7 @@ msgstr "Comprendre les modes Test et Live"
 
 #: templates/method-v2/API-v2.php:179
 msgid "Webhook Type"
-msgstr ""
+msgstr "Le type du Webhook"
 
 #: templates/method-v2/API-v2.php:326
 msgid "You are in Live Mode but your Live API keys are missing."
