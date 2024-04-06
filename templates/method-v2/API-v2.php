@@ -592,7 +592,7 @@ function wc_chargily_pay_init() {
 								"woocommerce_order_id" => (string)$order_id,
 								"item_id" => (string)$product_id,
 							),
-						));
+						),$product_id);
 						
 						if (is_wp_error($chargily_product_id)) {
 							wc_add_notice($chargily_product_id->get_error_message(), 'error');
@@ -601,14 +601,15 @@ function wc_chargily_pay_init() {
 					}
 					
 					$is_test_mode = $this->get_option('test_mode') === 'yes';
-					$chargily_product_price_meta_key = $is_test_mode ? 'chargily_product_price_id_test' : 'chargily_product_price_id_live';
-					$chargily_product_price_id = get_post_meta($product_id, $chargily_product_price_meta_key, true);
+					$chargily_product_price_meta_key = $is_test_mode ? 'chargily_product_price_id_test_' : 'chargily_product_price_id_live_';
+					$chargily_product_price_meta_key_in = $chargily_product_price_meta_key . $product_total;
+					$chargily_product_price_id = get_post_meta($product_id, $chargily_product_price_meta_key_in, true);
 					if (!$this->product_price_exists($chargily_product_price_id)) {
 						$chargily_product_price_id = $this->create_chargily_product_price(array(
 							'amount' => $product_total,
 							'currency' => 'dzd',
 							'product_id' => $chargily_product_id
-						),$product_id);
+						),$product_id, $product_total);
 
 						if (is_wp_error($chargily_product_price_id)) {
 							wc_add_notice($chargily_product_price_id->get_error_message(), 'error');
@@ -898,19 +899,21 @@ function wc_chargily_pay_init() {
 		}
 
 		
-		private function create_chargily_product_price($price_data, $product_id = null) {
+		private function create_chargily_product_price($price_data, $product_id = null, $product_total = null) {
 			$test_mode = $this->get_option('test_mode') === 'yes';
-			$chargily_product_price_meta_key = $test_mode ? 'chargily_product_price_id_test' : 'chargily_product_price_id_live';
+			$chargily_product_price_meta_key = $test_mode ? 'chargily_product_price_id_test_' : 'chargily_product_price_id_live_';
+			$chargily_product_price_meta_key_in = $chargily_product_price_meta_key . $product_total;
 		
-			$chargily_product_price_id = isset($price_data[$chargily_product_price_meta_key]) ? $price_data[$chargily_product_price_meta_key] : null;
+			$chargily_product_price_id = isset($price_data[$chargily_product_price_meta_key_in]) ? $price_data[$chargily_product_price_meta_key_in] : null;
 			if ($chargily_product_price_id && !$this->product_price_exists($chargily_product_price_id, $product_id)) {
 				// الرقم التعريفي لا يوجد في الـ API وتم حذفه من قاعدة البيانات. يمكنك الآن إنشاء سعر جديد
 			}
 			
 			$test_mode = $this->get_option('test_mode') === 'yes';
-			$chargily_product_price_meta_key = $test_mode ? 'chargily_product_price_id_test' : 'chargily_product_price_id_live';
+			$chargily_product_price_meta_key = $test_mode ? 'chargily_product_price_id_test_' : 'chargily_product_price_id_live_';
+			$chargily_product_price_meta_key_in = $chargily_product_price_meta_key . $product_total;
 			
-			$price_meta_key = $chargily_product_price_meta_key;
+			$price_meta_key = $chargily_product_price_meta_key_in;
 			$existing_price_id = get_post_meta($product_id, $price_meta_key, true);
 			if ($existing_price_id) {
 				return $existing_price_id;
