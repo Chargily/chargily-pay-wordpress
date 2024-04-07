@@ -581,10 +581,41 @@ function wc_chargily_pay_init() {
 					$product_image_url = wp_get_attachment_image_url( $product_image_id, 'full' );
 					$product_image_urls = $product_image_url ? array($product_image_url) : array();
 					
-					$is_test_mode = $this->get_option('test_mode') === 'yes';
-					$chargily_product_meta_key = $is_test_mode ? 'chargily_product_id_test' : 'chargily_product_id_live';
-					$chargily_product_id = get_post_meta($product_id, $chargily_product_meta_key, true);
-					if (!$this->product_exists($chargily_product_id)) {
+					$product_for_variation = $item->get_product();
+					if( $product_for_variation->is_type( 'variation' ) ){
+						$attributes = $product_for_variation->get_attributes();
+						$attributes_id = $product_for_variation->get_id();
+						if (empty($attributes_id)) {
+							$attributes_id = '0';
+						}
+						$attributes_in = $attributes_id . '_';
+						// start with attributes
+						$is_test_mode = $this->get_option('test_mode') === 'yes';
+						$chargily_product_meta_key = $is_test_mode ?
+							'chargily_product_id_test_' : 'chargily_product_id_live_';
+						$chargily_product_meta_key_in = $chargily_product_meta_key . $attributes_in;
+						$chargily_product_id = get_post_meta($product_id, $chargily_product_meta_key_in, true);
+						
+						$chargily_product_price_meta_key = $is_test_mode ?
+							'chargily_product_price_id_test_' : 'chargily_product_price_id_live_';
+						$chargily_product_price_meta_key_in = $chargily_product_price_meta_key . $attributes_in . $product_total;
+						$chargily_product_price_id = get_post_meta($product_id, $chargily_product_price_meta_key_in, true);
+					} else {
+						$attributes_in = '0_';
+						$is_test_mode = $this->get_option('test_mode') === 'yes';
+						// start no attributes
+						$chargily_product_meta_key = $is_test_mode ?
+							'chargily_product_id_test_' : 'chargily_product_id_live_';
+						$chargily_product_meta_key_in = $chargily_product_meta_key . $attributes_in;
+						$chargily_product_id = get_post_meta($product_id, $chargily_product_meta_key_in, true);
+						
+						$chargily_product_price_meta_key = $is_test_mode ?
+							'chargily_product_price_id_test_' : 'chargily_product_price_id_live_';
+						$chargily_product_price_meta_key_in = $chargily_product_price_meta_key . $attributes_in . $product_total;
+						$chargily_product_price_id = get_post_meta($product_id, $chargily_product_price_meta_key_in, true);
+					}
+
+					if (!$this->product_exists($chargily_product_id, $product_id, $product_total, $attributes_in)) {
 						$chargily_product_id = $this->create_chargily_product(array(
 							'name' => $product_name,
 							"images" => $product_image_urls,
@@ -592,7 +623,7 @@ function wc_chargily_pay_init() {
 								"woocommerce_order_id" => (string)$order_id,
 								"item_id" => (string)$product_id,
 							),
-						),$product_id);
+						),$product_id, $product_total, $attributes_in);
 						
 						if (is_wp_error($chargily_product_id)) {
 							wc_add_notice($chargily_product_id->get_error_message(), 'error');
@@ -600,16 +631,12 @@ function wc_chargily_pay_init() {
 						}
 					}
 					
-					$is_test_mode = $this->get_option('test_mode') === 'yes';
-					$chargily_product_price_meta_key = $is_test_mode ? 'chargily_product_price_id_test_' : 'chargily_product_price_id_live_';
-					$chargily_product_price_meta_key_in = $chargily_product_price_meta_key . $product_total;
-					$chargily_product_price_id = get_post_meta($product_id, $chargily_product_price_meta_key_in, true);
-					if (!$this->product_price_exists($chargily_product_price_id)) {
+					if (!$this->product_price_exists($chargily_product_price_id, $product_id, $product_total, $attributes_in)) {
 						$chargily_product_price_id = $this->create_chargily_product_price(array(
 							'amount' => $product_total,
 							'currency' => 'dzd',
 							'product_id' => $chargily_product_id
-						),$product_id, $product_total);
+						),$product_id, $product_total, $attributes_in);
 
 						if (is_wp_error($chargily_product_price_id)) {
 							wc_add_notice($chargily_product_price_id->get_error_message(), 'error');
@@ -775,7 +802,7 @@ function wc_chargily_pay_init() {
 		    }
 		}
 		
-		private function product_exists($chargily_product_id) {
+		private function product_exists($chargily_product_id, $product_id, $product_total, $attributes_in) {
 			if (empty($chargily_product_id)) {
 				$chargily_product_id = "0000000099999";
 			}
@@ -802,29 +829,31 @@ function wc_chargily_pay_init() {
 		
 		    $response_code = wp_remote_retrieve_response_code($response);
 		    if ($response_code >= 200 && $response_code <= 205) {
-		        return true; // Status code 200 means the customer exists.
+		        return true; // Status code 200 means the product exists.
 		    } else if ($response_code >= 400 && $response_code <= 499) {
 		        // Adjust the meta key based on the mode (test or live)
-		        $chargily_product_meta_key = $is_test_mode ? 'chargily_product_id_test' : 'chargily_product_id_live';
-		        delete_post_meta($product_id, $chargily_product_meta_key);
+				if ($product_id) {
+					$chargily_product_meta_key = $is_test_mode ? 'chargily_product_id_test_' : 'chargily_product_id_live_';
+					$chargily_product_meta_key_in = $chargily_product_meta_key . $attributes_in;
+					delete_post_meta($product_id, $chargily_product_meta_key_in);
+				}
 		        return false;
 		    }
 		    return true;
 		}
 
-		private function create_chargily_product($product_data, $product_id = null) {
+		private function create_chargily_product($product_data, $product_id = null, $product_total = null, $attributes_in = null) {
+			$credentials = $this->get_api_credentials();
 			$test_mode = $this->get_option('test_mode') === 'yes';
-		    $chargily_product_meta_key = $test_mode ? 'chargily_product_id_test' : 'chargily_product_id_live';
+		    $chargily_product_meta_key = $test_mode ? 'chargily_product_id_test_' : 'chargily_product_id_live_';
+			$chargily_product_meta_key_in = $chargily_product_meta_key . $attributes_in;
 		
-		    $chargily_product_id = isset($product_data[$chargily_product_meta_key]) ? $product_data[$chargily_product_meta_key] : null;
-		    if ($chargily_product_id && !$this->product_exists($chargily_product_id, $product_id)) {
+		    $chargily_product_id = isset($product_data[$chargily_product_meta_key_in]) ? $product_data[$chargily_product_meta_key_in] : null;
+		    if ($chargily_product_id && !$this->product_exists($chargily_product_id, $product_id, $product_total, $attributes_in)) {
 		        // الرقم التعريفي لا يوجد في الـ API وتم حذفه من قاعدة البيانات. يمكنك الآن إنشاء منتج جديد
 		    }
 			
-			$credentials = $this->get_api_credentials();
-			$product_id = $product_data['metadata']['item_id'];
-			$product_meta_key = $chargily_product_meta_key;
-			$existing_product_id = get_post_meta($product_id, $product_meta_key, true);
+			$existing_product_id = get_post_meta($product_id, $chargily_product_meta_key_in, true);
 			if ($existing_product_id) {
 				return $existing_product_id;
 			}
@@ -854,14 +883,14 @@ function wc_chargily_pay_init() {
 
 			$body = json_decode(wp_remote_retrieve_body($response), true);
 			if (isset($body['id'])) {
-				update_post_meta($product_id, $product_meta_key, $body['id']);
+				update_post_meta($product_id, $chargily_product_meta_key_in, $body['id']);
 				return $body['id'];
 			} else {
 				return new WP_Error('chargily_product_creation_failed', __('Failed to create product in Chargily.', 'chargilytextdomain'));
 			}
 		}
 		
-		private function product_price_exists($chargily_product_price_id) {
+		private function product_price_exists($chargily_product_price_id, $product_id, $product_total, $attributes_in) {
 			if (empty($chargily_product_price_id)) {
 				$chargily_product_price_id = "0000000099999";
 			}
@@ -888,33 +917,31 @@ function wc_chargily_pay_init() {
 		
 		    $response_code = wp_remote_retrieve_response_code($response);
 		    if ($response_code >= 200 && $response_code <= 205) {
-		        return true; // Status code 200 means the customer exists.
+		        return true; // Status code 200 means the product price exists.
 		    } else if ($response_code >= 400 && $response_code <= 499) {
 		        // Adjust the meta key based on the mode (test or live)
-		        $chargily_product_price_meta_key = $is_test_mode ? 'chargily_product_price_id_test' : 'chargily_product_price_id_live';
-		        delete_post_meta($product_id, $chargily_product_price_meta_key);
+				if ($product_id) {
+					$chargily_product_price_meta_key = $is_test_mode ? 'chargily_product_price_id_test_' : 'chargily_product_price_id_live_';
+					$chargily_product_price_meta_key_in = $chargily_product_price_meta_key . $attributes_in . $product_total;
+					delete_post_meta($product_id, $chargily_product_price_meta_key_in);
+				}
 		        return false;
 		    }
 		    return true;
 		}
 
 		
-		private function create_chargily_product_price($price_data, $product_id = null, $product_total = null) {
+		private function create_chargily_product_price($price_data, $product_id = null, $product_total = null, $attributes_in = null) {
 			$test_mode = $this->get_option('test_mode') === 'yes';
 			$chargily_product_price_meta_key = $test_mode ? 'chargily_product_price_id_test_' : 'chargily_product_price_id_live_';
-			$chargily_product_price_meta_key_in = $chargily_product_price_meta_key . $product_total;
+			$chargily_product_price_meta_key_in = $chargily_product_price_meta_key . $attributes_in . $product_total;
 		
 			$chargily_product_price_id = isset($price_data[$chargily_product_price_meta_key_in]) ? $price_data[$chargily_product_price_meta_key_in] : null;
-			if ($chargily_product_price_id && !$this->product_price_exists($chargily_product_price_id, $product_id)) {
+			if ($chargily_product_price_id && !$this->product_price_exists($chargily_product_price_id, $product_id, $product_total, $attributes_in)) {
 				// الرقم التعريفي لا يوجد في الـ API وتم حذفه من قاعدة البيانات. يمكنك الآن إنشاء سعر جديد
 			}
 			
-			$test_mode = $this->get_option('test_mode') === 'yes';
-			$chargily_product_price_meta_key = $test_mode ? 'chargily_product_price_id_test_' : 'chargily_product_price_id_live_';
-			$chargily_product_price_meta_key_in = $chargily_product_price_meta_key . $product_total;
-			
-			$price_meta_key = $chargily_product_price_meta_key_in;
-			$existing_price_id = get_post_meta($product_id, $price_meta_key, true);
+			$existing_price_id = get_post_meta($product_id, $chargily_product_price_meta_key_in, true);
 			if ($existing_price_id) {
 				return $existing_price_id;
 			}
@@ -944,7 +971,7 @@ function wc_chargily_pay_init() {
 
 			$body = json_decode(wp_remote_retrieve_body($response), true);
 			if (isset($body['id'])) {
-				update_post_meta($product_id, $price_meta_key, $body['id']);
+				update_post_meta($product_id, $chargily_product_price_meta_key_in, $body['id']);
 				return $body['id'];
 			} else {
 				return new WP_Error('chargily_price_creation_failed', __('Failed to create price in Chargily.', 'chargilytextdomain'));
