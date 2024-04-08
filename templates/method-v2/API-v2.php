@@ -568,6 +568,21 @@ function wc_chargily_pay_init() {
 			$create_products = $this->get_option('create_products') === 'yes';
 			
 			if ($create_products) {
+				$payload = array(
+					"locale" => $languages_use,
+					"metadata" => array("woocommerce_order_id" => (string)$order_id),
+					'amount'          => $order->get_total(),
+					'currency'        => 'dzd',
+					'payment_method'  => $payment_method,
+					'customer_id'  => $chargily_customers_id,
+					'collect_shipping_address'  => $collect_shipping_address_is,
+					'pass_fees_to_customer'  => $pass_fees_to_customer,
+					'success_url'     => $this->get_return_url( $order ),
+					'failure_url'     => $order->get_cancel_order_url(),
+					'webhook_endpoint' => $webhookEndpoint,
+				);
+
+				/*
 				$items = $order->get_items();
 				$items_data = array();
 				foreach ($items as $item) {
@@ -672,6 +687,7 @@ function wc_chargily_pay_init() {
 					'failure_url'     => $order->get_cancel_order_url(),
 					'webhook_endpoint' => $webhookEndpoint,
 				);
+			*/
 			} else {
 				$payload = array(
 					"locale" => $languages_use,
