@@ -129,13 +129,13 @@ function wc_chargily_pay_init() {
 			'description' => __('If enabled, Chargily Pay fees will be paid by your customers.', 'chargilytextdomain'),
 			'default'     => 'yes', 
 			),
-			'create_products' => array(
+			/*'create_products' => array(
 			'title'       => __('Create Products', 'chargilytextdomain'),
 			'label'       => __('Enable product creation on Chargily Pay.', 'chargilytextdomain'),
 			'type'        => 'checkbox',
 			'description' => __('If enabled, products will be created on Chargily Pay upon checkout.', 'chargilytextdomain'),
 			'default'     => 'no'
-			),
+			),*/
 			'collect_shipping_address' => array(
 			'title'       => __('Collect Shipping Address', 'chargilytextdomain'),
 			'label'       => __('Collect shipping address on checkout page.', 'chargilytextdomain'),
@@ -564,25 +564,25 @@ function wc_chargily_pay_init() {
 			} else {
 				$collect_shipping_address_is = '0';
 			}
-			
-			$create_products = $this->get_option('create_products') === 'yes';
-			
-			if ($create_products) {
-				$payload = array(
-					"locale" => $languages_use,
-					"metadata" => array("woocommerce_order_id" => (string)$order_id),
-					'amount'          => $order->get_total(),
-					'currency'        => 'dzd',
-					'payment_method'  => $payment_method,
-					'customer_id'  => $chargily_customers_id,
-					'collect_shipping_address'  => $collect_shipping_address_is,
-					'pass_fees_to_customer'  => $pass_fees_to_customer,
-					'success_url'     => $this->get_return_url( $order ),
-					'failure_url'     => $order->get_cancel_order_url(),
-					'webhook_endpoint' => $webhookEndpoint,
-				);
 
-				/*
+
+			$payload = array(	
+				"locale" => $languages_use,
+				"metadata" => array("woocommerce_order_id" => (string)$order_id),
+				'amount'          => $order->get_total(),
+				'currency'        => 'dzd',
+				'payment_method'  => $payment_method,
+				'customer_id'  => $chargily_customers_id,
+				'collect_shipping_address'  => $collect_shipping_address_is,
+				'pass_fees_to_customer'  => $pass_fees_to_customer,
+				'success_url'     => $this->get_return_url( $order ),
+				'failure_url'     => $order->get_cancel_order_url(),
+				'webhook_endpoint' => $webhookEndpoint,
+			);
+			
+			//$create_products = $this->get_option('create_products') === 'yes';
+			/*
+			if ($create_products) {
 				$items = $order->get_items();
 				$items_data = array();
 				foreach ($items as $item) {
@@ -687,7 +687,6 @@ function wc_chargily_pay_init() {
 					'failure_url'     => $order->get_cancel_order_url(),
 					'webhook_endpoint' => $webhookEndpoint,
 				);
-			*/
 			} else {
 				$payload = array(
 					"locale" => $languages_use,
@@ -703,7 +702,7 @@ function wc_chargily_pay_init() {
 					'webhook_endpoint' => $webhookEndpoint,
 				);
 			}
-
+			*/
 			$response = $this->create_chargilyv2_checkout($payload);
 
 			if (is_wp_error($response)) {
