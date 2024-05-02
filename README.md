@@ -3,7 +3,7 @@
 - Requires at least: 2.0
 - WordPress Tested up to: 6.5
 - WooCommerce Tested up to: 8.7.0
-- Stable tag: 2.5.5
+- Stable tag: 2.2.5
 - Requires PHP: 7.0
 - License: GPLv2
 - License URI: https://www.gnu.org/licenses/gpl-2.0.html
