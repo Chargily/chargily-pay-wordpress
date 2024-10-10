@@ -129,13 +129,6 @@ function wc_chargily_pay_init() {
 			'description' => __('If enabled, Chargily Pay fees will be paid by your customers.', 'chargilytextdomain'),
 			'default'     => 'yes', 
 			),
-			/*'create_products' => array(
-			'title'       => __('Create Products', 'chargilytextdomain'),
-			'label'       => __('Enable product creation on Chargily Pay.', 'chargilytextdomain'),
-			'type'        => 'checkbox',
-			'description' => __('If enabled, products will be created on Chargily Pay upon checkout.', 'chargilytextdomain'),
-			'default'     => 'no'
-			),*/
 			'collect_shipping_address' => array(
 			'title'       => __('Collect Shipping Address', 'chargilytextdomain'),
 			'label'       => __('Collect shipping address on checkout page.', 'chargilytextdomain'),
@@ -579,130 +572,7 @@ function wc_chargily_pay_init() {
 				'failure_url'     => $order->get_cancel_order_url(),
 				'webhook_endpoint' => $webhookEndpoint,
 			);
-			
-			//$create_products = $this->get_option('create_products') === 'yes';
-			/*
-			if ($create_products) {
-				$items = $order->get_items();
-				$items_data = array();
-				foreach ($items as $item) {
-					$product_id = $item->get_product_id();
-					$product_name = $item->get_name();
-					$product_quantity = $item->get_quantity();
-					$product_total = $item->get_total();
-					
-					$product = wc_get_product( $product_id );
-					$product_image_id = $product->get_image_id();
-					$product_image_url = wp_get_attachment_image_url( $product_image_id, 'full' );
-					$product_image_urls = $product_image_url ? array($product_image_url) : array();
-					
-					$product_for_variation = $item->get_product();
-					if( $product_for_variation->is_type( 'variation' ) ){
-						$attributes = $product_for_variation->get_attributes();
-						$attributes_id = $product_for_variation->get_id();
-						if (empty($attributes_id)) {
-							$attributes_id = '0';
-						}
-						$attributes_in = $attributes_id . '_';
-						// start with attributes
-						$is_test_mode = $this->get_option('test_mode') === 'yes';
-						$chargily_product_meta_key = $is_test_mode ?
-							'chargily_product_id_test_' : 'chargily_product_id_live_';
-						$chargily_product_meta_key_in = $chargily_product_meta_key . $attributes_in;
-						$chargily_product_id = get_post_meta($product_id, $chargily_product_meta_key_in, true);
-						
-						$chargily_product_price_meta_key = $is_test_mode ?
-							'chargily_product_price_id_test_' : 'chargily_product_price_id_live_';
-						$chargily_product_price_meta_key_in = $chargily_product_price_meta_key . $attributes_in . $product_total;
-						$chargily_product_price_id = get_post_meta($product_id, $chargily_product_price_meta_key_in, true);
-					} else {
-						$attributes_in = '0_';
-						$is_test_mode = $this->get_option('test_mode') === 'yes';
-						// start no attributes
-						$chargily_product_meta_key = $is_test_mode ?
-							'chargily_product_id_test_' : 'chargily_product_id_live_';
-						$chargily_product_meta_key_in = $chargily_product_meta_key . $attributes_in;
-						$chargily_product_id = get_post_meta($product_id, $chargily_product_meta_key_in, true);
-						
-						$chargily_product_price_meta_key = $is_test_mode ?
-							'chargily_product_price_id_test_' : 'chargily_product_price_id_live_';
-						$chargily_product_price_meta_key_in = $chargily_product_price_meta_key . $attributes_in . $product_total;
-						$chargily_product_price_id = get_post_meta($product_id, $chargily_product_price_meta_key_in, true);
-					}
 
-					if (!$this->product_exists($chargily_product_id, $product_id, $product_total, $attributes_in)) {
-						$chargily_product_id = $this->create_chargily_product(array(
-							'name' => $product_name,
-							"images" => $product_image_urls,
-							"metadata" => array(
-								"woocommerce_order_id" => (string)$order_id,
-								"item_id" => (string)$product_id,
-							),
-						),$product_id, $product_total, $attributes_in);
-						
-						if (is_wp_error($chargily_product_id)) {
-							wc_add_notice($chargily_product_id->get_error_message(), 'error');
-							return;
-						}
-					}
-					
-					if (!$this->product_price_exists($chargily_product_price_id, $product_id, $product_total, $attributes_in)) {
-						$chargily_product_price_id = $this->create_chargily_product_price(array(
-							'amount' => $product_total,
-							'currency' => 'dzd',
-							'product_id' => $chargily_product_id
-						),$product_id, $product_total, $attributes_in);
-
-						if (is_wp_error($chargily_product_price_id)) {
-							wc_add_notice($chargily_product_price_id->get_error_message(), 'error');
-							return;
-						}
-					}
-					
-					if (is_wp_error($chargily_product_id)) {
-						wc_add_notice($chargily_product_id->get_error_message(), 'error');
-						return;
-					}
-					
-					if (is_wp_error($chargily_product_price_id)) {
-						wc_add_notice($chargily_product_price_id->get_error_message(), 'error');
-						return;
-					}
-					
-					$items_data[] = array(
-						'price' => $chargily_product_price_id,
-						'quantity' => (string)$product_quantity
-					);
-				}
-
-				$payload = array(
-					"locale" => $languages_use,
-					"metadata" => array("woocommerce_order_id" => (string)$order_id),
-					"items" => $items_data,
-					'payment_method'  => $payment_method,
-					'customer_id'  => $chargily_customers_id,
-					'pass_fees_to_customer'  => $pass_fees_to_customer,
-					'collect_shipping_address'  => $collect_shipping_address_is,
-					'success_url'     => $this->get_return_url( $order ),
-					'failure_url'     => $order->get_cancel_order_url(),
-					'webhook_endpoint' => $webhookEndpoint,
-				);
-			} else {
-				$payload = array(
-					"locale" => $languages_use,
-					"metadata" => array("woocommerce_order_id" => (string)$order_id),
-					'amount'          => $order->get_total(),
-					'currency'        => 'dzd',
-					'payment_method'  => $payment_method,
-					'customer_id'  => $chargily_customers_id,
-					'collect_shipping_address'  => $collect_shipping_address_is,
-					'pass_fees_to_customer'  => $pass_fees_to_customer,
-					'success_url'     => $this->get_return_url( $order ),
-					'failure_url'     => $order->get_cancel_order_url(),
-					'webhook_endpoint' => $webhookEndpoint,
-				);
-			}
-			*/
 			$response = $this->create_chargilyv2_checkout($payload);
 
 			if (is_wp_error($response)) {
