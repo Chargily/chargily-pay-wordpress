@@ -18,6 +18,29 @@ if ( ! defined( 'chargilytextdomain' ) ) {
     define( 'chargilytextdomain', 'chargilytextdomain' );
 }
 
+// Check if WooCommerce is activated
+if ( ! class_exists( 'WooCommerce' ) ) {
+    add_action( 'admin_notices', 'chargily_woocommerce_not_active_notice' );
+    deactivate_plugins( plugin_basename( __FILE__ ) ); // Deactivate the plugin
+    return;
+}
+
+function chargily_woocommerce_not_active_notice() {
+    ?>
+    <div class="notice notice-error">
+        <p><?php _e( 'Chargily Pay plugin requires WooCommerce to be installed and activated.', 'chargilytextdomain' ); ?></p>
+    </div>
+    <?php
+}
+
+register_deactivation_hook(__FILE__, 'chargily_deactivate_plugin_if_wc_disabled');
+function chargily_deactivate_plugin_if_wc_disabled() {
+    if ( class_exists('WooCommerce') ) {
+        return;
+    } 
+    deactivate_plugins(plugin_basename(__FILE__)); 
+}
+
 function chargily_load_textdomain() {
     load_plugin_textdomain( chargilytextdomain, false, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
