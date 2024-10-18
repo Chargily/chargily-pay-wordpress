@@ -19,11 +19,18 @@ if ( ! defined( 'chargilytextdomain' ) ) {
 }
 
 // Check if WooCommerce is activated
-if ( ! class_exists( 'WooCommerce' ) ) {
-    add_action( 'admin_notices', 'chargily_woocommerce_not_active' );
-    return;
+if ( ! function_exists( 'is_woocommerce_activated' ) ) {
+	function is_woocommerce_activated() {
+		return class_exists( 'WooCommerce' );
+	}
 }
-
+add_action( 'plugins_loaded', 'chargily_check_woocommerce' );
+function chargily_check_woocommerce() {
+    if ( ! is_woocommerce_activated() ) {
+        add_action( 'admin_notices', 'chargily_woocommerce_not_active' );
+        return;
+    }
+}
 function chargily_woocommerce_not_active() {
     echo '<div class="notice notice-error"><p>';
     _e( 'Chargily Pay requires WooCommerce to be installed and activated.', 'chargilytextdomain' );
