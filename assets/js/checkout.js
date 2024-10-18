@@ -3,37 +3,79 @@ const { createElement, useState, useEffect } = window.wp.element;
 const shouldShowPaymentMethods = chargilySettings.show_payment_methods === 'yes';
 
 if (!shouldShowPaymentMethods) {
-    const chargilyOptions1 = document.querySelectorAll('.Chargily-option');
-    chargilyOptions1.forEach(option => {
-        option.style.display = 'none';
-    });
-    const chargilyOptions2 = document.querySelectorAll('.Chargily-option-no-show');
-    chargilyOptions2.forEach(option => {
-        option.style.display = 'block';
-    });
-    const chargilyOptions3 = document.querySelectorAll('label.Chargily');
-    chargilyOptions3.forEach(option => {
-        option.style.setProperty('display', 'flex', 'important');
-        option.style.setProperty('justify-content', 'flex-start', 'important');
-    });
-
     const style = document.createElement('style');
     style.innerHTML = `
       .Chargily-option {
          display: none !important;
       }
-	  .Chargily-option-no-show {
+      .Chargily-option-no-show {
          display: block !important;
       }
-	  label.Chargily {
+      label.Chargily-label-no-show {
          display: flex !important;
-		 justify-content: flex-start !important;
-	  }
+         gap: 5px !important;
+         display: flex !important;
+         justify-content: flex-start !important;
+	 
+      }
    `;
     document.head.appendChild(style);
 } else {
-
+	const style = document.createElement('style');
+    style.innerHTML = `
+      .Chargily-option-no-show {
+         display: none !important;
+      }
+   `;
+    document.head.appendChild(style);
 }
+
+(function() {
+    let attempts = 0;
+    const maxAttempts = 600;
+    const intervalTime = 100;
+
+    function chargilyPayDivConstMove() {
+        const targetSpan = document.querySelector('#radio-control-wc-payment-method-options-chargily_pay__label');
+        const shouldShowPaymentMethods = false;
+
+        if (targetSpan) {
+            if (!shouldShowPaymentMethods) {
+                const newDiv = document.createElement('div');
+                newDiv.className = 'Chargily-option-no-show';
+                newDiv.innerHTML = `
+                    <label for="chargilyv2_no-show" class="Chargily-label-no-show">
+                        <img class="edahabiaCardImage-no" src="https://demo.civitaic.com/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;">
+                        <img class="cibCardImage-no" src="https://demo.civitaic.com/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB Card" style="border-radius: 4px;">
+                        <img class="appCardImage-no" src="https://demo.civitaic.com/wp-content/plugins/chargily-pay/assets/img/qr-code.svg" alt="QR Code" style="border-radius: 4px;">
+                    </label>
+                `;
+                targetSpan.appendChild(newDiv);
+                document.querySelectorAll('.Chargily-option').forEach(option => {
+                    option.style.display = 'none';
+                });
+                document.querySelectorAll('.Chargily-option-no-show').forEach(option => {
+                    option.style.display = 'block';
+                });
+                document.querySelectorAll('label.Chargily-label-no-show').forEach(option => {
+                    option.style.display = 'flex';
+                    option.style.justifyContent = 'flex-start';
+                });
+            } else {
+				document.querySelectorAll('.Chargily-option-no-show').forEach(option => {
+                    option.style.display = 'nono';
+                });
+            }
+            clearInterval(intervalId);
+        }
+        attempts++;
+        if (attempts >= maxAttempts) {
+            clearInterval(intervalId);
+        }
+    }
+    const intervalId = setInterval(chargilyPayDivConstMove, intervalTime);
+})();
+
 const labels = {
     en: {
         chargilyPay: chargilySettings.title || "Chargily Pay™ (EDAHABIA/CIB)",
@@ -155,46 +197,6 @@ const PaymentMethodContent = () => {
                         className: ""
                     },
                     createElement("div", {}, label.istestMode),
-
-                    createElement(
-                        "div", {
-                            className: "Chargily-option-no-show",
-                            style: {
-                                display: "none",
-                            }
-                        },
-                        createElement("label", {
-                                htmlFor: "chargilyv2_no-show",
-                                className: "Chargily",
-                            },
-                            createElement("img", {
-                                className: "edahabiaCardImage-no",
-                                src: edahabiaCardImage,
-                                alt: label.edahabia,
-                                style: {
-                                    borderRadius: "4px",
-                                },
-                            }),
-                            createElement("img", {
-                                className: "cibCardImage-no",
-                                src: cibCardImage,
-                                alt: label.cib,
-                                style: {
-                                    borderRadius: "4px",
-                                },
-                            }),
-                            createElement("img", {
-                                className: "appCardImage-no",
-                                src: appCardImage,
-                                alt: label.app,
-                                style: {
-                                    borderRadius: "4px",
-                                },
-                            }),
-
-                        )
-                    ),
-
                     createElement(
                         "div", {
                             className: "Chargily-option"
@@ -343,50 +345,8 @@ const PaymentMethodContent = () => {
             if (!settings.liveApiKeyPresent || !settings.liveApiSecretPresent) {
                 return createElement("p", {}, label.LiveWarningMessage);
             }
-            return createElement("div", {
-                    className: ""
-                },
-
-                createElement(
-                    "div", {
-                        className: "Chargily-option-no-show",
-                        style: {
-                            display: "none",
-                        }
-                    },
-                    createElement("label", {
-                            htmlFor: "chargilyv2_no-show",
-                            className: "Chargily",
-                        },
-                        createElement("img", {
-                            className: "edahabiaCardImage-no",
-                            src: edahabiaCardImage,
-                            alt: label.edahabia,
-                            style: {
-                                borderRadius: "4px",
-                            },
-                        }),
-                        createElement("img", {
-                            className: "cibCardImage-no",
-                            src: cibCardImage,
-                            alt: label.cib,
-                            style: {
-                                borderRadius: "4px",
-                            },
-                        }),
-                        createElement("img", {
-                            className: "appCardImage-no",
-                            src: appCardImage,
-                            alt: label.app,
-                            style: {
-                                borderRadius: "4px",
-                            },
-                        }),
-
-                    )
-                ),
-
-                createElement(
+            return createElement("div", {className: ""},
+				createElement(
                     "div", {
                         className: "Chargily-option"
                     },
