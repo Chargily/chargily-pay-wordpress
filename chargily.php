@@ -5,7 +5,7 @@
 *Description: The easiest and free way to integrate e-payment API through EDAHABIA of Algerie Poste and CIB of SATIM into your Wordpress/WooCommerce platform.
 *Author: Chargily
 Author URI: https://chargily.com
-*Version: 2.2.5
+*Version: 2.3.0
 *Text Domain: chargilytextdomain
 *Domain Path: /languages
 */
@@ -37,9 +37,9 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wc_chargily_g
 add_action('wp_enqueue_scripts', 'chargily_css_loader_front');
 function chargily_css_loader_front() {
     if ( is_checkout() ) {
-        wp_enqueue_style('chargily-style-front', plugins_url('/assets/css/css-front.css?v=116', __FILE__));
+        wp_enqueue_style('chargily-style-front', plugins_url('/assets/css/css-front.css?v=230', __FILE__));
 		 if (is_rtl()) {
-        	wp_enqueue_style('rtl-style',  plugins_url('/assets/css/css-front-rtl.css?v=116', __FILE__));
+        	wp_enqueue_style('rtl-style',  plugins_url('/assets/css/css-front-rtl.css?v=230', __FILE__));
     	}
     }
 }
