@@ -123,7 +123,7 @@ function wc_chargily_pay_init() {
 			'desc_tip'    => true,
 			),
 			'chargily_pay_fees_allocation' => array(
-			'title'       => __('Pass Fees To Customer or merchant or split', 'chargilytextdomain'),
+			'title'       => __('Fees allocation', 'chargilytextdomain'),
 			'type'        => 'select',
 			'options'     => array(
 				'customer'  => __('The customer will pay the fees.', 'chargilytextdomain'),
@@ -172,15 +172,13 @@ function wc_chargily_pay_init() {
 			'default'     => 'completed',
 			'desc_tip'    => true,
 			),
-				
 			'show_payment_methods' => array(
-			'title'       => __('Show or hide the payment methods', 'chargilytextdomain'),
+			'title'       => __('Show payment methods', 'chargilytextdomain'),
 			'label'       => __('Show or hide the payment methods in checkout page.', 'chargilytextdomain'),
 			'type'        => 'checkbox',
-			'description' => __('This option allows you to specify the payment method on the website checkout. You can cancel this option so that the customer can specify the payment method on the payment website.', 'chargilytextdomain'),
+			'description' => __('When enabled, the payment methods (Edahabia, CIB, and QR Code) will be displayed prominently for user selection, taking up additional space on the checkout page.', 'chargilytextdomain'),
 			'default'     => 'yes'
 			),	
-				
 			'webhook_rewrite_rule' => array(
 			'title'       => __('Webhook Type', 'chargilytextdomain'),
 			'label'       => __('Enable this option if your server support .htaccess file rewriting', 'chargilytextdomain'),
