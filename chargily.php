@@ -24,6 +24,7 @@ if ( ! function_exists( 'is_woocommerce_activated' ) ) {
 		return class_exists( 'WooCommerce' );
 	}
 }
+
 add_action( 'plugins_loaded', 'chargily_check_woocommerce' );
 function chargily_check_woocommerce() {
     if ( ! is_woocommerce_activated() ) {
@@ -31,6 +32,7 @@ function chargily_check_woocommerce() {
         return;
     }
 }
+
 function chargily_woocommerce_not_active() {
     echo '<div class="notice notice-error"><p>';
     _e( 'Chargily Pay requires WooCommerce to be installed and activated.', 'chargilytextdomain' );
@@ -224,18 +226,15 @@ function show_chargily_update_security_notice() {
 
 function chargily_security_check_on_admin_page() {
     if (is_admin()) {
-        if (isset($_GET['page']) && $_GET['page'] === 'plugins.php') {
+        if ((isset($_GET['page']) && $_GET['page'] === 'plugins.php') || (get_current_screen() && get_current_screen()->id === 'plugins')) {
             check_chargily_security_updates();
         }
-	$screen = get_current_screen();
-	if ($screen && $screen->id === 'plugins') {
-		check_chargily_security_updates();
-	}
+        
         $last_check = get_option('chargily_security_check');
         if (!$last_check || (time() - $last_check['timestamp']) >= HOUR_IN_SECONDS) {
             check_chargily_security_updates();
         } else {
-            if ($last_check['need_update']) {
+            if (!empty($last_check['need_update'])) {
                 add_action('admin_notices', 'show_chargily_update_security_notice');
             }
         }
