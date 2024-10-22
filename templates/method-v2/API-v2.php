@@ -6,9 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Check if WooCommerce is activated
 if ( ! function_exists( 'is_woocommerce_activated' ) ) {
-	function is_woocommerce_activated() {
-		return class_exists( 'WooCommerce' );
-	}
+    function is_woocommerce_activated() {
+        return class_exists( 'WooCommerce' );
+    }
 }
 add_action( 'plugins_loaded', 'chargily_check_woocommerce' );
 
@@ -16,9 +16,9 @@ function chargily_check_woocommerce() {
     if ( ! is_woocommerce_activated() ) {
         add_action( 'admin_notices', 'chargily_woocommerce_not_active' );
         return;
+    } else {
+    	add_action( 'plugins_loaded', 'wc_chargily_pay_init', 11 );
     }
-} else {
-    add_action( 'plugins_loaded', 'wc_chargily_pay_init', 11 );
 }
 
 function chargily_woocommerce_not_active() {
