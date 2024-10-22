@@ -18,27 +18,6 @@ if ( ! defined( 'chargilytextdomain' ) ) {
     define( 'chargilytextdomain', 'chargilytextdomain' );
 }
 
-// Check if WooCommerce is activated
-if ( ! function_exists( 'is_woocommerce_activated' ) ) {
-	function is_woocommerce_activated() {
-		return class_exists( 'WooCommerce' );
-	}
-}
-
-add_action( 'plugins_loaded', 'chargily_check_woocommerce' );
-function chargily_check_woocommerce() {
-    if ( ! is_woocommerce_activated() ) {
-        add_action( 'admin_notices', 'chargily_woocommerce_not_active' );
-        return;
-    }
-}
-
-function chargily_woocommerce_not_active() {
-    echo '<div class="notice notice-error"><p>';
-    _e( 'Chargily Pay requires WooCommerce to be installed and activated.', 'chargilytextdomain' );
-    echo '</p></div>';
-}
-
 function chargily_load_textdomain() {
     load_plugin_textdomain( chargilytextdomain, false, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
@@ -207,7 +186,7 @@ function check_chargily_security_updates() {
 
 function show_chargily_update_security_notice() {
     ?>
-    <div class="notice notice-warning is-dismissible3" style="display: block;">
+    <div class="notice notice-warning is-dismissible" style="display: block;">
         <p>
             <?php _e('There is a critical security update for WooCommerce. Please update your WooCommerce And Chargily Pay plugins to ensure security.', 'chargilytextdomain'); ?>
             <br/>
