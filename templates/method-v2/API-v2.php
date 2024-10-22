@@ -4,6 +4,29 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+// Check if WooCommerce is activated
+if ( ! function_exists( 'is_woocommerce_activated' ) ) {
+	function is_woocommerce_activated() {
+		return class_exists( 'WooCommerce' );
+	}
+}
+add_action( 'plugins_loaded', 'chargily_check_woocommerce' );
+
+function chargily_check_woocommerce() {
+    if ( ! is_woocommerce_activated() ) {
+        add_action( 'admin_notices', 'chargily_woocommerce_not_active' );
+        return;
+    }
+} else {
+    add_action( 'plugins_loaded', 'wc_chargily_pay_init', 11 );
+}
+
+function chargily_woocommerce_not_active() {
+    echo '<div class="notice notice-error"><p>';
+    _e( 'Chargily Pay requires WooCommerce to be installed and activated.', 'chargilytextdomain' );
+    echo '</p></div>';
+}
+
 // Add the gateway to WC Available Gateways
 function wc_chargilyv2_add_to_gateways( $gateways ) {
     $gateways[] = 'WC_chargily_pay';
@@ -1009,8 +1032,6 @@ function wc_chargily_pay_init() {
     }
 }
 // The class itself
-add_action( 'plugins_loaded', 'wc_chargily_pay_init', 11 );
-
 
 function chargilyv2_admin_inline_scripts() {
 	if ( is_admin() ) {
