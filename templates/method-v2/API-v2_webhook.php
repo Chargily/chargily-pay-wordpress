@@ -3,8 +3,9 @@
 /**
  * Load WordPress environment
  */
-$parse_uri = explode('wp-content', $_SERVER['SCRIPT_FILENAME']);
-require_once($parse_uri[0] . 'wp-load.php');
+require_once dirname(__FILE__, 4) . '/wp-load.php';
+
+$chargily_debug = false;
 
 // Get the settings array from the WooCommerce settings
 $chargily_settings = get_option('woocommerce_chargily_pay_settings');
@@ -24,16 +25,20 @@ if (!empty($chargily_settings)) {
     // Check if the API secret key is not empty
     if (empty($apiSecretKey)) {
         // Handle the error if API secret key is empty
-        //error_log('Chargily API Secret is not set in the settings.');
         header("HTTP/1.1 500 Internal Server Error");
-        //echo 'Internal Server Error. The API Secret is not configured.';
+        if ($chargily_debug) {
+            echo 'Internal Server Error. The API Secret is not configured.';
+            error_log('Chargily API Secret is not set in the settings.');
+        }
         exit;
     }
 } else {
     // Handle the error if settings are not available
-    //error_log('Chargily settings are not available.');
     header("HTTP/1.1 500 Internal Server Error");
-   // echo 'Internal Server Error. Chargily settings are not available.';
+    if ($chargily_debug) {
+        echo 'Internal Server Error. Chargily settings are not available.';
+        error_log('Chargily settings are not available.');
+    }
     exit;
 }
 
@@ -47,7 +52,10 @@ $payload = file_get_contents('php://input');
 // If there is no signature, exit the script
 if (!$signature) {
     header("HTTP/1.1 400 Bad Request");
-    //echo 'No signature provided.';
+    if ($chargily_debug) {
+        echo 'No signature provided.';
+        error_log('No signature provided.');
+    }
     exit;
 }
 
@@ -57,12 +65,19 @@ $computedSignature = hash_hmac('sha256', $payload, $apiSecretKey);
 // If the calculated signature doesn't match the received signature, exit the script
 if (!hash_equals($signature, $computedSignature)) {
     header("HTTP/1.1 400 Bad Request");
-    //echo 'Invalid signature.';
+    if ($chargily_debug) {
+        echo 'Invalid signature.';
+        error_log('Invalid signature.');
+    }
     exit;
 }
 
 // If the signatures match, proceed to decode the JSON payload
 $data_array = json_decode($payload, true);
+if (json_last_error() !== JSON_ERROR_NONE) {
+    http_response_code(400);
+    exit;
+}
 
 /**
  * Function to update the order status based on webhook data
@@ -70,10 +85,14 @@ $data_array = json_decode($payload, true);
 function update_order_status($data) {	
     // Check if metadata exists and contains order_id
     if (isset($data['data']['metadata']['woocommerce_order_id'])) {
-        $order_id = $data['data']['metadata']['woocommerce_order_id'];
+        $order_id = absint($data['data']['metadata']['woocommerce_order_id']);
     } else {
         // Handle error if order_id is not found
-        //error_log('Order ID not found in metadata');
+        $chargily_debug = false;
+        if ($chargily_debug) {
+            echo 'Order ID not found in metadata.';
+            error_log('Order ID not found in metadata.');
+        }
         return;
     }
 
@@ -146,10 +165,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     // If the request is not POST, send an error response
     header("HTTP/1.1 400 Bad Request");
-    //echo 'Invalid request method.';
+    $chargily_debug = false;
+    if ($chargily_debug) {
+        echo 'Invalid request method.';
+        error_log('Invalid request method.');
+        http_response_code(400);
+    }
     exit;
 }
 
 // Respond with a 200 OK status code to let us know that you've received the webhook
 http_response_code(200);
-?>
+die();
