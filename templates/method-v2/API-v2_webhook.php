@@ -3,7 +3,8 @@
 /**
  * Load WordPress environment
  */
-require_once dirname(__FILE__, 4) . '/wp-load.php';
+$parse_uri = explode('wp-content', $_SERVER['SCRIPT_FILENAME']);
+require_once($parse_uri[0] . 'wp-load.php');
 
 $chargily_debug = false;
 
