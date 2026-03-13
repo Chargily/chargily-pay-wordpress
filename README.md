@@ -8,6 +8,8 @@
 - License: GPLv2
 - License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
+Arabic explanation [الشرح بالغة العربية](https://github.com/Chargily/chargily-pay-wordpress/tree/main/docs/ar)
+
 WooCommerce Plugin for [Chargily Pay](https://chargily.com/business/pay "Chargily Pay")™ Gateway - V2.
 
 The easiest and free way to integrate e-payment API is through EDAHABIA of Algerie Poste and CIB of SATIM into your WooCommerce/Wordpress platform.
