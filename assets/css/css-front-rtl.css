@@ -1,17 +1,30 @@
-label.Chargily:before, label:after {
+label.Chargily:before,
+label.Chargily:after {
 	right: 29px;
+	left: auto;
 }
 
 a.chlogo {
 	padding-right: 10px;
+	padding-left: 0;
 }
 
-img.edahabiaCardImage {
-	margin-right: auto;
-	margin-left: inherit;
+img.edahabiaCardImage,
+img.cibCardImage,
+img.appCardImage {
+	margin-left: 0;
 }
 
-img.cibCardImage {
+label.Chargily {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+label.Chargily > span {
 	margin-right: auto;
-	margin-left: inherit;
+	margin-left: 0;
+}
+.Chargily-option label.Chargily > span {
+    margin-left: 0!important;
 }
