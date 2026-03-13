@@ -1,5 +1,15 @@
 const { registerPaymentMethod } = window.wc.wcBlocksRegistry;
 const { createElement, useState, useEffect } = window.wp.element;
+
+const initialSettings = {
+    testMode: chargilySettings.testMode === 'yes' || chargilySettings.testMode === true || chargilySettings.testMode === '1',
+    liveApiKeyPresent: chargilySettings.liveApiKeyPresent === 'yes' || chargilySettings.liveApiKeyPresent === true || chargilySettings.liveApiKeyPresent === '1',
+    liveApiSecretPresent: chargilySettings.liveApiSecretPresent === 'yes' || chargilySettings.liveApiSecretPresent === true || chargilySettings.liveApiSecretPresent === '1',
+    testApiKeyPresent: chargilySettings.testApiKeyPresent === 'yes' || chargilySettings.testApiKeyPresent === true || chargilySettings.testApiKeyPresent === '1',
+    testApiSecretPresent: chargilySettings.testApiSecretPresent === 'yes' || chargilySettings.testApiSecretPresent === true || chargilySettings.testApiSecretPresent === '1',
+    payment_methods: Array.isArray(chargilySettings.payment_methods) ? chargilySettings.payment_methods : ['EDAHABIA', 'CIB', 'QR'],
+};
+
 const shouldShowPaymentMethods = chargilySettings.show_payment_methods === 'yes';
 
 if (!shouldShowPaymentMethods) {
@@ -14,14 +24,12 @@ if (!shouldShowPaymentMethods) {
       label.Chargily-label-no-show {
          display: flex !important;
          gap: 5px !important;
-         display: flex !important;
          justify-content: flex-start !important;
-	 
       }
    `;
     document.head.appendChild(style);
 } else {
-	const style = document.createElement('style');
+    const style = document.createElement('style');
     style.innerHTML = `
       .Chargily-option-no-show {
          display: none !important;
@@ -30,59 +38,15 @@ if (!shouldShowPaymentMethods) {
     document.head.appendChild(style);
 }
 
-(function() {
-    let attempts = 0;
-    const maxAttempts = 600;
-    const intervalTime = 100;
-
-    function chargilyPayDivConstMove() {
-        const targetSpan = document.querySelector('#radio-control-wc-payment-method-options-chargily_pay__label');
-        const shouldShowPaymentMethods = false;
-
-        if (targetSpan) {
-            if (!shouldShowPaymentMethods) {
-                const newDiv = document.createElement('div');
-                newDiv.className = 'Chargily-option-no-show';
-                newDiv.innerHTML = `
-                    <label for="chargilyv2_no-show" class="Chargily-label-no-show">
-                        <img class="edahabiaCardImage-no" src="https://demo.civitaic.com/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;">
-                        <img class="cibCardImage-no" src="https://demo.civitaic.com/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB Card" style="border-radius: 4px;">
-                        <img class="appCardImage-no" src="https://demo.civitaic.com/wp-content/plugins/chargily-pay/assets/img/qr-code.svg" alt="QR Code" style="border-radius: 4px;">
-                    </label>
-                `;
-                targetSpan.appendChild(newDiv);
-                document.querySelectorAll('.Chargily-option').forEach(option => {
-                    option.style.display = 'none';
-                });
-                document.querySelectorAll('.Chargily-option-no-show').forEach(option => {
-                    option.style.display = 'block';
-                });
-                document.querySelectorAll('label.Chargily-label-no-show').forEach(option => {
-                    option.style.display = 'flex';
-                    option.style.justifyContent = 'flex-start';
-                });
-            } else {
-				document.querySelectorAll('.Chargily-option-no-show').forEach(option => {
-                    option.style.display = 'nono';
-                });
-            }
-            clearInterval(intervalId);
-        }
-        attempts++;
-        if (attempts >= maxAttempts) {
-            clearInterval(intervalId);
-        }
-    }
-    const intervalId = setInterval(chargilyPayDivConstMove, intervalTime);
-})();
+const assetsBaseUrl = chargilySettings.assetsUrl || `${window.location.origin}/wp-content/plugins/chargily-pay/assets/`;
 
 const labels = {
     en: {
         chargilyPay: chargilySettings.title || "Chargily Pay™ (EDAHABIA/CIB)",
         description: chargilySettings.description || "Pay with your EDAHABIA/CIB card",
-        edahabia: "EDAHABIA",
+        edahabia: "EDAHABIA Card",
         cib: "CIB Card",
-        app: "QR Code",
+        app: "Chargily App",
         poweredBy: "provided by ",
         securePayment: "🔒 Secure E-Payment ",
         istestMode: "Test Mode is enabled.",
@@ -92,29 +56,29 @@ const labels = {
     },
     ar: {
         chargilyPay: chargilySettings.title || "شارجيلي باي (الذهبية / CIB)",
-        description: chargilySettings.description || "ادفع باستخدام بطاقتك الذهبيالبنكية CIB",
-        edahabia: "الذهبية",
-        cib: "البطاقة البنكية Cib",
-        app: "QR Code",
+        description: chargilySettings.description || "ادفع باستخدام بطاقتك الذهبية أو CIB",
+        edahabia: "البطاقة الذهبية",
+        cib: "البطاقة البنكية CIB",
+        app: "تطبيق شارجيلي",
         poweredBy: "بواسطة ",
         securePayment: "🔒 بوابة دفع إلكتروني آمنة ",
-        istestMode: "الTest Mode مفعل.",
-        TestWarningMessage: "أنت في وضع التجربة ولكن مفاتيح الAPI لوضع التجربة الخاصة بك مفقودة.",
-        TestLinkTextWarningMessage: "أدخل مفاتيح الAPI اللوضع التجربة الخاصة بك.",
-        LiveWarningMessage: "أنت في وضع Live ولكن مفاتيح الAPI لوضع الLive الخاصه بك مفقودة.",
+        istestMode: "وضع التجربة مفعل.",
+        TestWarningMessage: "أنت في وضع التجربة ولكن مفاتيح API الخاصة بوضع التجربة مفقودة.",
+        TestLinkTextWarningMessage: "أدخل مفاتيح API الخاصة بوضع التجربة.",
+        LiveWarningMessage: "أنت في وضع المباشر ولكن مفاتيح API الخاصة بالوضع المباشر مفقودة.",
     },
     fr: {
         chargilyPay: chargilySettings.title || "Chargily Pay™ (EDAHABIA/CIB)",
         description: chargilySettings.description || "Payez avec votre carte EDAHABIA/CIB",
-        edahabia: "EDAHABIA",
+        edahabia: "EDAHABIA Card",
         cib: "CIB Card",
-        app: "QR Code",
-        poweredBy: "🔒 Propulsé par",
-        securePayment: "Passerelle de paiement électronique sécurisée.",
+        app: "Appli Chargily",
+        poweredBy: "propulsé par",
+        securePayment: "🔒 Passerelle de paiement sécurisée ",
         istestMode: "Le mode Test est activé.",
-        TestWarningMessage: "Vous êtes en Mode Test mais vos clés API de Mode Test sont manquantes.",
-        TestLinkTextWarningMessage: "Entrez vos clés API de Mode Test.",
-        LiveWarningMessage: "Vous êtes en Mode Live mais vos clés API de Mode Live sont manquantes.",
+        TestWarningMessage: "Vous êtes en Mode Test mais vos clés API de test sont manquantes.",
+        TestLinkTextWarningMessage: "Entrez vos clés API de test.",
+        LiveWarningMessage: "Vous êtes en Mode Live mais vos clés API de production sont manquantes.",
     },
 };
 
@@ -139,379 +103,192 @@ function getCookie(name) {
     return null;
 }
 
+const paymentMethodOptions = {
+    EDAHABIA: {
+        id: 'chargilyv2_edahabia',
+        value: 'EDAHABIA',
+        label: 'edahabia',
+        image: 'edahabia-card.svg',
+        alt: 'EDAHABIA Card',
+        imageClass: 'edahabiaCardImage'
+    },
+    CIB: {
+        id: 'chargilyv2_cib',
+        value: 'CIB',
+        label: 'cib',
+        image: 'cib-card.svg',
+        alt: 'CIB Card',
+        imageClass: 'cibCardImage'
+    },
+    QR: {
+        id: 'chargilyv2_app',
+        value: 'chargily_app',
+        label: 'app',
+        image: 'qr-code.svg',
+        alt: 'APP',
+        imageClass: 'appCardImage'
+    }
+};
+
 const PaymentMethodContent = () => {
-    const [settings, setSettings] = useState({
-        testMode: true,
-        liveApiKeyPresent: false,
-        liveApiSecretPresent: false,
-        testApiKeyPresent: false,
-        testApiSecretPresent: false,
-    });
+    const [settings, setSettings] = useState(initialSettings);
+    
+    const enabledMethods = settings.payment_methods || ['EDAHABIA', 'CIB', 'QR'];
+    
+    const getDefaultMethod = () => {
+        const cookieMethod = getCookie("chargily_payment_method");
+        if (cookieMethod && enabledMethods.includes(
+            cookieMethod === 'EDAHABIA' ? 'EDAHABIA' : 
+            cookieMethod === 'chargily_app' ? 'QR' : 
+            cookieMethod === 'CIB' ? 'CIB' : null
+        )) {
+            return cookieMethod;
+        }
+        
+        if (enabledMethods.length > 0) {
+            const firstMethod = enabledMethods[0];
+            return firstMethod === 'EDAHABIA' ? 'EDAHABIA' : firstMethod;
+        }
+        
+        return "EDAHABIA";
+    };
+    
+    const [paymentMethod, setPaymentMethod] = useState(getDefaultMethod());
 
-    const defaultMethod = getCookie("chargily_payment_method") || "EDAHABIA";
-    const [paymentMethod, setPaymentMethod] = useState(defaultMethod);
-
-    const lang = document.documentElement.lang;
+    const lang = (document.documentElement.lang || "en").split("-")[0];
     const label = labels[lang] || labels.en;
 
-    const edahabiacardcib = `${window.location.origin}/wp-content/plugins/chargily-pay/assets/img/edahabia-card-cib.svg`;
-    const edahabiaCardImage = `${window.location.origin}/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg`;
-    const cibCardImage = `${window.location.origin}/wp-content/plugins/chargily-pay/assets/img/cib-card.svg`;
-    const appCardImage = `${window.location.origin}/wp-content/plugins/chargily-pay/assets/img/qr-code.svg`;
-    const chargilyLogo = `${window.location.origin}/wp-content/plugins/chargily-pay/assets/img/logo.svg`;
+    const edahabiaCardImage = `${assetsBaseUrl}img/edahabia-card-v3.svg`;
+    const cibCardImage = `${assetsBaseUrl}img/cib-card-v3.svg`;
+    const appCardImage = `${assetsBaseUrl}img/chargily-logo-v3.svg`;
+    const chargilyLogo = `${assetsBaseUrl}img/logo.svg`;
 
     useEffect(() => {
         setCookie("chargily_payment_method", paymentMethod, 7);
-        const randomVersion = Math.random().toString(36).substring(2, 15);
-        const settingsUrl = `${window.location.origin}/wp-content/plugins/chargily-pay/templates/method-v2/chargily_data.json?v=${randomVersion}`;
-        fetch(settingsUrl)
-            .then((response) => response.json())
-            .then((data) => setSettings(data));
+        setSettings(initialSettings);
     }, [paymentMethod]);
 
     const onPaymentMethodChange = (event) => {
         setPaymentMethod(event.target.value);
     };
 
+    const renderPaymentOptions = () => {
+        const options = [];
+        let isFirst = true;
+        
+        enabledMethods.forEach(method => {
+            if (paymentMethodOptions[method]) {
+                const pm = paymentMethodOptions[method];
+                const isChecked = paymentMethod === pm.value;
+                
+                let imageSrc = edahabiaCardImage;
+                if (method === 'CIB') imageSrc = cibCardImage;
+                if (method === 'QR') imageSrc = appCardImage;
+                
+                options.push(
+                    createElement(
+                        "div",
+                        { 
+                            key: pm.id,
+                            className: "Chargily-option" 
+                        },
+                        createElement("input", {
+                            type: "radio",
+                            id: pm.id,
+                            name: "chargily_payment_method",
+                            value: pm.value,
+                            onChange: onPaymentMethodChange,
+                            checked: isChecked,
+                        }),
+                        createElement(
+                            "label",
+                            {
+                                htmlFor: pm.id,
+                                className: "Chargily",
+                                "aria-label": label[pm.label],
+                            },
+                            createElement("span", {
+                                style: { display: "flex", alignItems: "center" }
+                            }),
+                            createElement("div", {
+                                className: "Chargily-card-text",
+                            }, label[pm.label]),
+                            createElement("img", {
+                                className: pm.imageClass,
+                                src: imageSrc,
+                                alt: pm.alt,
+                                style: { borderRadius: "4px" },
+                            })
+                        )
+                    )
+                );
+                isFirst = false;
+            }
+        });
+        
+        return options;
+    };
+
     const renderContent = () => {
+        // التحقق من وجود مفاتيح API بناءً على الوضع
         if (settings.testMode) {
             if (!settings.testApiKeyPresent || !settings.testApiSecretPresent) {
                 return createElement(
-                    "div", {
-                        className: ""
-                    },
+                    "div",
+                    {},
                     createElement("p", {}, label.TestWarningMessage),
                     createElement(
-                        "a", {
+                        "a",
+                        {
                             href: "/wp-admin/admin.php?page=wc-settings&tab=checkout&section=chargily_pay",
                             target: "_blank",
-                            style: {
-                                color: "black"
-                            },
+                            style: { color: "black" },
                         },
                         createElement("p", {}, label.TestLinkTextWarningMessage)
                     )
                 );
             } else {
-                return createElement("div", {
-                        className: ""
-                    },
+                return createElement(
+                    "div",
+                    {},
                     createElement("div", {}, label.istestMode),
-                    createElement(
-                        "div", {
-                            className: "Chargily-option"
-                        },
-                        createElement("input", {
-                            type: "radio",
-                            id: "chargilyv2_edahabia",
-                            name: "chargily_payment_method",
-                            value: "EDAHABIA",
-                            onChange: onPaymentMethodChange,
-                            checked: paymentMethod === "EDAHABIA",
-                        }),
-                        createElement(
-                            "label", {
-                                htmlFor: "chargilyv2_edahabia",
-                                className: "Chargily",
-                                "aria-label": label.edahabia,
-                            },
-                            createElement("span", {
-                                style: {
-                                    display: "flex",
-                                    alignItems: "center"
-                                }
-                            }),
-                            createElement("div", {
-                                className: "Chargily-card-text",
-                                style: {},
-                                bis_skin_checked: 1,
-                            }, label.edahabia),
-                            createElement("img", {
-                                className: "edahabiaCardImage",
-                                src: edahabiaCardImage,
-                                alt: label.edahabia,
-                                style: {
-                                    borderRadius: "4px",
-                                },
-                            })
-                        )
-                    ),
-                    createElement(
-                        "div", {
-                            className: "Chargily-option"
-                        },
-                        createElement("input", {
-                            type: "radio",
-                            id: "chargilyv2_cib",
-                            name: "chargily_payment_method",
-                            value: "CIB",
-                            onChange: onPaymentMethodChange,
-                            checked: paymentMethod === "CIB",
-                        }),
-                        createElement(
-                            "label", {
-                                htmlFor: "chargilyv2_cib",
-                                className: "Chargily",
-                                "aria-label": label.cib,
-                            },
-                            createElement("span", {
-                                style: {
-                                    display: "flex",
-                                    alignItems: "center"
-                                }
-                            }),
-                            createElement("div", {
-                                className: "Chargily-card-text",
-                                style: {},
-                                bis_skin_checked: 1,
-                            }, label.cib),
-                            createElement("img", {
-                                className: "cibCardImage",
-                                src: cibCardImage,
-                                alt: label.cib,
-                                style: {},
-                            })
-                        )
-                    ),
-                    createElement(
-                        "div", {
-                            className: "Chargily-option"
-                        },
-                        createElement("input", {
-                            type: "radio",
-                            id: "chargilyv2_app",
-                            name: "chargily_payment_method",
-                            value: "chargily_app",
-                            onChange: onPaymentMethodChange,
-                            checked: paymentMethod === "chargily_app",
-                        }),
-                        createElement(
-                            "label", {
-                                htmlFor: "chargilyv2_app",
-                                className: "Chargily",
-                                "aria-label": label.app,
-                            },
-                            createElement("span", {
-                                style: {
-                                    display: "flex",
-                                    alignItems: "center"
-                                }
-                            }),
-                            createElement("div", {
-                                className: "Chargily-card-text",
-                                style: {},
-                                bis_skin_checked: 1,
-                            }, label.app),
-                            createElement("img", {
-                                className: "appCardImage",
-                                src: appCardImage,
-                                alt: label.app,
-                                style: {},
-                            })
-                        )
-                    ),
-                    createElement(
-                        "div", {
-                            className: "Chargily-logo-z",
-                            style: {
-                                display: "flex",
-                                flexWrap: "nowrap",
-                                alignItems: "center",
-                                alignContent: "center"
-                            }
-                        },
-                        createElement("p", {}, label.securePayment, label.poweredBy, ),
-                        createElement(
-                            "a", {
-                                className: "chlogo",
-                                href: "https://chargily.com/business/pay",
-                                target: "_blank",
-                                style: {
-                                    color: "black"
-                                },
-                            },
-                            createElement("img", {
-                                src: chargilyLogo,
-                                alt: "chargily",
-                                style: {
-                                    height: "30px"
-                                },
-                            })
-                        )
-                    )
+                    ...renderPaymentOptions(),
                 );
             }
         } else {
             if (!settings.liveApiKeyPresent || !settings.liveApiSecretPresent) {
                 return createElement("p", {}, label.LiveWarningMessage);
             }
-            return createElement("div", {className: ""},
-				createElement(
-                    "div", {
-                        className: "Chargily-option"
-                    },
-                    createElement("input", {
-                        type: "radio",
-                        id: "chargilyv2_edahabia",
-                        name: "chargily_payment_method",
-                        value: "EDAHABIA",
-                        onChange: onPaymentMethodChange,
-                        checked: paymentMethod === "EDAHABIA",
-                    }),
-                    createElement(
-                        "label", {
-                            htmlFor: "chargilyv2_edahabia",
-                            className: "Chargily",
-                            "aria-label": label.edahabia,
-                        },
-                        createElement("span", {
-                            style: {
-                                display: "flex",
-                                alignItems: "center"
-                            }
-                        }),
-                        createElement("div", {
-                            className: "Chargily-card-text",
-                            style: {},
-                            bis_skin_checked: 1,
-                        }, label.edahabia),
-                        createElement("img", {
-                            className: "edahabiaCardImage",
-                            src: edahabiaCardImage,
-                            alt: label.edahabia,
-                            style: {
-                                borderRadius: "4px"
-                            },
-                        })
-                    )
-                ),
-                createElement(
-                    "div", {
-                        className: "Chargily-option"
-                    },
-                    createElement("input", {
-                        type: "radio",
-                        id: "chargilyv2_cib",
-                        name: "chargily_payment_method",
-                        value: "CIB",
-                        onChange: onPaymentMethodChange,
-                        checked: paymentMethod === "CIB",
-                    }),
-                    createElement(
-                        "label", {
-                            htmlFor: "chargilyv2_cib",
-                            className: "Chargily",
-                            "aria-label": label.cib,
-                        },
-                        createElement("span", {
-                            style: {
-                                display: "flex",
-                                alignItems: "center"
-                            }
-                        }),
-                        createElement("div", {
-                            className: "Chargily-card-text",
-                            style: {},
-                            bis_skin_checked: 1,
-                        }, label.cib),
-                        createElement("img", {
-                            className: "cibCardImage",
-                            src: cibCardImage,
-                            alt: label.cib,
-                            style: {},
-                        })
-                    )
-                ),
-                createElement(
-                    "div", {
-                        className: "Chargily-option"
-                    },
-                    createElement("input", {
-                        type: "radio",
-                        id: "chargilyv2_app",
-                        name: "chargily_payment_method",
-                        value: "chargily_app",
-                        onChange: onPaymentMethodChange,
-                        checked: paymentMethod === "chargily_app",
-                    }),
-                    createElement(
-                        "label", {
-                            htmlFor: "chargilyv2_app",
-                            className: "Chargily",
-                            "aria-label": label.app,
-                        },
-                        createElement("span", {
-                            style: {
-                                display: "flex",
-                                alignItems: "center"
-                            }
-                        }),
-                        createElement("div", {
-                            className: "Chargily-card-text",
-                            style: {},
-                            bis_skin_checked: 1,
-                        }, label.app),
-                        createElement("img", {
-                            className: "appCardImage",
-                            src: appCardImage,
-                            alt: label.app,
-                            style: {},
-                        })
-                    )
-                ),
-                createElement(
-                    "div", {
-                        className: "Chargily-logo-z",
-                        style: {
-                            display: "flex",
-                            flexWrap: "nowrap",
-                            alignItems: "center",
-                            alignContent: "center"
-                        }
-                    },
-                    createElement("p", {}, label.securePayment, label.poweredBy, ),
-                    createElement(
-                        "a", {
-                            className: "chlogo",
-                            href: "https://chargily.com/business/pay",
-                            target: "_blank",
-                            style: {
-                                color: "black"
-                            },
-                        },
-                        createElement("img", {
-                            src: chargilyLogo,
-                            alt: "chargily",
-                            style: {
-                                height: "30px"
-                            },
-                        })
-                    )
-                )
+            return createElement(
+                "div",
+                {},
+                ...renderPaymentOptions(),
             );
         }
     };
-    // marginBottom: "-7px"
+
     return createElement(
-        "div", {
-            className: "Chargily-container"
-        },
+        "div",
+        { className: "Chargily-container" },
         renderContent()
     );
 };
 
-const lang = document.documentElement.lang || "en";
+const lang = (document.documentElement.lang || 'en').split('-')[0];
 
 const ChargilyPay = {
     name: "chargily_pay",
     label: labels[lang] ? labels[lang].chargilyPay : labels.en.chargilyPay,
     content: createElement(PaymentMethodContent),
     edit: createElement(PaymentMethodContent),
-    canMakePayment: () => true,
+    canMakePayment: () => {
+        return initialSettings.liveApiKeyPresent || initialSettings.testApiKeyPresent;
+    },
     paymentMethodId: "chargily_pay",
     ariaLabel: labels[lang] ? labels[lang].chargilyPay : labels.en.chargilyPay,
     supports: {
         features: ["products"],
     },
 };
+
 registerPaymentMethod(ChargilyPay);
