@@ -1,9 +1,9 @@
 # Chargily Pay™ V2
 
-- Requires at least: 2.0
-- WordPress Tested up to: 6.6.2
-- WooCommerce Tested up to: 9.4.0
-- Stable tag: 2.3.0
+- Requires at least: 2.0.0
+- WordPress Tested up to: 6.9.4
+- WooCommerce Tested up to: 10.6.1
+- Stable tag: 2.5.30
 - Requires PHP: 7.0
 - License: GPLv2
 - License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ WooCommerce Plugin for [Chargily Pay](https://chargily.com/business/pay "Chargil
 
 The easiest and free way to integrate e-payment API is through EDAHABIA of Algerie Poste and CIB of SATIM into your WooCommerce/Wordpress platform.
 
-<p align="center"><img src="https://i.imgur.com/KT5f1l4.png"></p>
+<p align="center"><img src="https://i.imgur.com/Sca0nNJ.png"></p>
 
 Easily accept payments from your customers using their EDAHABIA and CIB cards.
 
