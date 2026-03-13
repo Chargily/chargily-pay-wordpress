@@ -61,163 +61,237 @@ function wc_chargily_pay_init() {
             // admin api notices
             add_action('admin_notices', array($this, 'display_chargily_admin_notices'));
 			
-            add_action('woocommerce_update_options_payment_gateways_chargily_pay', array($this, 'update_chargily_pay_settings'));
         }
 
         public function init_form_fields() {
             $this->form_fields = array(
                 'enabled' => array(
-			'title'       => __('Enable/Disable', 'chargilytextdomain'),
-			'label'       => __('Enable Chargily Pay', 'chargilytextdomain'),
-			'type'        => 'checkbox',
-			'description' => '',
-			'default'     => 'no'
-			),
-			'test_mode' => array(
-			'title'       => __('Test mode', 'chargilytextdomain'),
-			'label'       => __('Enable Test Mode', 'chargilytextdomain'),
-			'type'        => 'checkbox',
-			'description' => __('If enabled, you will use Chargily Pay in Test Mode.', 'chargilytextdomain'),
-			'default'     => 'yes',
-			'desc_tip'    => true,
-			),
-			'Chargily_Gateway_api_key_v2_test' => array(
-			'title'       => __('Test Public key', 'chargilytextdomain'),
-			'type'        => 'password',
-			'description' => __('Enter your Chargily Test API key.', 'chargilytextdomain'),
-			'default'     => '',
-			'desc_tip'    => true,
-			),
-			'Chargily_Gateway_api_secret_v2_test' => array(
-			'title'       => __('Test Secret key', 'chargilytextdomain'),
-			'type'        => 'password',
-			'description' => __('Enter your Chargily Test API secret.', 'chargilytextdomain'),
-			'default'     => '',
-			'desc_tip'    => true,
-			),
-			'Chargily_Gateway_api_authorization_v2_test' => array(
-			'title'       => __('Check API keys', 'chargilytextdomain'),
-			'type'        => 'button',
-			'description' => __('Check your API keys.', 'chargilytextdomain'),
-			'default'     => __('Check connection', 'chargilytextdomain'),
-			'desc_tip'    => true,
-			),
-			'Chargily_Gateway_api_key_v2_live' => array(
-			'title'       => __('Live Public key', 'chargilytextdomain'),
-			'type'        => 'password',
-			'description' => __('Enter your Chargily Live API key.', 'chargilytextdomain'),
-			'default'     => '',
-			'desc_tip'    => true,
-			),
-			'Chargily_Gateway_api_secret_v2_live' => array(
-			'title'       => __('Live Secret key', 'chargilytextdomain'),
-			'type'        => 'password',
-			'description' => __('Enter your Chargily Live API secret.', 'chargilytextdomain'),
-			'default'     => '',
-			'desc_tip'    => true,
-			),
-			'Chargily_Gateway_api_authorization_v2_live' => array(
-			'title'       => __('Check API keys', 'chargilytextdomain'),
-			'type'        => 'button',
-			'description' => __('Check your API keys.', 'chargilytextdomain'),
-			'default'     => __('Check connection', 'chargilytextdomain'),
-			'desc_tip'    => true,
-			),
-			'title' => array(
-			'title'       => __('Title', 'chargilytextdomain'),
-			'type'        => 'text',
-			'description' => __('This controls the title which the user sees during checkout.', 'chargilytextdomain'),
-			'default'     => __('Chargily Pay™', 'chargilytextdomain'),
-			'desc_tip'    => true,
-			),
-			'description' => array(
-			'title'       => __('Description', 'chargilytextdomain'),
-			'type'        => 'textarea',
-			'description' => __('This controls the description which the user sees during checkout.', 'chargilytextdomain'),
-			'default'     => __('🔒 Secure e-payment gateway.', 'chargilytextdomain'),
-			'desc_tip'    => true,
-			),
-			'instructions' => array(
-			'title'       => __('On the thanks page', 'chargilytextdomain'),
-			'type'        => 'textarea',
-			'placeholder' => __('thank you, the product will come soon.', 'chargilytextdomain'),
-			'description' => __('Place the message you want to appear on the thank you page after completing the purchase of the product.', 'chargilytextdomain'),
-			'default'     => __('', 'chargilytextdomain'),
-			'desc_tip'    => true,
-			),
-			'chargily_pay_fees_allocation' => array(
-			'title'       => __('Fees allocation', 'chargilytextdomain'),
-			'type'        => 'select',
-			'options'     => array(
-				'customer'  => __('The customer will pay the fees.', 'chargilytextdomain'),
-				'merchant'    => __('The store will pay the fees.', 'chargilytextdomain'),
-				'split' => __('Splitted between the store and the customer.', 'chargilytextdomain')
-			),
-			'description' => __('Choose who is going to pay Chargily Pay fees.', 'chargilytextdomain'),
-			'default'     => 'customer',
-			'desc_tip'    => true,
-			),
-			'collect_shipping_address' => array(
-			'title'       => __('Collect Shipping Address', 'chargilytextdomain'),
-			'label'       => __('Collect shipping address on checkout page.', 'chargilytextdomain'),
-			'type'        => 'checkbox',
-			'description' => __('If enabled, shipping address fields will appear and should be filled on checkout page.', 'chargilytextdomain'),
-			'default'     => 'yes'
-			),
-			'fix_for_compatibility_plugins' => array(
-			'title'       => __('Force Chargily Pay plugin styling', 'chargilytextdomain'),
-			'label'       => __('Fix styling compatibility.', 'chargilytextdomain'),
-			'type'        => 'checkbox',
-			'description' => __('If the style of the Chargily Pay plugin is compromised due to a styling modification by another plugin, activating this option will rectify the issue.', 'chargilytextdomain'),
-			'default'     => 'no'
-			),
-			'languages_type' => array(
-			'title'       => __('Select the language of the payment page', 'chargilytextdomain'),
-			'type'        => 'select',
-			'options'     => array(
-				'en'  => __('English', 'chargilytextdomain'),
-				'ar'    => __('Arabic', 'chargilytextdomain'),
-				'fr' => __('French', 'chargilytextdomain')
-			),
-			'description' => __('The language that will appear on chargily payment page', 'chargilytextdomain'),
-			'default'     => 'en',
-			'desc_tip'    => true,
-			),
-			'response_type' => array(
-			'title'       => __('Confirmation status', 'chargilytextdomain'),
-			'type'        => 'select',
-			'options'     => array(
-				'completed'  => __('completed', 'chargilytextdomain'),
-				'on-hold'    => __('on hold', 'chargilytextdomain'),
-				'processing' => __('processing', 'chargilytextdomain')
-			),
-			'description' => __('This status will be set when the payment succeeds.', 'chargilytextdomain'),
-			'default'     => 'completed',
-			'desc_tip'    => true,
-			),
-			'show_payment_methods' => array(
-			'title'       => __('Show payment methods', 'chargilytextdomain'),
-			'label'       => __('Show or hide the payment methods in checkout page.', 'chargilytextdomain'),
-			'type'        => 'checkbox',
-			'description' => __('When enabled, the payment methods (Edahabia, CIB, and QR Code) will be displayed prominently for user selection, taking up additional space on the checkout page.', 'chargilytextdomain'),
-			'default'     => 'yes'
-			),	
-			'webhook_rewrite_rule' => array(
-			'title'       => __('Webhook Type', 'chargilytextdomain'),
-			'label'       => __('Enable this option if your server support .htaccess file rewriting', 'chargilytextdomain'),
-			'type'        => 'checkbox',
-			'description' => sprintf(
-			__('If enabled, Webhook will use the .htaccess rewrite rule method. Please re-save the Permalink settings again <a href="%s" target="_blank">Permalink</a>.', 'chargilytextdomain'),
-			'/wp-admin/options-permalink.php'
-			),
-			'default'     => 'no'
-			),
-		// END
-	    );
-	}
+				'title'       => __('Enable/Disable', 'chargilytextdomain'),
+				'label'       => __('Enable Chargily Pay', 'chargilytextdomain'),
+				'type'        => 'checkbox',
+				'description' => '',
+				'default'     => 'no'
+				),
+				'test_mode' => array(
+				'title'       => __('Test mode', 'chargilytextdomain'),
+				'label'       => __('Enable Test Mode', 'chargilytextdomain'),
+				'type'        => 'checkbox',
+				'description' => __('If enabled, you will use Chargily Pay in Test Mode.', 'chargilytextdomain'),
+				'default'     => 'yes',
+				'desc_tip'    => true,
+				),
+				'Chargily_Gateway_api_key_v2_test' => array(
+				'title'       => __('Test Public key', 'chargilytextdomain'),
+				'type'        => 'password',
+				'description' => __('Enter your Chargily Test API key.', 'chargilytextdomain'),
+				'default'     => '',
+				'desc_tip'    => true,
+				),
+				'Chargily_Gateway_api_secret_v2_test' => array(
+				'title'       => __('Test Secret key', 'chargilytextdomain'),
+				'type'        => 'password',
+				'description' => __('Enter your Chargily Test API secret.', 'chargilytextdomain'),
+				'default'     => '',
+				'desc_tip'    => true,
+				),
+				'Chargily_Gateway_api_authorization_v2_test' => array(
+				'title'       => __('Check API keys', 'chargilytextdomain'),
+				'type'        => 'button',
+				'description' => __('Check your API keys.', 'chargilytextdomain'),
+				'default'     => __('Check connection', 'chargilytextdomain'),
+				'desc_tip'    => true,
+				),
+				'Chargily_Gateway_api_key_v2_live' => array(
+				'title'       => __('Live Public key', 'chargilytextdomain'),
+				'type'        => 'password',
+				'description' => __('Enter your Chargily Live API key.', 'chargilytextdomain'),
+				'default'     => '',
+				'desc_tip'    => true,
+				),
+				'Chargily_Gateway_api_secret_v2_live' => array(
+				'title'       => __('Live Secret key', 'chargilytextdomain'),
+				'type'        => 'password',
+				'description' => __('Enter your Chargily Live API secret.', 'chargilytextdomain'),
+				'default'     => '',
+				'desc_tip'    => true,
+				),
+				'Chargily_Gateway_api_authorization_v2_live' => array(
+				'title'       => __('Check API keys', 'chargilytextdomain'),
+				'type'        => 'button',
+				'description' => __('Check your API keys.', 'chargilytextdomain'),
+				'default'     => __('Check connection', 'chargilytextdomain'),
+				'desc_tip'    => true,
+				),
+				'title' => array(
+				'title'       => __('Title', 'chargilytextdomain'),
+				'type'        => 'text',
+				'description' => __('This controls the title which the user sees during checkout.', 'chargilytextdomain'),
+				'default'     => __('Chargily Pay™', 'chargilytextdomain'),
+				'desc_tip'    => true,
+				),
+				'description' => array(
+				'title'       => __('Description', 'chargilytextdomain'),
+				'type'        => 'textarea',
+				'description' => __('This controls the description which the user sees during checkout.', 'chargilytextdomain'),
+				'default'     => __('🔒 Secure e-payment gateway.', 'chargilytextdomain'),
+				'desc_tip'    => true,
+				),
+				'instructions' => array(
+				'title'       => __('On the thanks page', 'chargilytextdomain'),
+				'type'        => 'textarea',
+				'placeholder' => __('thank you, the product will come soon.', 'chargilytextdomain'),
+				'description' => __('Place the message you want to appear on the thank you page after completing the purchase of the product.', 'chargilytextdomain'),
+				'default'     => __('', 'chargilytextdomain'),
+				'desc_tip'    => true,
+				),
+				'chargily_pay_fees_allocation' => array(
+				'title'       => __('Fees allocation', 'chargilytextdomain'),
+				'type'        => 'select',
+				'options'     => array(
+					'customer'  => __('The customer will pay the fees.', 'chargilytextdomain'),
+					'merchant'    => __('The store will pay the fees.', 'chargilytextdomain'),
+					'split' => __('Splitted between the store and the customer.', 'chargilytextdomain')
+				),
+				'description' => __('Choose who is going to pay Chargily Pay fees.', 'chargilytextdomain'),
+				'default'     => 'customer',
+				'desc_tip'    => true,
+				),
+				'collect_shipping_address' => array(
+				'title'       => __('Collect Shipping Address', 'chargilytextdomain'),
+				'label'       => __('Collect shipping address on checkout page.', 'chargilytextdomain'),
+				'type'        => 'checkbox',
+				'description' => __('If enabled, shipping address fields will appear and should be filled on checkout page.', 'chargilytextdomain'),
+				'default'     => 'yes'
+				),
+				'fix_for_compatibility_plugins' => array(
+				'title'       => __('Force Chargily Pay plugin styling', 'chargilytextdomain'),
+				'label'       => __('Fix styling compatibility.', 'chargilytextdomain'),
+				'type'        => 'checkbox',
+				'description' => __('If the style of the Chargily Pay plugin is compromised due to a styling modification by another plugin, activating this option will rectify the issue.', 'chargilytextdomain'),
+				'default'     => 'no'
+				),
+				'languages_type' => array(
+				'title'       => __('Select the language of the payment page', 'chargilytextdomain'),
+				'type'        => 'select',
+				'options'     => array(
+					'en'  => __('English', 'chargilytextdomain'),
+					'ar'    => __('Arabic', 'chargilytextdomain'),
+					'fr' => __('French', 'chargilytextdomain')
+				),
+				'description' => __('The language that will appear on chargily payment page', 'chargilytextdomain'),
+				'default'     => 'en',
+				'desc_tip'    => true,
+				),
+				'response_type' => array(
+				'title'       => __('Confirmation status', 'chargilytextdomain'),
+				'type'        => 'select',
+				'options'     => array(
+					'completed'  => __('completed', 'chargilytextdomain'),
+					'on-hold'    => __('on hold', 'chargilytextdomain'),
+					'processing' => __('processing', 'chargilytextdomain')
+				),
+				'description' => __('This status will be set when the payment succeeds.', 'chargilytextdomain'),
+				'default'     => 'completed',
+				'desc_tip'    => true,
+				),
+
+				'show_payment_methods' => array(
+				'title'       => __('Show payment methods', 'chargilytextdomain'),
+				'label'       => __('Show or hide the payment methods in checkout page.', 'chargilytextdomain'),
+				'type'        => 'checkbox',
+				'description' => __('When enabled, the payment methods (Edahabia, CIB, and Chargily App) will be displayed prominently for user selection, taking up additional space on the checkout page.', 'chargilytextdomain'),
+				'default'     => 'yes'
+				),
+
+				'selected_payment_methods' => array(
+				'title'       => __('Payment Methods', 'chargilytextdomain'),
+				'type'        => 'payment_methods_checkboxes',
+				'description' => __('Select which payment methods to display on checkout.', 'chargilytextdomain'),
+				'default'     => array('EDAHABIA','CIB','QR'),
+				'options'     => array(
+					'EDAHABIA' => __('Edahabia', 'chargilytextdomain'),
+					'CIB'      => __('CIB', 'chargilytextdomain'),
+					'QR'       => __('QR Code', 'chargilytextdomain'),
+				),
+				),
+
+
+				'webhook_rewrite_rule' => array(
+				'title'       => __('Webhook Type', 'chargilytextdomain'),
+				'label'       => __('Enable this option if your server support .htaccess file rewriting', 'chargilytextdomain'),
+				'type'        => 'checkbox',
+				'description' => sprintf(
+				__('If enabled, Webhook will use the .htaccess rewrite rule method. Please re-save the Permalink settings again <a href="%s" target="_blank">Permalink</a>.', 'chargilytextdomain'),
+				'/wp-admin/options-permalink.php'
+				),
+				'default'     => 'no'
+				),
+			// END
+			);
+		}
 		
-		 public function admin_options() {
-        		?>
+		public function validate_payment_methods_checkboxes_field($key, $value) {
+
+			if (!is_array($value)) {
+				return array();
+			}
+		
+			return array_map('sanitize_text_field', $value);
+		}
+
+		public function generate_payment_methods_checkboxes_html($key, $data) {
+
+			$field_key = $this->get_field_key($key);
+			$defaults  = array(
+				'title'   => '',
+				'options' => array(),
+				'default' => array(),
+			);
+		
+			$data = wp_parse_args($data, $defaults);
+		
+			$value = (array) $this->get_option($key, $data['default']);
+		
+			ob_start();
+			?>
+		
+			<tr valign="top">
+				<th scope="row" class="titledesc">
+					<label><?php echo esc_html($data['title']); ?></label>
+				</th>
+		
+				<td class="forminp">
+		
+					<?php foreach ($data['options'] as $option_key => $option_value) : ?>
+		
+						<label style="display:block;margin-bottom:5px;">
+							<input
+								type="checkbox"
+								name="<?php echo esc_attr($field_key); ?>[]"
+								value="<?php echo esc_attr($option_key); ?>"
+								<?php checked(in_array($option_key, $value)); ?>
+							/>
+							<?php echo esc_html($option_value); ?>
+						</label>
+		
+					<?php endforeach; ?>
+
+					<?php if (!empty($data['description'])) : ?>
+						<p class="description">
+							<?php echo wp_kses_post($data['description']); ?>
+						</p>
+					<?php endif; ?>
+		
+				</td>
+			</tr>
+		
+			<?php
+		
+			return ob_get_clean();
+		}
+
+		public function admin_options() {
+        	?>
 			 <div style=" margin: 24px auto 0px; max-width: 1032px;">
 				 <link rel="stylesheet" href="/wp-content/plugins/chargily-pay/assets/css/css-back.css?v=1.0">
 				 <div class="css-q70wzv et1p4me2" style="display: flex;flex-flow: column;margin-bottom: 24px;  flex-direction: row;">
@@ -264,167 +338,135 @@ function wc_chargily_pay_init() {
 					 </div>
 				 </div>
 			 </div>
-		<?php
-			 if ( is_admin() ) {
-				if (current_user_can('administrator') || current_user_can('shop_manager')) {
-					$test_mode = $this->get_option('test_mode') === 'yes';
-					$live_api_key_present = !empty($this->get_option('Chargily_Gateway_api_key_v2_live'));
-					$live_api_secret_present = !empty($this->get_option('Chargily_Gateway_api_secret_v2_live'));
-					$test_api_key_present = !empty($this->get_option('Chargily_Gateway_api_key_v2_test'));
-					$test_api_secret_present = !empty($this->get_option('Chargily_Gateway_api_secret_v2_test'));
-
-					$data = array(
-						'testMode' => $test_mode,
-						'liveApiKeyPresent' => $live_api_key_present,
-						'liveApiSecretPresent' => $live_api_secret_present,
-						'testApiKeyPresent' => $test_api_key_present,
-						'testApiSecretPresent' => $test_api_secret_present,
-					);
-
-					$file_path = plugin_dir_path(__FILE__) . 'chargily_data.json';
-					file_put_contents($file_path, json_encode($data));
-				}
-			}
+			<?php
 		}
-		
+
 		public function payment_fields() {
-			$test_mode = $this->get_option('test_mode') === 'yes';	
-			$live_api_key = $this->get_option('Chargily_Gateway_api_key_v2_live');
-			$live_api_secret = $this->get_option('Chargily_Gateway_api_secret_v2_live');
-			$test_api_key = $this->get_option('Chargily_Gateway_api_key_v2_test');
-			$test_api_secret = $this->get_option('Chargily_Gateway_api_secret_v2_test');
+			$test_mode = $this->get_option('test_mode') === 'yes';
 			
-			$fix_for_compatibility_plugins = $this->get_option('fix_for_compatibility_plugins') === 'yes';
-			if ($fix_for_compatibility_plugins) {
-				$fix_for_compatibility_label = "display: flex; justify-content: space-between; position: relative; align-items: center; grid-gap: 20px; padding: 0 20px; ";
-			} else {
-				$fix_for_compatibility_label = "";
-			}
+			// Get API keys based on mode
+			$api_key = $test_mode ? 
+				$this->get_option('Chargily_Gateway_api_key_v2_test') : 
+				$this->get_option('Chargily_Gateway_api_key_v2_live');
+			
+			$api_secret = $test_mode ? 
+				$this->get_option('Chargily_Gateway_api_secret_v2_test') : 
+				$this->get_option('Chargily_Gateway_api_secret_v2_live');
+			
+			$fix_for_compatibility = $this->get_option('fix_for_compatibility_plugins') === 'yes';
+			$compatibility_style = $fix_for_compatibility ? 
+				"display: flex; justify-content: space-between; position: relative; align-items: center; grid-gap: 20px; padding: 0 20px;" : 
+				"";
 			
 			$show_payment_methods = $this->get_option('show_payment_methods') === 'yes';
-
+			$enabled_methods = (array) $this->get_option('selected_payment_methods', []);
+			
+			// Payment method configuration
+			$payment_methods = [
+				'EDAHABIA' => [
+					'id' => 'chargilyv2_edahabia',
+					'label' => __('EDAHABIA', 'chargilytextdomain'),
+					'image' => 'edahabia-card-v3.svg',
+					'alt' => 'EDAHABIA',
+					'image_class' => 'edahabiaCardImage'
+				],
+				'CIB' => [
+					'id' => 'chargilyv2_cib',
+					'label' => __('CIB Card', 'chargilytextdomain'),
+					'image' => 'cib-card-v3.svg',
+					'alt' => 'CIB',
+					'image_class' => 'cibCardImage'
+				],
+				'QR' => [
+					'id' => 'chargilyv2_app',
+					'label' => __('Chargily App', 'chargilytextdomain'),
+					'image' => 'chargily-logo-v3.svg',
+					'alt' => 'APP',
+					'image_class' => 'appCardImage'
+				]
+			];
+			
+			$image_base_path = '/wp-content/plugins/chargily-pay/assets/img/';
+			
 			echo '<div class="Chargily-container">';
-
-			if ($test_mode) {
-			    // We are in test mode
-			    if (empty($test_api_key) || empty($test_api_secret)) {
-			        // Test API keys are missing
-			        echo '<div class="">
-			                <p>' . __('You are in Test Mode but your Test API keys are missing.', 'chargilytextdomain') . ' 
-			                <a href="/wp-admin/admin.php?page=wc-settings&tab=checkout&section=chargily_pay">' . __('Enter your Test API keys.', 'chargilytextdomain') . '</a></p>
-			              </div>';
-			    } else {
-			        // Test API keys are present
-			        echo '<div class=""><p>' . __('Chargily Pay™: Test Mode is enabled.', 'chargilytextdomain') . '</p></div>';
-			        // Display payment options
-					if ($show_payment_methods) {
-			echo '
-			<div class="Chargily-option">
-			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked" onclick="updateCookieValue(this)">
-			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily" style="' . $fix_for_compatibility_label .'">
-			  <span style="display: flex; align-items: center;"></span>
-			  <div class="Chargily-card-text" style="">' . __('EDAHABIA', 'chargilytextdomain') . '</div>
-			  <img class="edahabiaCardImage" src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px; margin-inline-start: auto;"></img>
-			  </label>
-			</div>
 			
-			<div class="Chargily-option">
-			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB" onclick="updateCookieValue(this)">
-			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily" style="' . $fix_for_compatibility_label .'">
-			  <span style="display: flex; align-items: center;"></span>
-			  <div class="Chargily-card-text" style="">chargily_cib Card</div>
-			  <img class="cibCardImage" src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style="margin-inline-start: auto;"></img>
-			  </label>
-			</div>
-			
-			<div class="Chargily-option">
-			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_app" value="chargily_app" onclick="updateCookieValue(this)">
-			  <label for="chargilyv2_app" aria-label="Silver" class="Chargily" style="' . $fix_for_compatibility_label .'">
-			  <span style="display: flex; align-items: center;"></span>
-			  <div class="Chargily-card-text" style="">QR Code</div>
-			  <img class="appCardImage" src="/wp-content/plugins/chargily-pay/assets/img/qr-code.svg" alt="APP" style="margin-inline-start: auto;"></img>
-			  </label>
-			</div>
-			';
+			// Check if API keys are missing
+			if (empty($api_key) || empty($api_secret)) {
+				$mode_text = $test_mode ? 'Test' : 'Live';
+				printf(
+					'<div><p>%s <a href="/wp-admin/admin.php?page=wc-settings&tab=checkout&section=chargily_pay">%s</a></p></div>',
+					sprintf(__('You are in %s Mode but your %s API keys are missing.', 'chargilytextdomain'), $mode_text, $mode_text),
+					sprintf(__('Enter your %s API keys.', 'chargilytextdomain'), $mode_text)
+				);
 			} else {
-				echo '<div class="Chargily-option-no-show">
-				<label for="chargilyv2_no-show" class="Chargily" style="display: flex !important; justify-content: flex-start !important;">
-				<img class="edahabiaCardImage-no" src="https://demo.civitaic.com/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;">
-				<img class="cibCardImage-no" src="https://demo.civitaic.com/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB Card" style="border-radius: 4px;">
-				<img class="appCardImage-no" src="https://demo.civitaic.com/wp-content/plugins/chargily-pay/assets/img/qr-code.svg" alt="QR Code" style="border-radius: 4px;">
-				</label>
+				// Show test mode notice if applicable
+				if ($test_mode) {
+					echo '<div><p>' . __('Chargily Pay™: Test Mode is enabled.', 'chargilytextdomain') . '</p></div>';
+				}
+				
+				// Display payment options
+				if ($show_payment_methods) {
+					$first_method = true;
+					foreach ($enabled_methods as $method) {
+						if (isset($payment_methods[$method])) {
+							$pm = $payment_methods[$method];
+							$checked = $first_method ? 'checked="checked"' : '';
+							$first_method = false;
+							
+							printf(
+								'
+								<div class="Chargily-option">
+									<input type="radio" name="chargilyv2_payment_method" id="%s" value="%s" %s onclick="updateCookieValue(this)">
+									<label for="%s" class="Chargily" style="%s">
+										<span style="display: flex; align-items: center;"></span>
+										<div class="Chargily-card-text">%s</div>
+										<img class="%s" src="%s%s" alt="%s" style="border-radius: 4px; margin-inline-start: auto;">
+									</label>
+								</div>
+								',
+								$pm['id'],
+								$method === 'QR' ? 'chargily_app' : $method,
+								$checked,
+								$pm['id'],
+								$compatibility_style,
+								$pm['label'],
+								$pm['image_class'],
+								$image_base_path,
+								$pm['image'],
+								$pm['alt']
+							);
+						}
+					}
+				} else {
+					// Show all payment method icons
+					echo '<div class="Chargily-option-no-show">
+							<label class="Chargily" style="display: flex !important; justify-content: flex-start !important;">';
+					
+					foreach (['edahabia-card.svg', 'cib-card.svg', 'qr-code.svg'] as $image) {
+						$image_name = pathinfo($image, PATHINFO_FILENAME);
+						$alt_text = $image_name === 'qr-code' ? 'Chargily App' : strtoupper(str_replace('-card', '', $image_name));
+						printf(
+							'<img class="%s-no" src="%s%s" alt="%s" style="border-radius: 4px;">',
+							str_replace('-card', '', $image_name) . 'CardImage',
+							$image_base_path,
+							$image,
+							$alt_text
+						);
+					}
+					
+					echo '</label></div>';
+				}
+				/*
+				// logo
+				echo '
+				<br>
+				<div class="Chargily-logo-z" style="display: flex;flex-wrap: nowrap;align-items: center;align-content: center;">
+					<p>' . __('🔒 Secure E-Payment provided by', 'chargilytextdomain') . '</p>
+					<a href="https://chargily.com/business/pay" target="_blank" style="color:black;"> 
+						<img src="' . $image_base_path . 'logo.svg" alt="chargily">
+					</a>
 				</div>';
-			}
-			echo '
-			<br>
-			<div class="Chargily-logo-z" style="display: flex;flex-wrap: nowrap;align-items: center;align-content: center;">
-			<p> ' . __('🔒 Secure E-Payment provided by', 'chargilytextdomain') . '</p>
-			<a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;"> 
-			<img src="/wp-content/plugins/chargily-pay/assets/img/logo.svg" alt="chargily" style="/*width:42px;height:42px;*/">
-			</a>
-			</div>
-			';
-			}
-			} else {
-			    // We are in live mode
-			    if (empty($live_api_key) || empty($live_api_secret)) {
-			        // Live API keys are missing
-			        echo '<div class="">
-			                <p>' . __('You are in Live Mode but your Live API keys are missing.', 'chargilytextdomain') . ' 
-			                <a href="/wp-admin/admin.php?page=wc-settings&tab=checkout&section=chargily_pay">' . __('Enter your Live API keys.', 'chargilytextdomain') . '</a></p>
-			              </div>';
-			    } else {
-			        // Live API keys are present
-			        // Display payment options
-					if ($show_payment_methods) {
-			       echo '
-			<div class="Chargily-option">
-			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_edahabia" value="EDAHABIA" checked="checked" onclick="updateCookieValue(this)">
-			  <label for="chargilyv2_edahabia" aria-label="royal" class="Chargily" style="' . $fix_for_compatibility_label .'">
-			  <span style="display: flex; align-items: center;"></span>
-			  <div class="Chargily-card-text" style="">' . __('EDAHABIA', 'chargilytextdomain') . '</div>
-			  <img class="edahabiaCardImage" src="/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px; margin-inline-start: auto;"></img>
-			  </label>
-			</div>
-			
-			<div class="Chargily-option">
-			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_cib" value="CIB" onclick="updateCookieValue(this)">
-			  <label for="chargilyv2_cib" aria-label="Silver" class="Chargily" style="' . $fix_for_compatibility_label .'">
-			  <span style="display: flex; align-items: center;"></span>
-			  <div class="Chargily-card-text" style="">' . __('CIB Card', 'chargilytextdomain') . '</div>
-			  <img class="cibCardImage" src="/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB" style="margin-inline-start: auto;"></img>
-			  </label>
-			</div>
-			
-			<div class="Chargily-option">
-			  <input type="radio" name="chargilyv2_payment_method" id="chargilyv2_app" value="chargily_app" onclick="updateCookieValue(this)">
-			  <label for="chargilyv2_app" aria-label="Silver" class="Chargily" style="' . $fix_for_compatibility_label .'">
-			  <span style="display: flex; align-items: center;"></span>
-			  <div class="Chargily-card-text" style="">QR Code</div>
-			  <img class="appCardImage" src="/wp-content/plugins/chargily-pay/assets/img/qr-code.svg" alt="APP" style="margin-inline-start: auto;"></img>
-			  </label>
-			</div>
-			';
-			} else {
-				echo '<div class="Chargily-option-no-show">
-				<label for="chargilyv2_no-show" class="Chargily" style="display: flex !important; justify-content: flex-start !important;">
-				<img class="edahabiaCardImage-no" src="https://demo.civitaic.com/wp-content/plugins/chargily-pay/assets/img/edahabia-card.svg" alt="EDAHABIA" style="border-radius: 4px;">
-				<img class="cibCardImage-no" src="https://demo.civitaic.com/wp-content/plugins/chargily-pay/assets/img/cib-card.svg" alt="CIB Card" style="border-radius: 4px;">
-				<img class="appCardImage-no" src="https://demo.civitaic.com/wp-content/plugins/chargily-pay/assets/img/qr-code.svg" alt="QR Code" style="border-radius: 4px;">
-				</label>
-				</div>';
-			}
-			echo '
-			<br>
-			<div class="Chargily-logo-z" style="display: flex;flex-wrap: nowrap;align-items: center;align-content: center;">
-			<p> ' . __('🔒 Secure E-Payment provided by', 'chargilytextdomain') . '</p>
-			<a href="https://chargily.com/business/pay" target="_blank" style="/*font-weight:bold;*/ color:black;"> 
-			<img src="/wp-content/plugins/chargily-pay/assets/img/logo.svg" alt="chargily" style="/*width:42px;height:42px;*/">
-			</a>
-			</div>
-
-			';
-			}
+				*/
 			}
 			
 			echo '</div>';
@@ -445,7 +487,6 @@ function wc_chargily_pay_init() {
 			}
 		}
 		
-
 		private function encrypt($data, $key) {
 			$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
 			$encrypted = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
@@ -467,6 +508,13 @@ function wc_chargily_pay_init() {
 				update_option('chargily_customers_secret_key', $secret_key);
 			}
 			return $secret_key;
+		}
+
+		private function filter_empty_values($value) {
+			if (is_array($value)) {
+				return array_filter($value, 'filter_empty_values');
+			}
+			return ($value !== null && $value !== '');
 		}
 
 		public function process_payment( $order_id ) {
@@ -496,8 +544,14 @@ function wc_chargily_pay_init() {
 			}
 			
 			if (isset($_COOKIE['chargily_payment_method'])) {
-				$selected_payment_method = isset($_COOKIE['chargily_payment_method']) ? wc_clean($_COOKIE['chargily_payment_method']) : 'EDAHABIA';
+				$selected_payment_method = isset($_COOKIE['chargily_payment_method']) ? sanitize_text_field(wp_unslash($_COOKIE['chargily_payment_method'])) : 'EDAHABIA';
 				$payment_method = $selected_payment_method;
+
+				$allowed_methods = ['EDAHABIA', 'CIB', 'QR'];
+				if (!in_array($payment_method, $allowed_methods, true)) {
+					wc_add_notice('Invalid payment method', 'error');
+					return;
+				}
 			} else {
 				$payment_method = 'EDAHABIA';
 			}
@@ -506,13 +560,7 @@ function wc_chargily_pay_init() {
 			
 			$encryption_key = $this->get_encryption_key();
 
-			function filter_empty_values($value) {
-				if (is_array($value)) {
-					return array_filter($value, 'filter_empty_values');
-				}
-				return ($value !== null && $value !== '');
-			}
-
+			
 			if ( is_user_logged_in() ) {
 				
 				$user_id = get_current_user_id();
@@ -555,9 +603,9 @@ function wc_chargily_pay_init() {
 					
 						$user_id = get_current_user_id();
 						$chargily_customers_id = $this->create_chargily_customer($user_data, $user_id);
+
 						if (is_wp_error($chargily_customers_id)) {
-							wc_add_notice($chargily_customers_id->get_error_message(), 'error');
-							return;
+							wc_add_notice($response->get_error_message(), 'error');
 						}
 					// end
 				}
@@ -604,18 +652,28 @@ function wc_chargily_pay_init() {
 
 					if (!is_wp_error($chargily_customers_id)) {
 						$encrypted_customer_id = $this->encrypt($chargily_customers_id, $encryption_key);
-						setcookie('chargily_customers_id', $encrypted_customer_id, time() + (365 * 24 * 60 * 60), "/");
+						setcookie(
+							'chargily_customers_id',
+							$encrypted_customer_id,
+							[
+								'expires' => time() + (365 * 24 * 60 * 60),
+								'path' => '/',
+								'secure' => true,
+								'httponly' => true,
+								'samesite' => 'Lax'
+							]
+						);
 					}
 				}
 			}
 			
 			$is_webhook_rewrite_rule = $this->get_option('webhook_rewrite_rule') === 'yes';
 			if (isset($is_webhook_rewrite_rule['webhook_rewrite_rule']) && $is_webhook_rewrite_rule['webhook_rewrite_rule'] === 'yes') {
-			$baseURL = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-			$webhookEndpoint = $baseURL . '/chargilyv2-webhook/';
+				$baseURL = home_url();
+				$webhookEndpoint = $baseURL . '/chargilyv2-webhook/';
 			} else {
-			$baseURL = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-			$webhookEndpoint = $baseURL . '/wp-content/plugins/chargily-pay/templates/method-v2/API-v2_webhook.php';
+				$baseURL = home_url();
+				$webhookEndpoint = $baseURL . '/wp-content/plugins/chargily-pay/templates/method-v2/API-v2_webhook.php';
 			}
 			
 			$collect_shipping_address = $this->get_option('collect_shipping_address') === 'yes';
@@ -627,6 +685,13 @@ function wc_chargily_pay_init() {
 
 
 			$show_payment_methods = $this->get_option('show_payment_methods') === 'yes';
+			$shipping_address = $order->get_billing_address_1();
+			if (!empty($shipping_address)) {
+				$shipping_address_use = true;
+			} else {
+				$shipping_address_use = false;
+			}
+
 			if ($show_payment_methods) {
 				$payload = array(
 					"locale" => $languages_use,
@@ -655,7 +720,11 @@ function wc_chargily_pay_init() {
 					'webhook_endpoint' => $webhookEndpoint,
 				);
 			}
-			
+			/*
+			if ($shipping_address_use) {
+				$payload['shipping_address'] = $shipping_address;
+			}
+			*/
 			$response = $this->create_chargilyv2_checkout($payload);
 
 			if (is_wp_error($response)) {
@@ -699,8 +768,8 @@ function wc_chargily_pay_init() {
 		
 		    $response = wp_remote_get($api_url, array(
 		        'headers'   => $headers,
-		        'timeout'   => 45,
-		        'sslverify' => false,
+		        'timeout'   => 15,
+		        'sslverify' => true,
 		    ));
 		
 		    if (is_wp_error($response)) {
@@ -718,7 +787,7 @@ function wc_chargily_pay_init() {
 		        }
 		        return false;
 		    }
-		    return true;
+		    return false;
 		}
 	    
 		
@@ -743,8 +812,8 @@ function wc_chargily_pay_init() {
 		        'method'    => 'POST',
 		        'headers'   => $headers,
 		        'body'      => json_encode($user_data),
-		        'timeout'   => 45,
-		        'sslverify' => false,
+		        'timeout'   => 15,
+		        'sslverify' => true,
 		    ));
 		    if (is_wp_error($response)) {
 		        return $response;
@@ -787,8 +856,8 @@ function wc_chargily_pay_init() {
 		
 		    $response = wp_remote_get($api_url, array(
 		        'headers'   => $headers,
-		        'timeout'   => 45,
-		        'sslverify' => false,
+		        'timeout'   => 15,
+		        'sslverify' => true,
 		    ));
 		
 		    if (is_wp_error($response)) {
@@ -807,7 +876,7 @@ function wc_chargily_pay_init() {
 				}
 		        return false;
 		    }
-		    return true;
+		    return false;
 		}
 
 		private function create_chargily_product($product_data, $product_id = null, $product_total = null, $attributes_in = null) {
@@ -841,8 +910,8 @@ function wc_chargily_pay_init() {
 				'method'    => 'POST',
 				'headers'   => $headers,
 				'body'      => json_encode($product_data),
-				'timeout'   => 45,
-				'sslverify' => false,
+				'timeout'   => 15,
+				'sslverify' => true,
 			));
 
 			if (is_wp_error($response)) {
@@ -875,8 +944,8 @@ function wc_chargily_pay_init() {
 		
 		    $response = wp_remote_get($api_url, array(
 		        'headers'   => $headers,
-		        'timeout'   => 45,
-		        'sslverify' => false,
+		        'timeout'   => 15,
+		        'sslverify' => true,
 		    ));
 		
 		    if (is_wp_error($response)) {
@@ -895,7 +964,7 @@ function wc_chargily_pay_init() {
 				}
 		        return false;
 		    }
-		    return true;
+		    return false;
 		}
 
 		
@@ -929,8 +998,8 @@ function wc_chargily_pay_init() {
 				'method'    => 'POST',
 				'headers'   => $headers,
 				'body'      => json_encode($price_data),
-				'timeout'   => 45,
-				'sslverify' => false,
+				'timeout'   => 15,
+				'sslverify' => true,
 			));
 
 			if (is_wp_error($response)) {
@@ -962,8 +1031,8 @@ function wc_chargily_pay_init() {
 				'method'    => 'POST',
 				'headers'   => $headers,
 				'body'      => json_encode( $payload ),
-				'timeout'   => 45,
-				'sslverify' => false,
+				'timeout'   => 15,
+				'sslverify' => true,
 			) );
 			return $response;
 		}
@@ -1001,31 +1070,6 @@ function wc_chargily_pay_init() {
 				echo '<div class="notice notice-warning"><p>
 				' . __('Chargily Pay™: Test Mode is enabled.', 'chargilytextdomain') . '
 				</p></div>';
-			}
-		}
-		
-		function update_chargily_pay_settings() {
-			if ( is_admin() ) {
-				if (current_user_can('administrator') || current_user_can('shop_manager')) {
-					$options = get_option('woocommerce_chargily_pay_settings');
-
-					$test_mode = isset($options['test_mode']) && 'yes' === $options['test_mode'];
-					$live_api_key_present = !empty($options['Chargily_Gateway_api_key_v2_live']);
-					$live_api_secret_present = !empty($options['Chargily_Gateway_api_secret_v2_live']);
-					$test_api_key_present = !empty($options['Chargily_Gateway_api_key_v2_test']);
-					$test_api_secret_present = !empty($options['Chargily_Gateway_api_secret_v2_test']);
-
-					$data = array(
-						'testMode' => $test_mode,
-						'liveApiKeyPresent' => $live_api_key_present,
-						'liveApiSecretPresent' => $live_api_secret_present,
-						'testApiKeyPresent' => $test_api_key_present,
-						'testApiSecretPresent' => $test_api_secret_present,
-					);
-
-					$file_path = plugin_dir_path(__FILE__) . 'chargily_data.json';
-					file_put_contents($file_path, json_encode($data));
-				}
 			}
 		}
 		// END WC Chargily V2
@@ -1252,31 +1296,6 @@ function check_chargily_connection_callback() {
 	}
 }
 
-
-add_action('woocommerce_update_options_payment_gateways_chargily_pay', 'update_chargily_pay_settingss');
-function update_chargily_pay_settingss() {
-	if ( is_admin() ) {
-		if (current_user_can('administrator') || current_user_can('shop_manager')) {
-			    $test_mode = 'yes' === get_option('woocommerce_chargily_pay_settings')['test_mode'];
-			    $live_api_key_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_key_v2_live']);
-			    $live_api_secret_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_secret_v2_live']);
-			    $test_api_key_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_key_v2_test']);
-			    $test_api_secret_present = !empty(get_option('woocommerce_chargily_pay_settings')['Chargily_Gateway_api_secret_v2_test']);
-			
-			    $data = array(
-			        'testMode' => $test_mode,
-			        'liveApiKeyPresent' => $live_api_key_present,
-			        'liveApiSecretPresent' => $live_api_secret_present,
-			        'testApiKeyPresent' => $test_api_key_present,
-			        'testApiSecretPresent' => $test_api_secret_present,
-			    );
-			
-			    $file_path = plugin_dir_path(__FILE__) . 'chargily_data.json';
-			    file_put_contents($file_path, json_encode($data));
-		}
-	}
-}
-
 function custom_override_checkout_fields( $fields ) {
     $fields['billing']['billing_phone']['validate'] = array( 'phone' );
     $fields['billing']['billing_phone']['custom_attributes'] = array(
@@ -1291,11 +1310,6 @@ add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
 
 function custom_checkout_phone_validation_script() {
     if ( is_checkout() ) {
-		if ( is_user_logged_in() ) {
-			if ( isset( $_COOKIE['chargily_customers_id'] ) ) {unset( $_COOKIE['chargily_customers_id'] );}
-			if ( isset( $_COOKIE['chargily_customers_id_test'] ) ) {unset( $_COOKIE['chargily_customers_id_test'] );}
-			if ( isset( $_COOKIE['chargily_customers_id_live'] ) ) {unset( $_COOKIE['chargily_customers_id_live'] );}
-		}
 		?>
 		<script>
 		jQuery(document).ready(function($) {
@@ -1308,15 +1322,6 @@ function custom_checkout_phone_validation_script() {
 				}
 			});
 		});
-		function deleteCookie(name) {
-		  document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-		}
-
-		window.onload = function() {
-		  deleteCookie('chargily_customers_id');
-		  deleteCookie('chargily_customers_id_test');
-		  deleteCookie('chargily_customers_id_live');
-		};
 		</script>
 		<?php
     }
