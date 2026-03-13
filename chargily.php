@@ -5,7 +5,7 @@
 *Description: The easiest and free way to integrate e-payment API through EDAHABIA of Algerie Poste and CIB of SATIM into your Wordpress/WooCommerce platform.
 *Author: Chargily
 Author URI: https://chargily.com
-*Version: 2.3.0
+*Version: 2.5.30
 *Text Domain: chargilytextdomain
 *Domain Path: /languages
 */
@@ -13,6 +13,41 @@ Author URI: https://chargily.com
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
+
+// Check if WooCommerce is active
+function chargily_check_woocommerce_dependency() {
+
+    if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+
+        deactivate_plugins( plugin_basename( __FILE__ ) );
+
+        add_action( 'admin_notices', function () {
+            echo '<div class="error"><p><strong>Chargily Pay</strong> requires <strong>WooCommerce</strong> to be installed and active.</p></div>';
+        });
+
+        if ( isset( $_GET['activate'] ) ) {
+            unset( $_GET['activate'] );
+        }
+    }
+}
+add_action( 'admin_init', 'chargily_check_woocommerce_dependency' );
+
+// Prevent deactivating WooCommerce while Chargily Pay is active
+function chargily_prevent_woocommerce_deactivation( $actions, $plugin_file, $plugin_data, $context ) {
+
+    if ( $plugin_file == 'woocommerce/woocommerce.php' ) {
+
+        if ( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
+
+            unset( $actions['deactivate'] );
+
+            $actions['chargily_notice'] = '<span style="color:red;">Disable Chargily Pay first</span>';
+        }
+    }
+
+    return $actions;
+}
+add_filter( 'plugin_action_links', 'chargily_prevent_woocommerce_deactivation', 10, 4 );
 
 if ( ! defined( 'chargilytextdomain' ) ) {
     define( 'chargilytextdomain', 'chargilytextdomain' );
@@ -34,22 +69,21 @@ function wc_chargily_gateway_plugin_action_links( $links ) {
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wc_chargily_gateway_plugin_action_links' );
 
-add_action('wp_enqueue_scripts', 'chargily_css_loader_front');
 function chargily_css_loader_front() {
     if ( is_checkout() ) {
-        wp_enqueue_style('chargily-style-front', plugins_url('/assets/css/css-front.css?v=230', __FILE__));
+        wp_enqueue_style('chargily-style-front', plugins_url('/assets/css/css-front.css?v=253', __FILE__));
 		 if (is_rtl()) {
-        	wp_enqueue_style('rtl-style',  plugins_url('/assets/css/css-front-rtl.css?v=230', __FILE__));
+        	wp_enqueue_style('rtl-style',  plugins_url('/assets/css/css-front-rtl.css?v=253', __FILE__));
     	}
     }
 }
+add_action('wp_enqueue_scripts', 'chargily_css_loader_front');
 
 function chargily_js_loader_front() {
     wp_enqueue_script( 'chargily-script-front', plugins_url('/assets/js/js-front.js?v=116', __FILE__), array('jquery'), null, true );
 }
 add_action( 'wp_enqueue_scripts', 'chargily_js_loader_front' );
 
-add_action('woocommerce_blocks_loaded', 'register_chargily_pay_blocks');
 function register_chargily_pay_blocks() {
     if (!class_exists('Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType')) {
         return;
@@ -62,6 +96,7 @@ function register_chargily_pay_blocks() {
         }
     );
 }
+add_action('woocommerce_blocks_loaded', 'register_chargily_pay_blocks');
 
 function chargily_copy_language_files() {
     $source_path = plugin_dir_path( __FILE__ ) . 'languages/';
@@ -93,44 +128,16 @@ function chargilyv2_add_rewrite_rule() {
 }
 add_action('init', 'chargilyv2_add_rewrite_rule');
 
-register_activation_hook(__FILE__, 'update_chargily_pay_settings_data');
-add_action('upgrader_process_complete', 'update_chargily_pay_settings_data', 10, 2);
-function update_chargily_pay_settings_data() {
-    $woocommerce_settings = get_option('woocommerce_chargily_pay_settings');
-    if (empty($woocommerce_settings)) {
-        $test_mode = true;
-        $live_api_key_present = false;
-        $live_api_secret_present = false;
-        $test_api_key_present = false;
-        $test_api_secret_present = false;
-    } else {
-        $test_mode = 'yes' === $woocommerce_settings['test_mode'];
-        $live_api_key_present = !empty($woocommerce_settings['Chargily_Gateway_api_key_v2_live']);
-        $live_api_secret_present = !empty($woocommerce_settings['Chargily_Gateway_api_secret_v2_live']);
-        $test_api_key_present = !empty($woocommerce_settings['Chargily_Gateway_api_key_v2_test']);
-        $test_api_secret_present = !empty($woocommerce_settings['Chargily_Gateway_api_secret_v2_test']);
-    }
-    $data = array(
-        'testMode' => $test_mode,
-        'liveApiKeyPresent' => $live_api_key_present,
-        'liveApiSecretPresent' => $live_api_secret_present,
-        'testApiKeyPresent' => $test_api_key_present,
-        'testApiSecretPresent' => $test_api_secret_present,
-    );
-    $file_path = plugin_dir_path(__FILE__) . '/templates/method-v2/chargily_data.json';  
-    file_put_contents($file_path, json_encode($data));
-}
-
 function check_chargily_security_updates() {
     $changelog_url = 'https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/changelog.txt';
-    $current_version = '9.4.0';
+    $current_version = '10.8.0';
     $security_keywords = array('injection', 'attacks', 'Security', 'xss');
 
     $option_name = 'chargily_security_check';
     $last_check = get_option($option_name);
 
     $changelog_url .= '?nocache=' . time();
-    $response = wp_remote_get($changelog_url, array('timeout' => 15, 'redirection' => 5, 'blocking' => true));
+    $response = wp_remote_get($changelog_url, array('timeout' => 5, 'redirection' => 5, 'blocking' => true));
 
     if (is_wp_error($response)) {
         update_option($option_name, array(
@@ -186,7 +193,7 @@ function check_chargily_security_updates() {
 
 function show_chargily_update_security_notice() {
     ?>
-    <div class="notice notice-warning is-dismissible" style="display: block;">
+    <div class="notice notice-warning is-dismissible chargily-note" style="display: block;">
         <p>
             <?php _e('There is a critical security update for WooCommerce. Please update your WooCommerce And Chargily Pay plugins to ensure security.', 'chargilytextdomain'); ?>
             <br/>
@@ -196,7 +203,7 @@ function show_chargily_update_security_notice() {
         </p>
     </div>
     <style>
-        .notice.is-dismissible {
+        .notice.chargily-not {
             display: block !important;
         }
     </style>
