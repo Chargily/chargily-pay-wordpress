@@ -217,14 +217,14 @@ function wc_chargily_pay_init() {
 
 
 				'webhook_rewrite_rule' => array(
-				'title'       => __('Webhook Type', 'chargilytextdomain'),
-				'label'       => __('Enable this option if your server support .htaccess file rewriting', 'chargilytextdomain'),
-				'type'        => 'checkbox',
-				'description' => sprintf(
-				__('If enabled, Webhook will use the .htaccess rewrite rule method. Please re-save the Permalink settings again <a href="%s" target="_blank">Permalink</a>.', 'chargilytextdomain'),
-				'/wp-admin/options-permalink.php'
-				),
-				'default'     => 'no'
+					'title'       => __('Webhook Method', 'chargilytextdomain'),
+					'label'       => __('Use REST API webhook (recommended)', 'chargilytextdomain'),
+					'type'        => 'checkbox',
+					'description' => sprintf(
+						__('Use the modern REST API endpoint: <code>%s</code><br>This method is more reliable and does not require .htaccess or permalink configuration.', 'chargilytextdomain'),
+						home_url('/wp-json/chargily/v2/webhook')
+					),
+					'default'     => 'yes'
 				),
 			// END
 			);
@@ -576,7 +576,7 @@ function wc_chargily_pay_init() {
 							"postcode" => $order->get_billing_postcode(),
 							"address_1" => $order->get_billing_address_1(),
 							"address_2" => $order->get_billing_address_2()
-						), 'filter_empty_values');
+						));
 
 					    $user_data = array();
 					
@@ -623,7 +623,7 @@ function wc_chargily_pay_init() {
 						"postcode" => $order->get_billing_postcode(),
 						"address_1" => $order->get_billing_address_1(),
 						"address_2" => $order->get_billing_address_2()
-					), 'filter_empty_values');
+					));
 
 					    $user_data = array();
 					
@@ -668,11 +668,10 @@ function wc_chargily_pay_init() {
 			}
 			
 			$is_webhook_rewrite_rule = $this->get_option('webhook_rewrite_rule') === 'yes';
-			if (isset($is_webhook_rewrite_rule['webhook_rewrite_rule']) && $is_webhook_rewrite_rule['webhook_rewrite_rule'] === 'yes') {
-				$baseURL = home_url();
-				$webhookEndpoint = $baseURL . '/chargilyv2-webhook/';
+			$baseURL = home_url();
+			if ($is_webhook_rewrite_rule) {
+				$webhookEndpoint = $baseURL . '/wp-json/chargily/v2/webhook';
 			} else {
-				$baseURL = home_url();
 				$webhookEndpoint = $baseURL . '/wp-content/plugins/chargily-pay/templates/method-v2/API-v2_webhook.php';
 			}
 			
@@ -1076,6 +1075,118 @@ function wc_chargily_pay_init() {
     }
 }
 // The class itself
+
+function chargily_webhook_handler($request) {
+
+    $chargily_debug = false;
+
+    $chargily_settings = get_option('woocommerce_chargily_pay_settings');
+    $response_type = $chargily_settings['response_type'] ?? 'completed';
+
+    if (empty($chargily_settings)) {
+        return new WP_REST_Response(['error' => 'Chargily settings not found'], 500);
+    }
+
+    if (isset($chargily_settings['test_mode']) && $chargily_settings['test_mode'] === 'yes') {
+        $apiSecretKey = $chargily_settings['Chargily_Gateway_api_secret_v2_test'] ?? '';
+    } else {
+        $apiSecretKey = $chargily_settings['Chargily_Gateway_api_secret_v2_live'] ?? '';
+    }
+
+    if (empty($apiSecretKey)) {
+        return new WP_REST_Response(['error' => 'API Secret not configured'], 500);
+    }
+
+    $payload   = $request->get_body();
+    $signature = $_SERVER['HTTP_SIGNATURE'] ?? '';
+
+    if (!$signature) {
+        return new WP_REST_Response(['error' => 'No signature provided'], 400);
+    }
+
+    $computedSignature = hash_hmac('sha256', $payload, $apiSecretKey);
+
+    if (!hash_equals($signature, $computedSignature)) {
+        return new WP_REST_Response(['error' => 'Invalid signature'], 400);
+    }
+
+    $data_array = json_decode($payload, true);
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        return new WP_REST_Response(['error' => 'Invalid JSON'], 400);
+    }
+
+    if (!isset($data_array['entity']) || $data_array['entity'] !== 'event') {
+        return new WP_REST_Response(['message' => 'Ignored (not an event)'], 200);
+    }
+
+    if (!function_exists('wc_get_order')) {
+        return new WP_REST_Response(['error' => 'WooCommerce not loaded'], 500);
+    }
+
+    if (isset($data_array['data']['metadata']['woocommerce_order_id'])) {
+        $order_id = absint($data_array['data']['metadata']['woocommerce_order_id']);
+    } else {
+        if ($chargily_debug) {
+            error_log('Order ID not found in metadata');
+        }
+        return new WP_REST_Response(['error' => 'Order ID missing'], 400);
+    }
+
+    $order = wc_get_order($order_id);
+
+    if (!$order) {
+        return new WP_REST_Response(['error' => 'Order not found'], 404);
+    }
+
+    $status = $data_array['data']['status'];
+
+    switch ($status) {
+
+        case 'paid':
+            if ($order->has_status(array('pending', 'processing'))) {
+                $order->payment_complete();
+                $order->update_status($response_type, __('Payment successfully received.', 'woocommerce'));
+                $order->add_order_note('Chargily: Payment confirmed (paid)');
+            }
+            break;
+
+        case 'canceled':
+            if (!$order->has_status('cancelled')) {
+                $order->update_status('cancelled', __('Payment has been cancelled.', 'woocommerce'));
+                $order->add_order_note('Chargily: Payment canceled');
+            }
+            break;
+
+        case 'failed':
+            if (!$order->has_status('failed')) {
+                $order->update_status('failed', __('Payment has failed.', 'woocommerce'));
+                $order->add_order_note('Chargily: Payment failed');
+            }
+            break;
+
+        case 'expired':
+            if (!$order->has_status('expired')) {
+                $order->update_status('expired', __('Payment has expired.', 'woocommerce'));
+                $order->add_order_note('Chargily: Payment expired');
+            }
+            break;
+
+        default:
+            $order->add_order_note(sprintf(
+                __('Received unknown payment status from Chargily: %s', 'woocommerce'),
+                $status
+            ));
+            break;
+    }
+
+    $order->save();
+
+    return new WP_REST_Response([
+        'status'  => 'success',
+        'message' => 'Webhook processed successfully'
+    ], 200);
+}
 
 function chargilyv2_admin_inline_scripts() {
 	if ( is_admin() ) {
