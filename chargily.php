@@ -123,10 +123,13 @@ register_activation_hook( __FILE__, 'chargily_copy_language_files' );
 add_action( 'upgrader_process_complete', 'chargily_copy_language_files', 10, 2 );
 
 // Webhook For API V2
-function chargilyv2_add_rewrite_rule() {
-	add_rewrite_rule('^chargilyv2-webhook/?$', 'wp-content/plugins/chargily-pay/templates/method-v2/API-v2_webhook.php', 'top');
-}
-add_action('init', 'chargilyv2_add_rewrite_rule');
+add_action('rest_api_init', function () {
+    register_rest_route('chargily/v2', '/webhook', array(
+        'methods' => 'POST',
+        'callback' => 'chargily_webhook_handler',
+        'permission_callback' => '__return_true',
+    ));
+});
 
 function check_chargily_security_updates() {
     $changelog_url = 'https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/changelog.txt';
